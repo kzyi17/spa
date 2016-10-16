@@ -1,0 +1,113 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>广告商品详情</title>
+	<base href="/mlbspa/weixin/<?php echo TMPL_PATH; echo MODULE_NAME;?>/" />
+	<link href="css/mui.min.css" rel="stylesheet"/>
+	<link href="css/style.css" rel="stylesheet"/>
+	<style>
+    	.mui-btn-block {margin-bottom: 0;padding: 6px 0; font-size: 18px;}
+    	.mui-table-view{margin-top: 12px;}
+    	.mui-table-view .title{
+    		font-size: 16px;
+    		position: relative;
+  			overflow: hidden;
+  			padding: 8px 12px;
+  			font-weight: bold;
+  		}
+    	.mui-table-view .title:after{
+    	  position: absolute;
+		  right: 0;
+		  bottom: 0;
+		  left: 10px;
+		  height: 1px;
+		  content: '';
+		  -webkit-transform: scaleY(.5);
+		  transform: scaleY(.5);
+		  background-color: #c8c7cc;
+		}
+		.mui-table-view .content{
+			padding: 10px 12px;
+			font-size: 14px;
+		}
+    </style>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav myheader">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">产品详情</h1>
+	</header>
+	<div class="mui-content">
+	    <div id="addetail"></div>
+	    <!--价格及预约按钮-->
+		<div class="mui-table-view" style="padding: 10px; margin-top: 0;">
+			<div class="mui-pull-right" >
+				<button type="button" class="mui-btn mui-btn-warning" id="btnPoint" >
+					拿积分
+				</button>
+			</div>
+			<div class="mui-clearfix"></div>
+		</div>    
+	</div>
+<script id="addetailTpl" type="text/html">
+	<div class="mui-slider">
+	  <div class="mui-slider-group mui-slider-loop"> 
+	    <div class="mui-slider-item mui-slider-item-duplicate"><a href="#"><img src="images/demo/runpic4.jpg" /></a></div>
+	  </div>
+	</div>
+		
+	<!--提供商家-->
+	<div class="mui-table-view">
+		<div class="title">{{adgoods_name}}</div>
+		<div class="content">
+			{{intro}}
+		</div>
+	</div>
+	
+	<!--服务说明-->
+	<div class="mui-table-view">
+		<div class="title">商家介绍</div>
+		<div class="content">
+			{{merchant_name}}
+		</div>
+		
+	</div>
+	
+	<!--地址及联系电话-->
+	<div class="mui-table-view" style="padding: 10px; margin-top: 0; font-size: 18px;">
+		<div class="mui-pull-left" style="font-size: 12px;"><span class="mui-icon mui-icon-location" style="color: #FFFFFF;"></span>联系电话：{{phone}}</div>
+		<div class="mui-pull-right"><a href="tel:{{phone}}"><span class="mui-icon mui-icon-phone" style="font-size: 32px;"></span></a></div>
+		<div class="mui-clearfix"></div>
+	</div>
+	 
+	
+</script>		
+</body>
+<script src="js/mui.min.js"></script>
+<script type="text/javascript" src="js/template.js" ></script>
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+<script>
+	mui.init();
+	var adGoodsId = "<?php echo ($id); ?>";
+	var userId = "<?php echo ($user_id); ?>";
+	mui.ready(function(){
+		var param = {adgoods_id:adGoodsId};
+		Api.getAdGoodsInfo(param,function(result){
+	    	var html = template('addetailTpl',result);
+			document.getElementById('addetail').innerHTML = html;
+	    });   
+	});
+	
+	document.getElementById('btnPoint').addEventListener('tap',function(){
+		var param = {adgoods_id:adGoodsId,user_id:userId};
+		Api.getAdPoint(param,function(result){
+			mui.alert(result.successmsg);
+		},function(result){
+			mui.alert(result.errmsg);
+		});
+	});
+</script>
+</html>

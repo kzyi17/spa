@@ -1,0 +1,99 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>商品属性管理</DIV>
+    </DIV>
+
+	<DIV>
+      <a class="btn quickSubmit" href="__URL__/attribute_edit">添加属性模型</a>
+	</DIV>
+
+    <table width="99.5%" border="0" cellpadding="0" cellspacing="0" class="tab">
+      <thead>
+        <tr align="center">
+          <td width="50">选择</td>
+          <td width="30%">模型名称 </td>
+          <td >属性分组</td>
+          <td width="200">操作</td>
+        </tr>
+      </thead>
+      <tbody>
+        <volist name="list" id="cate">
+          <tr pid="{$tree.pid}" cid="{$tree.class_id}">
+            <td align="center">
+              <input type="hidden" name="cid" value="{$cate.cate_id}"/></td>
+            <td>{$cate.cate_name}</td>
+            <td>{$cate.attr_group}</td>
+            <td align="center">
+            	<a class="btn" href="__URL__/attribute_edit?id={$cate.cate_id}">修改</a>
+				[ <a href="javascript:delModel('__URL__/attribute_del?id={$cate.cate_id}');" class="delRow">删除</a> ]
+            </td>
+          </tr>
+        </volist>
+      </tbody>
+    </table>
+    <form action="" method="post" id="opForm">
+      <input id="cid" type="hidden" name="data[class_id]" />
+      <input id="act" type="hidden" name="act" />
+      <input id="pid" type="hidden" name="data[pid]" />
+      <input id="name" type="hidden" name="data[class_name]" />
+    </form>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>
+<script type="text/javascript">
+/**
+ * @brief 删除操作
+ * @param object conf
+	   msg :提示信息;
+	   form:要提交的表单名称;
+	   link:要跳转的链接地址;
+ */
+function delModel(conf)
+{
+	var ok = null;            //执行操作
+	var msg   = '确定要删除么？';//提示信息
+	popup.confirm(msg,'温馨提示',function(action){
+        if(action == 'ok'){
+        	$.ajax({
+       		  	url: conf,
+       		 	type:"GET",
+       		  	dataType: "json",
+	       		success:function(data, st) {
+	         		if(data.status==1){
+	     				popup.success(data.info);
+	     				setTimeout(function(){
+	     					popup.close("asyncbox_success");
+	     				},2000);
+	         		}else{
+	         			popup.error(data.info);
+	                     setTimeout(function(){
+	                         popup.close("asyncbox_error");
+	                     },2000);
+	         		}
+	         		if(data.url&&data.url!=''){
+	                     setTimeout(function(){
+	                         top.window.location.href=data.url;
+	                     },2000);
+	                 }
+	         		if(data.url==''){
+	                     setTimeout(function(){
+	                         top.window.location.reload();
+	                     },1000);
+	                 }
+	         	},
+	         	error:function (XMLHttpRequest, textStatus,aa) {
+	         		popup.error("通讯失败了啦");
+	         	}
+       		});
+        }
+    });
+
+	return false;
+}
+</script>

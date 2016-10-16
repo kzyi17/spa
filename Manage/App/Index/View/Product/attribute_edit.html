@@ -1,0 +1,117 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <div id="Right">
+	<div class="Item hr">
+	    <div class="current">{$pagetitle}</div>
+	</div>
+    <form method="post" id="quickForm">
+		<table width="99.5%" border="0" cellspacing="0" cellpadding="0" class="table1">
+	            <tr>
+	                <th width="100"><span class="font2">*</span> 属性类型：</th>
+	                <td><input id="title" type="text" pattern="required" alt="模型名称不能为空！" class="input" size="50" name="cate[cate_name]" value="{$cate.cate_name}"/> <label>*（模型名称必须填写）</label></td>
+	            </tr>
+	            <tr>
+	                <th width="100"> 属性分组：</th>
+	                <td><textarea name="cate[attr_group]" rows="5" cols="50">{$cate.attr_group}</textarea> 每行一个商品属性组。排序也将按照自然顺序排序。</td>
+	            </tr>
+	            <tr>
+	                <th width="100" valign="top">添加扩展属性：</th>
+	                <td>
+	                	<div style="padding:10px 0;"><a class="btn" onclick="addAttr()">添加扩展属性</a></div>
+						<table width="98%" style="margin:0 auto;" class="tab">
+						  <thead>
+							<tr>
+								<td width="180">属性名</td>
+								<td>操作样式</td>
+								<td>选择项数据【每项数据之间用逗号','做分割】</td>
+								<td width="70"><a title="如果关联，那么用户在购买该商品时，具有该属性相同值的商品将被推荐给用户">关联数据</a></td>
+								<td width="70">检索数据</td>
+								<td width="100">操作</td>
+							</tr>
+						  </thead>
+						  <tbody id="attr_list">
+						  	<volist name="attributes" id="attr">
+							<tr>
+								<td><input name='attr[attr_id][]' type='hidden' value="{$attr.attr_id}"/><input name='attr[attr_name][]' value="{$attr.attr_name}" class='input' type='text' pattern='required'/></td>
+								<td><select name='attr[attr_type][]'><option value='1' <if condition="$attr.attr_type eq 1 ">selected</if>>文本输入</option><option value='2' <if condition="$attr.attr_type eq 2 ">selected</if>>单选框</option><option value='3' <if condition="$attr.attr_type eq 3 ">selected</if>>复选框</option><option value='4' <if condition="$attr.attr_type eq 4 ">selected</if>>下拉框</option></select></td>
+								<td><input name='attr[attr_values][]' class='input' type='text' pattern='required' value="{$attr.attr_values}"/></td>
+								<td><input type="checkbox" onclick="selectCheck(this,'attr[is_linked][]')" <if condition="$attr.is_linked eq 1">checked</if>/><input type='hidden' name='attr[is_linked][]' value='{$attr.is_linked}' /></td>
+								<td><input type="checkbox" onclick="selectCheck(this,'attr[is_search][]')"/ <if condition="$attr.is_search eq 1">checked</if>><input type='hidden' name='attr[is_search][]' value='{$attr.is_search}' /></td>
+								<td width="100">[ <a href="javascript:void()" onclick="delAttr(this)">删除</a> ]</td>
+							</tr>
+
+							</volist>
+						  </tbody>
+						</table>
+	                </td>
+	            </tr>
+
+		</table>
+        <input type="hidden" name="cate[cate_id]" value="{$cate.cate_id}" />
+
+        <div class="commonBtnArea" >
+        	<button class="btn quickSubmit">保存</button>
+    	</div>
+	</form>
+	<!--
+    <div class="commonBtnArea" >
+        <button class="btn submit">保存</button>
+    </div>
+    -->
+	</div>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>
+<script type="text/javascript">
+
+	var attrTemplate  = "<tr><td><input name='attr[attr_id][]' type='hidden'/><input name='attr[attr_name][]' class='input' type='text' pattern='required'/></td>";
+		attrTemplate += "<td><select name='attr[attr_type][]'><option value='1'>文本输入</option><option value='2'>单选框</option><option value='3'>复选框</option><option value='4'>下拉框</option></select></td>";
+		attrTemplate += "<td><input name='attr[attr_values][]' class='input' type='text' pattern='required'/></td>";
+		attrTemplate += "<td><input type='checkbox' onclick='selectCheck(this,\"attr[is_linked][]\")'/><input type='hidden' name='attr[is_linked][]' value='0' /></td>";
+		attrTemplate +=	"<td><input type=\"checkbox\" onclick='selectCheck(this,\"attr[is_search][]\")'/><input type='hidden' name='attr[is_search][]' value='0' /></td>";
+		attrTemplate += "<td>[ <a href='javascript:void()' onclick='delAttr(this)'>删除</a> ]</td></tr>"
+
+
+	//添加一个模型属性
+	function addAttr()
+	{
+		//var attrTrHtml = "<p>sssffff</p>";//template.render('attrTrTemplate',{'item':[]});
+		$('#attr_list').append(attrTemplate);
+		//alert("ssssss");
+	}
+
+	//删除模型属性
+	function delAttr(curr_attr)
+	{
+		$(curr_attr).parent().parent().remove();
+	}
+
+	//设置选择复选框的值
+	function selectCheck(_self,objet)
+	{
+		var checkValue = $(_self).siblings('[name="'+objet+'"]')[0];
+		if($(_self).is(":checked"))
+		{
+			checkValue.value = 1;
+		}else{
+			checkValue.value = 0;
+		}
+	}
+
+	/*
+	$(function(){
+		$(".quickSubmit").click(function(){
+            if($("#newName").val()==''){
+                popup.alert("分类名称不能为空滴！");
+                return false;
+            }
+            commonAjaxSubmit("","#quickForm");
+            return false;
+        });
+	});
+	*/
+
+</script>

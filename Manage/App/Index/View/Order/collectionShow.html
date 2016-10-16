@@ -1,0 +1,52 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+		{$action_name}
+    </DIV>
+	
+    <div class="content" style="height: 440px;">
+	<table class="tab" width="60%" cellspacing="0" cellpadding="0" border="0">
+		<colgroup><col widtd="200px">
+		<col>
+		</colgroup><tbody>
+			<tr class="t_l">
+				<td width="15%">订单号：</td><td>{$data.order_no}</td>
+			</tr>
+			<tr class="t_l">
+				<td>订单时间：</td><td>{$data.create_time|date="Y-m-d H-i",###}</td>
+			</tr>
+			<tr class="t_l">
+				<td>支付方式：</td><td>{$data.payTypeName}</td>
+			</tr>
+			<tr class="t_l">
+				<td>收款方式：</td><td>
+				<if condition="$data['pay_type'] eq 1">线上付款<elseif  condition="$data['pay_type'] eq 2"/>线下方式<else />货到付款</if></td>
+			</tr>
+			<tr class="t_l">
+				<td>付款人：</td><td>{$data.accept_name}</td>
+			</tr>
+			<tr class="t_l">
+				<td>付款时间：</td><td>{$data.create_time|date="Y-m-d H-i",###}</td>
+			</tr>
+			<tr class="t_l">
+				<td>金额：</td><td>{$data.amount}</td>
+			</tr>
+			<tr class="t_l">
+				<td>操作员：</td><td>{$data.admin}</td>
+			</tr>
+			<tr class="t_l">
+				<td>备注：</td><td>{$data.note}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+	
+    
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>

@@ -1,0 +1,45 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>支付方式</DIV>
+    </DIV>
+
+  <table width="99.5%" border="0" cellspacing="0" cellpadding="0" class="tab">
+               <tr colspan="12"><div style="margin-bottom:10px;">
+
+               </div></tr>
+                    <thead>
+                            <tr>
+								<td>图标</td>
+								<td>名称</td>
+								<td width="60%">描述</td>
+								<td>开启状态</td>
+								<td>操作</td>
+							</tr>
+                        </thead>
+                        <volist name="list" id="vo">
+                        <tr align='center'>
+							<td><img style="width:20px;" src="{:C('WEB_STATICS')}{$vo.logo}"></td>
+							<td>{$vo.name}</td>
+							<td>{$vo.description}</td>
+							<td><label><if condition="$vo['status'] eq 1">使用中<else />已关闭</if></label></td>
+							<td>
+								<a href="__URL__/paymentEdit/id/{$vo.id}">编辑</a>
+							</td>
+						</tr>
+						</volist>
+                    </table>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>
+<script type="text/javascript">
+
+
+</SCRIPT>
+
+

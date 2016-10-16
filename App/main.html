@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="css/iconfont.css"/>
+    
+</head>
+<body>
+	<nav class="mui-bar mui-bar-tab">
+		<a class="mui-tab-item" id="menu_merchant">
+			<span class="mui-icon iconfont icon-shangcheng"></span>
+			<span class="mui-tab-label">商家</span>
+		</a>
+		<a class="mui-tab-item" id="menu_spa">
+			<span class="mui-icon iconfont icon-meironghufu"></span>
+			<span class="mui-tab-label">服务项目</span>
+		</a>
+		<a class="mui-tab-item mui-active" id="menu_home">
+			<span class="mui-icon iconfont icon-shouyeshouye"></span>
+			<span class="mui-tab-label">首页</span>
+		</a>
+		<a class="mui-tab-item" href="about.html" id="menu_shop">
+			<span class="mui-icon iconfont icon-iconwoshangcheng"></span>
+			<span class="mui-tab-label">商城</span>
+		</a>
+		<a class="mui-tab-item" href="userCenter.html" id="menu_user">
+			<span class="mui-icon iconfont icon-wode"></span>
+			<span class="mui-tab-label">我的</span>
+		</a>
+	</nav>
+</body>
+<script src="js/mui.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+  	mui.init();
+  	
+  	var subpage_style = {
+		top: '0px',
+		bottom: '51px'
+	};
+	
+	var aniShow = {};
+	
+  	mui.plusReady(function() {
+  		var self = plus.webview.currentWebview();
+  		var temp = {};
+  		
+  		//创建窗体
+  		var sub_home = plus.webview.create('home.html', 'home', subpage_style);
+  		//当前激活选项
+  		temp['home'] = "true";
+		var activeTab = 'home';
+  		mui.extend(aniShow,temp);
+  		self.append(sub_home);
+  		
+//		var sub_merchant = plus.webview.create('merchantList.html', 'merchantList', subpage_style);
+//		sub_merchant.hide();
+//		self.append(sub_merchant);
+  		
+  		var sub_spa = plus.webview.create('home.html', 'home', subpage_style);
+  		sub_spa.hide();
+  		self.append(sub_spa);
+  		
+//		var sub_user = plus.webview.create('about.html', 'about', subpage_style);
+//		sub_user.hide();
+//		self.append(sub_user);
+  		
+  		
+  		//获取菜单按钮
+  		var menubtn_user = document.getElementById("menu_user");
+  		var menubtn_home = document.getElementById("menu_home");
+  		var menubtn_merchant = document.getElementById("menu_merchant");
+  		var menubtn_spa = document.getElementById("menu_spa");
+  		var menubtn_shop = document.getElementById("menu_shop");
+  		
+  		
+  		//创建主页
+//		var sub = plus.webview.create('home.html', 'home.html', subpage_style);
+//		temp['home'] = "true";
+//		//当前激活选项
+//		var activeTab = 'home.html';
+//		mui.extend(aniShow,temp);
+//		self.append(sub);
+  		
+  		//创建
+//		var sub = plus.webview.create('about.html', 'about.html', subpage_style);
+//		sub.hide();
+//		//temp['about.html'] = "true";
+//		//mui.extend(aniShow,temp);
+//		self.append(sub);
+  		
+  		
+  		
+  		//菜单按钮【我的】事件
+  		menubtn_user.addEventListener("tap",function () {
+			mui.openWindow({
+			    url:'userCenter.html',
+			    id:'userCenter',
+			    waiting:{
+			      	autoShow:true,//自动显示等待框，默认为true
+			      	title:'正在努力加载...',//等待对话框上显示的提示内容
+			    },
+			});
+		});
+		
+		//菜单按钮【主页】事件
+  		menubtn_home.addEventListener("tap",function () {
+			tabWebview('home');
+		});
+		
+		//菜单按钮【商家】事件
+  		menubtn_merchant.addEventListener("tap",function () {
+			mui.openWindow({
+				url:"merchantList.html",
+			    id:"merchantList",
+			    extras:{
+	//		    	city_id:2,
+			    	//order_type:1,
+	//		    	cate_id:1,
+			    },
+			    waiting:{
+			      autoShow:true,//自动显示等待框，默认为true
+			      title:'正在加载...',//等待对话框上显示的提示内容
+			    }
+			});
+		});
+		
+		//菜单按钮【美容项目】事件
+  		menubtn_spa.addEventListener("tap",function () {
+			mui.openWindow({
+				url:"spaList.html",
+			    id:"spaList",
+			    extras:{
+	//		    	city_id:2,
+			    	order_type:1,
+	//		    	cate_id:1,
+			    },
+			    waiting:{
+			      autoShow:true,//自动显示等待框，默认为true
+			      title:'正在加载...',//等待对话框上显示的提示内容
+			    }
+			});
+		});
+		
+		//菜单按钮【商城】事件
+  		menubtn_shop.addEventListener("tap",function () {
+			mui.toast('正在开发中，敬请期待...');
+		});
+		
+  		
+  		/**
+  		 * 切换窗体显示
+  		 * @param {Object} target
+  		 */
+		function tabWebview(target){
+			var targetTab = target;
+			if (targetTab == activeTab) {
+		  		return;
+		  	}
+			//若为iOS平台或非首次显示，则直接显示
+		  	if(mui.os.ios||aniShow[targetTab]){
+		  		plus.webview.show(targetTab);
+		  	}else{//否则，使用fade-in动画，且保存变量
+		  		var temp = {};
+		  		temp[targetTab] = "true";
+		  		mui.extend(aniShow,temp);
+		  		plus.webview.show(targetTab,"fade-in",500);
+		  	}
+			//隐藏当前;
+			plus.webview.hide(activeTab);
+			//更改当前活跃的选项卡
+			activeTab = targetTab;
+		}
+  		
+  	});
+  	
+  	//首页返回键处理
+	//处理逻辑：1秒内，连续两次按返回键，则退出应用；
+//	var first = null;
+//	mui.back = function() {
+//		//首次按键，提示‘再按一次退出应用’
+//		if (!first) {
+//			first = new Date().getTime();
+//			mui.toast('再按一次退出应用');
+//			setTimeout(function() {
+//				first = null;
+//			}, 1000);
+//		} else {
+//			if (new Date().getTime() - first < 1000) {
+//				plus.runtime.quit();
+//			}
+//		}
+//	};
+  	
+</script>
+</html>

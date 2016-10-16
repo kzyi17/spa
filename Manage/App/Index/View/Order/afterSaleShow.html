@@ -1,0 +1,208 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+		{$action_name}
+    </DIV>
+
+    <div class="content" style="height: 440px;">
+    <form id='aftersale'>
+    <input type="hidden" value="{$data.id}" name="data[id]" />
+    <input type="hidden" value="{$data.type}" name="type" />
+    <input type="hidden" value="{$data.order_id}" name="order_id" />
+    <input type="hidden" value="{$data.pay_status}" name="pay_status" />
+	<input type="hidden" value="{$data.status}" name="status" />
+    <input type="hidden" value="{$data.distribution_status}" name="distribution_status" />
+	<table class="tab" width="60%" cellspacing="0" cellpadding="0" border="0">
+		
+		<tbody>
+			<tr class="t_l">
+				<td width="15%">订单号：</td><td>{$data.order_no}</td>
+			</tr>
+			<tr class="t_l">
+				<td>售后类型：</td><td><if condition="$data['type'] eq 'refund'">退款<elseif condition="$data['type'] eq 'barter'"/>换货<elseif condition="$data['type'] eq 'returns'"/>退货<else/><span class="red"><b>未知</b></span></if></td>
+			</tr>
+			
+			<tr class="t_l">
+				<td>手机号：</td><td>{$data.mobilephone}</td>
+			</tr>
+			<tr class="t_l">
+				<td>申请时间：</td><td>{$data.time|date="Y-m-d H-i",###}</td>
+			</tr>
+
+			<tr class="t_l">
+				<td>用户名：</td><td>{$data.member_code}</td>
+			</tr>
+			<tr class="t_l">
+				<td>售后原因：</td><td>{$data.suggestion}</td>
+			</tr>
+			<tr class="t_l">
+				<td>售后详情：</td><td><textarea name="data[description]">{$data.description}</textarea></td>
+			</tr>
+			<if condition="$data['pay_status'] eq 1">
+			<tr class="t_l">
+				<td>退款操作</td><td><a class='btn' href='javascript:void(0);' onclick="refundment({$data.order_id});">退款并同意</a></td>
+			</tr>
+			<elseif condition="$data['pay_status'] eq 2"/>
+			<tr class="t_l">
+				<td>退款操作</td><td>已退款</td>
+			</tr>
+			<else />
+			<tr class="t_l">
+				<td>退款操作</td><td>未付款无需退款</td>
+			</tr>
+			</if>
+			
+			<if condition="ACTION_NAME EQ 'afterSaleShow'">
+			<if condition="$data['status'] eq 0">
+				<tr>
+					<td>处理：</td>
+					<td align="left">
+						<label><input type="radio" checked="checked" value="2" name="data[status]">同意</label>
+						<label><input type="radio" value="1" name="data[status]">拒绝</label>
+					</td>
+				</tr>
+				<tr class="t_l">
+				<td>处理留言：</td><td><textarea name="data[reply_idea]" rows="5" cols="120">{$data.reply_idea}</textarea></td>
+			</tr>
+			<else />
+			<tr class="t_l">
+				<td>退款意见：</td><td>{$data.reply_idea}</td>
+			</tr>
+			<tr class="t_l">
+				<td>操作员：</td><td>{$data.admin}</td>
+			</tr>
+			<tr class="t_l">
+				<td>处理时间：</td><td>{$data.reply_time|date='Y-m-d',###}</td>
+			</tr>
+			</if>
+			</if>
+
+
+		</tbody>
+	</table>
+	</form>
+	<table width="100%" style="margin:10px auto" class="tab">
+				<tr class="">
+								<td>商品名称</td>
+								<td>商品原价</td>
+								<td>实际价格</td>
+								<td>商品数量</td>
+								<td>小计</td>
+							</tr>
+				<volist name="productList" id="pro">
+							<tr>
+								<td>{$pro.name}</td>
+								<td>{$pro.goods_price}</td>
+								<td>{$pro.real_price}</td>
+								<td>{$pro.goods_nums}</td>
+								<td><?php echo($pro['goods_nums']*$pro['real_price']);?></td>
+							</tr>
+			</volist>
+		</table>
+	<button class="btn" type="bottom" id='sub'><span>确 定</span></button><a class="btn" href="{:U('Order/afterSaleList')}"><span>返回</span></a>
+</div>
+<script>
+$('#sub').on('click',function(){
+	var type = $('input[name="type"]').val();
+	var pay_status = $('input[name="pay_status"]').val();
+	var order_id = $('input[name="order_id"]').val();
+	var status = $('input[name="data[status]"]').val();
+	var distribution_status = $('input[name="distribution_status"]').val();
+	if(distribution_status==1){
+		popup.confirm('该订单已发货，请确认是否有收回商品。','安全提醒！',function(action){
+			if(action == 'ok'){
+				actionCallback();
+			}else{
+				
+			}
+			
+		});
+	}else{
+		actionCallback();
+	}
+	return false;
+	
+});
+//退款操作
+function success(url)
+{
+	var step=0;
+	art.dialog.open(url,
+	{
+		
+		"title":"",
+		"okVal":"执行",
+		
+		"ok":function(iframeWin,topWin)
+		{
+			if(step == 0)
+			{
+				iframeWin.document.forms[0].submit();
+				step++;
+				return false;
+			}
+			else if(step == 1)
+			{
+				
+				callback(goodsList);
+				return true;
+			}
+		}
+	});
+}
+//回调函数
+function actionCallback(){
+	var data = $('#aftersale').serialize();
+	$.ajax({
+		data:data,
+		type: "POST",
+		 url: "{:U('Order/afterSaleShow')}",
+		 dataType: "json",
+		  success: function(json){
+			if(json.status==1){
+				alert(json.info);
+				window.location.href=json.url;
+			}else{
+				
+				alert(json.info);
+			}
+		  }
+	});
+	return false;
+}
+function actionCallback1(){
+	window.reload();
+	
+	return false;
+}
+//退款
+function refundment(id)
+{
+	var url=document.URL;
+	url     = '{:U('order/orderRefund')}?order_id={$data.order_id}&type=aftersale';
+	art.dialog.open(url,{
+		id:'refundment',
+		cancelVal:'关闭',
+		okVal:'退款',
+	    title: '订单号:{$data.order_no}【退款到余额账户】',
+	    ok:function(iframeWin, topWin){
+	    	iframeWin.document.forms[0].submit();
+	    	return false;
+	    },
+	    cancel:function(){
+	    	return false;
+		}
+	});
+	return false;
+}
+
+</script>
+
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>

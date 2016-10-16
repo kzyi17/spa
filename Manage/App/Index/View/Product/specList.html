@@ -1,0 +1,178 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$action_name}</DIV>
+    </DIV>
+	<form action='__URL__/<if condition="ACTION_NAME eq 'specRecycleList'">specRecycleDelAll<else />specDelAll</if>' method='post' id='specForm1'>
+    <div class="operating">
+		<a href="javascript:;"><button class="operating_btn" type="button" onclick="addNewSpec();"><span class="addition">添加规格</span></button></a>
+		<a href="javascript:void(0)" onclick="selected()"><button class="operating_btn" type="button" id="checkall"><span class="sel_all">全选</span></button></a>
+		<a href="javascript:void(0)" onclick="delModels();"><button class="operating_btn" type="button"><span class="delete">批量删除</span></button></a>
+		<input name="" type="submit" id="submit" value=" "  style="width:0;opacity:0" />
+		<if condition="ACTION_NAME neq 'specRecycleList'">
+		<a href="javascript:void(0)"><button class="operating_btn" type="button" onclick="location.href='/index.php?m=&c=Product&a=specRecycleList'"><span class="recycle">回收站</span></button></a>
+		<else/>
+		<a href="javascript:void(0)"><button class="operating_btn" type="button" onclick="location.href='/index.php?m=&c=Product&a=specList'"><span class="recycle">规格列表</span></button></a>
+		</if>
+	</div>
+    <table width="99.5%" border="0" cellpadding="0" cellspacing="0" class="tab">
+      <thead>
+        <tr align="left">
+          <td width="5%">选择</td>
+          <td width="15%">规格名称</td>
+          <td width="10%">显示方式</td>
+          <td width="60%">规格数据</td>
+          <td width="10%">操作</td>
+        </tr>
+      </thead>
+      <tbody>
+        <volist name="list" id="vo">
+        <tr align="left" id="{$vo.spec_id}">
+          <td align="center"><input type="checkbox" id="{$vo.spec_id}" value="{$vo.spec_id}"  name="del_id[]" /></td>
+          <td>{$vo.spec_name}</td>
+          <td align="center">{$vo.specTypeTxt}</td>
+          <td>
+          <volist name="vo.spec_value" id="vo2">
+          <if condition="$vo.spec_type eq 1">
+          {$vo2}, 
+          <else />
+          <img style="border:1px solid #ccc; width:20px; height:20px;" src={:C('WEB_STATICS')}{$vo2} />
+          </if>
+          </volist>
+          </td>
+		  <if condition="ACTION_NAME eq 'specRecycleList'">
+		  <td align="center">{$vo.status}[<a href="javascript:regainSpec({$vo.spec_id});">恢复</a>] [<a href='javascript:void(0)' onclick="delModel('__URL__/specRecycleDel/id/{$vo.spec_id}');">彻底删除</a>]</td>
+        
+          <else />
+             <td align="center">{$vo.status}[<a href="javascript:addNewSpec({$vo.spec_id});">编辑</a>] [<a href='javascript:void(0)' onclick="delModel('__URL__/specDel/id/{$vo.spec_id}');">删除</a>]</td>
+          </if>
+		  
+        </tr>
+        </volist>
+        <tr>
+          <td align="center" colspan='5'>{$page}</td>
+        </tr>  
+      </tbody>
+      
+    </table>
+	</form>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>
+<script type='text/javascript'>
+//添加新规格
+function addNewSpec(spec_id)
+{
+	var url = "__URL__/specEdit/id/@spec_id@";
+	url = url.replace('@spec_id@',spec_id?spec_id:0);
+	art.dialog.open(url,{
+		id:'addSpecWin',
+	    title:'规格设置',
+	    okVal:'确定',
+	    ok:function(iframeWin, topWin){
+			
+	    	var formObject = iframeWin.document.forms['specForm'];	   
+		   $.post("__URL__/specEdit", $(formObject).serialize(), function(json){
+				if(json.status == 1)
+				{
+					window.location.reload();
+					return true;
+				}
+				else
+				{
+				//	alert(json.info);
+					popup.alert(json.info);
+					return false;
+				}
+			},'json');
+			
+	    }
+	});
+}
+					  
+</script>
+
+<SCRIPT type=text/javascript>
+//删除指定id规格
+function delModel(url){
+	if(url!=null){
+		popup.confirm('删除商品规格','你确定要删除吗',function(action){
+			if(action == 'ok'){
+				
+			 $.ajax({
+				 type: "GET",
+				 url: url,
+				 dataType: "json",
+				success: function(json){
+					if(json.status==1){
+						//popup.alert(json.info);
+						window.location.reload();
+						//$("json.id").remove();
+						return false;
+					}else{
+						popup.alert(json.info);
+						return false;
+					}
+				}
+			 });
+			}
+		});
+		//删除多个
+	}else{
+		
+	}
+}
+</SCRIPT>
+<script>
+//删除批量id规格
+function delModels(){
+	popup.confirm('你确定删除所选吗？','你确定要删除所选吗',function(action){
+		if(action == 'ok'){
+			//alert($("input[name='del_id[]']").length);
+			//$("#specForm1").submit();
+			$("#submit").trigger("click");
+		}
+	});
+
+}
+</script>
+<script type='text/javascript'>
+//恢复回收站规格
+function regainSpec(spec_id)
+{
+	if(spec_id!=null){
+		popup.confirm('恢复商品规格','你确定要恢复吗',function(action){
+			if(action == 'ok'){
+			var url = "__URL__/specRecycleRegain/id/@spec_id@";
+			url = url.replace('@spec_id@',spec_id?spec_id:0);
+			 $.ajax({
+				 type: "GET",
+				 url: url,
+				 dataType: "json",
+				success: function(json){
+					if(json.status==1){
+						//popup.alert(json.info);
+						window.location.reload();
+						//$("json.id").remove();
+						return false;
+					}else{
+						popup.alert(json.info);
+						return false;
+					}
+				}
+			 });
+			}
+		});
+		//
+	}else{
+		
+	}
+}
+					  
+</script>
+

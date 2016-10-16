@@ -1,0 +1,108 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$action_name}</DIV>
+    </DIV>
+			<div class="operating">
+		<a  href="__URL__/levelEdit"><button type="button" class="btn"><span class="addition">添加用户组</span></button></a>
+		<a  href="javascript:void(0);" onclick="delModels('__URL__/levelDelAll');"><button type="button" class="btn"><span class="delete">批量删除</span></button></a>
+	</div>
+
+			   <form action="__URL__/memberDelAll" method="post" id='memberDel'>
+  				<table width="99.5%" border="0" cellspacing="0" cellpadding="0" class="tab">
+                    <thead>
+                            <tr>
+                               <td width="3%"><input name="checkall" id="checkall" type="checkbox" value="" onclick="selected()"/></td>
+                                <td width="10%">会员组</td>
+                                <td width="10%">折扣率</td>
+                                <td>最小经验</td>
+                                <td>最大经验</td>
+                                <td width="">操作</td>
+                            </tr>
+                        </thead>
+
+                        <volist name="list" id="vo" key="k">
+                        <tr align="center">
+                                <td><input name="del_id[]" type="checkbox" id="checkone" value="{$vo.level_id}" /></td>
+                                <td>{$vo.level_name}</td>
+                                <td>{$vo.discount}</td>
+                                <td>{$vo.min_points}</td>
+                                <td>{$vo.max_points}</td>
+                                <td width="20%">[ <a href="__URL__/levelEdit/id/{$vo.level_id}" class="recover" >编辑 </a> ][ <a onclick="delModel('__URL__/levelDel/id/{$vo.level_id}')" href="javascript:void(0);">删除</a> ]</td>
+
+                            </tr>
+
+                            </volist>
+                             <tr align="center">
+                          <td colspan="12">{$page}</td>
+                          </tr>
+                    </table>
+					</form>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>
+<script>
+//删除指定id会员
+function delModel(url){
+	if(url!=null){
+		popup.confirm('删除会员等级','你确定要删除吗',function(action){
+			if(action == 'ok'){
+			 $.ajax({
+				 type: "GET",
+				 url: url,
+				 dataType: "json",
+				success: function(json){
+					if(json.status==1){
+						//popup.alert(json.info);
+						window.location.reload();
+						//$("json.id").remove();
+						return false;
+					}else{
+						popup.alert(json.info);
+						return false;
+					}
+				}
+			 });
+			}
+		});
+	}
+}
+//删除指定id会员
+function delModels(url){
+popup.confirm('你确定删除所选吗？','你确定要删除所选吗',function(action){
+	if(action == 'ok'){
+		var delids = new Array();
+		var ids = $('input[name="del_id[]"]');
+		var j = 0;
+		for(i=0;i<ids.length;i++){
+			if(ids.eq(i).is(":checked")==true){
+				delids[j] = ids.eq(i).val();
+				j++;
+			}
+		}
+		$.ajax({
+			 type: "GET",
+			 url: '__URL__/levelDelAll/del_id/' + delids,
+			 dataType: "json",
+			success: function(json){
+				if(json.status==1){
+					popup.alert(json.info);
+					window.location.reload();
+					return false;
+				}else{
+					popup.alert(json.info);
+					return false;
+				}
+			}
+		 });
+	}
+});
+}
+</script>
+
+

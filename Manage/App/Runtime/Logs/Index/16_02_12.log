@@ -1,0 +1,65 @@
+[ 2016-02-12T10:39:20+08:00 ] 127.0.0.1 /mlbspa/manage/Public/verify_code
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001328s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002984s ]
+
+[ 2016-02-12T10:40:26+08:00 ] 127.0.0.1 /mlbspa/manage/Public/verify_code
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001120s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002243s ]
+
+[ 2016-02-12T10:42:03+08:00 ] 127.0.0.1 /mlbspa/manage/Public/verify_code
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001459s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002440s ]
+
+[ 2016-02-12T10:42:36+08:00 ] 127.0.0.1 /mlbspa/manage/Public/verify_code
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001302s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002375s ]
+
+[ 2016-02-12T10:42:47+08:00 ] 127.0.0.1 /mlbspa/manage/Public/verify_code
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001435s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002422s ]
+
+[ 2016-02-12T10:42:48+08:00 ] 127.0.0.1 /mlbspa/manage/Public/verify_code
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001314s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002185s ]
+
+[ 2016-02-12T10:42:57+08:00 ] 127.0.0.1 /mlbspa/manage/Public/verify_code
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001070s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002553s ]
+
+[ 2016-02-12T10:42:57+08:00 ] 127.0.0.1 /mlbspa/manage/Public/verify_code
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001552s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002956s ]
+
+[ 2016-02-12T10:42:58+08:00 ] 127.0.0.1 /mlbspa/manage/Public/verify_code
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001153s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001972s ]
+
+[ 2016-02-12T10:42:58+08:00 ] 127.0.0.1 /mlbspa/manage/Public/verify_code
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001653s ]
+INFO: [ app_end ] --END-- [ RunTime:0.003015s ]
+
+[ 2016-02-12T10:42:58+08:00 ] 127.0.0.1 /mlbspa/manage/Public/verify_code
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001340s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002514s ]
+
+[ 2016-02-12T10:42:59+08:00 ] 127.0.0.1 /mlbspa/manage/Public/verify_code
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001555s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002976s ]
+
+[ 2016-02-12T10:48:10+08:00 ] 127.0.0.1 /mlbspa/manage/Public/verify_code
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001607s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002653s ]
+

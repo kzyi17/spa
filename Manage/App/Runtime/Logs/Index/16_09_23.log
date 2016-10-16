@@ -1,0 +1,107 @@
+[ 2016-09-23T13:59:40+08:00 ] 192.168.1.6 /mlbspa/manage/Public/index.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000051s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000123s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.026233s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.026884s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000638s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000690s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000822s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000872s ]
+
+[ 2016-09-23T13:59:41+08:00 ] 127.0.0.1 /mlbspa/manage/Public/verify_code
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001276s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002108s ]
+
+[ 2016-09-23T13:59:49+08:00 ] 192.168.1.6 /mlbspa/manage/Public/index.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000549s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001025s ]
+SQL: SHOW COLUMNS FROM `users` [ RunTime:0.0038s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `users` WHERE ( `user_code`='admin' ) LIMIT 1   [ RunTime:0.0215s ]
+SQL: SELECT `uid`,`user_password`,`status` FROM `users` WHERE ( `user_code`='admin' ) LIMIT 1   [ RunTime:0.0235s ]
+SQL: UPDATE `users` SET `login_ip`='192.168.1.6',`last_login_time`='1474610389' WHERE ( uid=1 ) [ RunTime:0.0005s ]
+SQL: SELECT `uid`,`user_code`,`status`,`admin_type` FROM `users` WHERE ( `user_code`='admin' ) LIMIT 1   [ RunTime:0.0003s ]
+
+[ 2016-09-23T13:59:51+08:00 ] 127.0.0.1 /mlbspa/manage/Public/verify_code?rand=0.3753732443313047
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000908s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001547s ]
+
+[ 2016-09-23T13:59:58+08:00 ] 127.0.0.1 /mlbspa/manage/Public/index.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000049s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000110s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.007492s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.008125s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000554s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000599s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000743s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000792s ]
+
+[ 2016-09-23T13:59:58+08:00 ] 127.0.0.1 /mlbspa/manage/Public/verify_code
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000773s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001346s ]
+
+[ 2016-09-23T14:00:07+08:00 ] 127.0.0.1 /mlbspa/manage/Public/index.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000579s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001066s ]
+SQL: SHOW COLUMNS FROM `users` [ RunTime:0.0039s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `users` WHERE ( `user_code`='admin' ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `uid`,`user_password`,`status` FROM `users` WHERE ( `user_code`='admin' ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: UPDATE `users` SET `login_ip`='127.0.0.1',`last_login_time`='1474610407' WHERE ( uid=1 ) [ RunTime:0.0003s ]
+SQL: SELECT `uid`,`user_code`,`status`,`admin_type` FROM `users` WHERE ( `user_code`='admin' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000885s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000957s ]
+
+[ 2016-09-23T14:07:04+08:00 ] 127.0.0.1 /mlbspa/manage/Share/exchange.html
+ERR: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'article_id' in 'order clause'
+
+[ 2016-09-23T14:07:49+08:00 ] 127.0.0.1 /mlbspa/manage/Share/exchange.html
+ERR: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'exchange_id' in 'order clause'
+
+[ 2016-09-23T14:25:10+08:00 ] 127.0.0.1 /mlbspa/manage/Share/exchange.html
+ERR: XML标签语法错误 : value=0
+
+[ 2016-09-23T16:39:16+08:00 ] 127.0.0.1 /mlbspa/manage/Public/index.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000051s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000117s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.008032s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.008556s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000464s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000516s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000855s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000908s ]
+
+[ 2016-09-23T16:39:17+08:00 ] 127.0.0.1 /mlbspa/manage/Public/verify_code
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001551s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002249s ]
+
+[ 2016-09-23T16:40:00+08:00 ] 127.0.0.1 /mlbspa/manage/Public/index.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000586s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001080s ]
+SQL: SHOW COLUMNS FROM `users` [ RunTime:0.0061s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `users` WHERE ( `user_code`='admin' ) LIMIT 1   [ RunTime:0.0005s ]
+SQL: SELECT `uid`,`user_password`,`status` FROM `users` WHERE ( `user_code`='admin' ) LIMIT 1   [ RunTime:0.0005s ]
+SQL: UPDATE `users` SET `login_ip`='127.0.0.1',`last_login_time`='1474620000' WHERE ( uid=1 ) [ RunTime:0.0006s ]
+SQL: SELECT `uid`,`user_code`,`status`,`admin_type` FROM `users` WHERE ( `user_code`='admin' ) LIMIT 1   [ RunTime:0.0005s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000952s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001047s ]
+

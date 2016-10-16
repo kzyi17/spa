@@ -1,0 +1,73 @@
+<include file="Public:head"/>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/datePicker/WdatePicker.js"></script>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$pagetitle}</DIV>
+    </DIV>
+    <div class="content_box">
+    	<div class="content_box">
+        <form action="__URL__/couponSave" name="goodsForm" method="post">
+        	<input type="hidden" name="coupon_id" value="{$coupon.coupon_id}" />
+        	<div class="content form_content">
+        	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tab form_table">
+        		<colgroup>
+        			<col width="150px">
+					<col>
+				</colgroup>
+				<tbody>
+					<tr>
+						<th>优惠劵名称：</th>
+						<td><input class="normal" name="coupon_name" type="text" value="{$coupon.coupon_name}" pattern="required" alt="优惠劵名称不能为空" /><label>*</label></td>
+					</tr>
+					<tr>
+						<th>面值：</th>
+						<td><input class="input" style="width:100px;" name="coupon_amount" type="text" value="{$coupon.coupon_amount}" pattern='float' alt="请填写正确的金额" /></td>
+					</tr>
+                    <tr>
+						<th>范围：</th>
+						<td>
+                        <select>
+                          <option value="0">全部商品</option>
+                        </select>
+                        </td>
+					</tr>
+					<tr>
+						<th>使用条件：</th>
+						<td>
+							单笔订单中购买指定商品满 <input class="input" name="min_amount" type="text" style="width:100px;" value="{$coupon.min_amount}" pattern='float' alt="请填写正确的金额"/> 元可使用此劵。
+						</td>
+					</tr>
+					<tr>
+						<th>使用有效期：</th>
+						<td>
+							<input type="text" name="start_time"  class="input Wdate" style="width:100px;" onFocus="WdatePicker({isShowClear:true,realDateFmt:'yyyy-MM-dd',realTimeFmt:'HH:mm:ss'})" value="{:date('Y-m-d',$coupon['start_time'])}" pattern='date' alt="请填写正确的日期"/>
+				               -- <input type="text" name="end_time" class="input Wdate" style="width:100px;" onFocus="WdatePicker({isShowClear:true,realDateFmt:'yyyy-MM-dd',realTimeFmt:'HH:mm:ss'})"  value="{:date('Y-m-d',strtotime('-1 days',$coupon['end_time']))}" pattern='date' alt="请填写正确的日期"/>
+						
+						</td>
+					</tr>
+					<!--<tr>
+						<th>是否短信通知：</th>
+						<td>
+							<input name="is_notice" type="checkbox" id="is_notice" value="1"> 手机短信通知
+						</td>
+					</tr>-->
+					
+				</tbody>
+        	</table>
+            </div>
+            <div class="commonBtnArea" >
+                <button class="btn submit" type="submit" >保存</button>  
+            </div>
+        </form>
+        </div>
+    </div>
+
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+
+</BODY></HTML>

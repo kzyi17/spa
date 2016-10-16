@@ -1,0 +1,150 @@
+<include file="Public:head"/>
+<js href="__PUBLIC__/js/common.js,{:C('WEB_STATICS')}/js/form/form.js"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$action_name}</DIV>
+    </DIV>
+  <script language="javascript" type="text/javascript" src="__PUBLIC__/js/datePicker/WdatePicker.js"></script>
+  
+	<form action='' method='post' name='adminlog'>
+		<input type='button' class='btn' value='批量删除' onclick="delModels();" />
+			<select name="log_type" onchange="gettypeval('');">
+			<option value="">日志类型</option>
+			<volist name='typeList' id='type' key='mykey'>
+			<option value="{$mykey}">{$type.name}</option>
+			</volist>
+			</select>
+			<select name="log_type_val">
+			
+			</select>
+		 &nbsp;&nbsp;&nbsp;&nbsp;操作时间：
+		   <input type="text" id="d4311" name="starttime"  class="input" style="width:100px;"class="Wdate" onFocus="WdatePicker({isShowClear:true,readOnly:true,realDateFmt:'yyyy-MM-dd',realTimeFmt:'HH:mm:ss',maxDate:'%y-%M-%d'})" value="{$starttime}"/>
+		   -<input type="text" name="endtime"  style="width:100px;"   class="input" class="Wdate" id="d4312" onFocus="WdatePicker({isShowClear:true,realDateFmt:'yyyy-MM-dd',realTimeFmt:'HH:mm:ss',readOnly:true,maxDate:'%y-%M-%d'})"  value="{$endtime}"/>
+		 <input type='submit' class='btn' value='确认' />
+		 </form>
+	<table width="99.5%" border="0" cellspacing="0" cellpadding="0" class="tab">
+               
+		<thead>
+				<tr>
+					<td width="6%"><input name="checkall" id="checkall" type="checkbox" value="" onclick="selected()"/></td></td>
+					<td width="6%">管理员姓名</td>
+					<td width="6%">管理员类型</td>
+					<td width="15%">时间</td>
+					<td width="6%">ip</td>
+					<td width="">操作明细</td>
+					<td width="">操作</td>
+				</tr>
+			</thead>
+				<volist name='list' id='vo'>
+				<tr align="center">
+					<td><input name="del_id[]" type="checkbox" id="checkone" value="{$vo.id}" /></td>
+					<td>{$vo.admin_name}</td>
+					<td>{$vo.type_name}</td>
+					<td>{$vo.create_time|date='Y-m-d H:i',###}</td>
+					<td>{$vo.ip}</td>
+					<td>{$vo.log}</td>
+					<td><a href="javascript:void(0);"  attr="{:($vo['sql_log'])}" onclick="myalert(this)">[ 数据库语句 ]</a><a href="javascript:delModel('{:U('Market/adminDel',array('id'=>$vo['id']))}','日志');">[ 删除 ]</a></td>
+				</tr>
+				</volist>
+				 <tr align="center">                               
+					<td>{$page}</td>
+				</tr>
+		</table>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>
+<script>
+
+var formObj = new Form('adminlog');
+$(function()
+{
+	
+	<if condition="($search)"> 
+		var searchForm = {:json_encode($search)};
+		formObj.init(searchForm);
+	</if>
+	var val = searchForm.log_type_val;
+	gettypeval(val);
+	
+});
+function myalert(_self){
+	alert($(_self).attr('attr'));
+}
+function gettypeval(val){
+	var html ='';
+	var type = $('select[name="log_type"]').val();
+	$.getJSON('{:U('Market/logTypeValList')}',{'type':type},function(json){
+		html +='<option value="">操作类型</option>';
+		for(key in json){
+			if(val==key){
+				html +='<option value="'+key+'" selected="selected">'+json[key]+'</option>';
+			}else{
+				html +='<option value="'+key+'">'+json[key]+'</option>';
+			}
+		}
+		$('select[name="log_type_val"]').html(html);
+	});
+}
+function delModel(url,tip){
+		if(url!=null){
+			popup.confirm('删除'+tip,'你确定要删除' + tip +　'吗',function(action){
+				if(action == 'ok'){
+				$.getJSON(url, function(json){
+					if(json.status==1){
+						popup.alert(json.info);
+						window.location.reload();
+					}else{
+						popup.alert(json.info);
+						window.location.reload();
+						return false;
+					}
+				});
+				}
+			});
+				//删除多个
+		}else{
+
+		}
+	}
+//删除批量id会员
+function delModels(){
+	popup.confirm('你确定删除所选吗？','你确定要删除所选吗',function(action){
+		if(action == 'ok'){
+			var delids = new Array();
+			var ids = $('input[name="del_id[]"]');
+			var j = 0;
+			for(i=0;i<ids.length;i++){
+				if(ids.eq(i).is(":checked")==true){
+					delids[j] = ids.eq(i).val();
+					j++;
+				}
+			}
+			$.ajax({
+				 type: "GET",
+				 url: '{:U('Market/adminLogDelAll')}?del_id=' + delids,
+				 dataType: "json",
+				success: function(json){
+					if(json.status==1){
+						popup.alert(json.info);
+						window.location.reload();
+						//$("json.id").remove();
+						return false;
+					}else{
+						popup.alert(json.info);
+						return false;
+					}
+				}
+			 });
+		}
+	});
+
+}
+</script>
+
+
+

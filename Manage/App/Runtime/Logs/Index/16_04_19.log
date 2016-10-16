@@ -1,0 +1,141 @@
+[ 2016-04-19T09:52:39+08:00 ] 127.0.0.1 /mlbspa/manage/Public/index.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000097s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000228s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.179631s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.193653s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.040407s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.040518s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.007165s ]
+INFO: [ app_end ] --END-- [ RunTime:0.007348s ]
+
+[ 2016-04-19T09:52:39+08:00 ] 127.0.0.1 /mlbspa/manage/Public/verify_code
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.003771s ]
+INFO: [ app_end ] --END-- [ RunTime:0.005886s ]
+
+[ 2016-04-19T09:52:56+08:00 ] 127.0.0.1 /mlbspa/manage/Public/index.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000869s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001646s ]
+SQL: SHOW COLUMNS FROM `users` [ RunTime:0.0799s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `users` WHERE ( `user_code`='admin' ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: SELECT `uid`,`user_password`,`status` FROM `users` WHERE ( `user_code`='admin' ) LIMIT 1   [ RunTime:0.0190s ]
+SQL: UPDATE `users` SET `login_ip`='127.0.0.1',`last_login_time`='1461030776' WHERE ( uid=1 ) [ RunTime:0.0076s ]
+SQL: SELECT `uid`,`user_code`,`status`,`admin_type` FROM `users` WHERE ( `user_code`='admin' ) LIMIT 1   [ RunTime:0.0004s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001793s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001876s ]
+
+[ 2016-04-19T09:53:19+08:00 ] 127.0.0.1 /mlbspa/manage/Share/goodsList.html
+ERR: 非法操作:goodsList
+
+[ 2016-04-19T09:53:32+08:00 ] 127.0.0.1 /mlbspa/manage/Share/articleEdit/id/4.html
+ERR: 非法操作:articleEdit
+
+[ 2016-04-19T09:55:28+08:00 ] 127.0.0.1 /mlbspa/manage/Share/articleAdd.html
+ERR: 非法操作:articleAdd
+
+[ 2016-04-19T10:36:26+08:00 ] 127.0.0.1 /mlbspa/manage/Share/articleAdd.html
+ERR: 模板不存在:./App/Index/View/Share/articleEdit.html
+
+[ 2016-04-19T10:39:32+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/spa/multi/true.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000065s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000132s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.022597s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.023803s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001148s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001200s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001396s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001451s ]
+
+[ 2016-04-19T10:39:32+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/spa/multi/
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000065s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000131s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.020108s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.021169s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001957s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002054s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002315s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002428s ]
+
+[ 2016-04-19T11:11:08+08:00 ] 127.0.0.1 /mlbspa/manage/Public/js/jquery.min.map
+ERR: 非法操作:js
+
+[ 2016-04-19T16:38:44+08:00 ] 127.0.0.1 /mlbspa/manage/Public/index.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000050s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000115s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.057321s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.058189s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001243s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001299s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001449s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001510s ]
+
+[ 2016-04-19T16:38:44+08:00 ] 127.0.0.1 /mlbspa/manage/Public/verify_code
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002085s ]
+INFO: [ app_end ] --END-- [ RunTime:0.003045s ]
+
+[ 2016-04-19T16:38:53+08:00 ] 127.0.0.1 /mlbspa/manage/Public/index.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000909s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001751s ]
+SQL: SHOW COLUMNS FROM `users` [ RunTime:0.0051s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `users` WHERE ( `user_code`='admin' ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `uid`,`user_password`,`status` FROM `users` WHERE ( `user_code`='admin' ) LIMIT 1   [ RunTime:0.0002s ]
+SQL: UPDATE `users` SET `login_ip`='127.0.0.1',`last_login_time`='1461055133' WHERE ( uid=1 ) [ RunTime:0.0004s ]
+SQL: SELECT `uid`,`user_code`,`status`,`admin_type` FROM `users` WHERE ( `user_code`='admin' ) LIMIT 1   [ RunTime:0.0002s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001502s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001577s ]
+
+[ 2016-04-19T22:45:49+08:00 ] 127.0.0.1 /mlbspa/manage/Public/index.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000095s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000218s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.028007s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.030145s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.002023s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002105s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001969s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002037s ]
+
+[ 2016-04-19T22:45:49+08:00 ] 127.0.0.1 /mlbspa/manage/Public/verify_code
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001423s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002476s ]
+
+[ 2016-04-19T22:45:58+08:00 ] 127.0.0.1 /mlbspa/manage/Public/index.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000945s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002300s ]
+SQL: SHOW COLUMNS FROM `users` [ RunTime:0.0052s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `users` WHERE ( `user_code`='admin' ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `uid`,`user_password`,`status` FROM `users` WHERE ( `user_code`='admin' ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: UPDATE `users` SET `login_ip`='127.0.0.1',`last_login_time`='1461077158' WHERE ( uid=1 ) [ RunTime:0.0005s ]
+SQL: SELECT `uid`,`user_code`,`status`,`admin_type` FROM `users` WHERE ( `user_code`='admin' ) LIMIT 1   [ RunTime:0.0004s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001476s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001547s ]
+

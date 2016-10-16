@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+    	.mt15{margin-top: 15px;}
+    	.mt20{margin-top: 20px;}
+    	.mt30{margin-top: 30px;}
+    	.mui-input-group .mui-input-row {
+		  	height: 64px;
+		}
+		.mui-radio label {
+		  padding-right: 52px;
+		}
+		.paytype .payicon{ width: 42px;height: 42px;}
+		.paytype .paylabel{ padding-left: 8px;}
+		.paylabel .payname{color: #000000;font-size: 18px; padding: 0;margin: 0;}
+		.paylabel .paydesc{padding: 0; margin: 6px 0 0 0;font-size: 12px;}
+		.mui-checkbox input[type=checkbox], .mui-radio input[type=radio] {
+		  position: absolute;
+		  top: 18px;
+		  right: 20px;
+		  display: inline-block;
+		  width: 28px;
+		  height: 26px;
+		}
+    </style>
+    
+    
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">支付订单</h1>
+	</header>
+	<div class="mui-content">
+		<div id="orderInfo">
+			
+      	</div>
+      	
+		<form class="mui-input-group mt15" id="payment">
+		
+			<!--<div class="mui-input-row mui-radio">
+				<label>radio</label>
+				<input name="radio1" type="radio" >
+			</div>
+			<div class="mui-input-row mui-radio mui-disabled">
+				<label>disabled radio</label>
+				<input name="radio1" type="radio" disabled="disabled">
+			</div>-->
+		</form>
+		
+		<div class="mt30">
+			<button type="button" class="mui-btn mui-btn-warning mui-btn-block" id="btn_pay" style="min-width: 10em; max-width:88%;margin: 0 auto;">确认支付</button>
+		</div>
+		
+		
+			
+	</div>
+<script id="orderInfoTpl" type="text/html">	
+	<ul class="mui-table-view mt15">
+		<li class="mui-table-view-cell mui-media mui-ellipsis">
+			<span>订单号：</span>
+			<span class="">{{order_sn}}</span>
+		</li>
+		<li class="mui-table-view-cell mui-media mui-ellipsis">
+			<span>订单名称：</span>
+			<span class="">{{spa_name}}</span>
+		</li>
+		<li class="mui-table-view-cell mui-media ">
+			<span>订单金额：</span>
+			<span>{{order_amount}}元</span>
+		</li>
+	</ul>
+  	<ul class="mui-table-view mt15">
+		<li class="mui-table-view-cell mui-media mui-ellipsis">
+			<span>还需支付：</span>
+			<span style="color: #FF0000;">{{pay_amount}}元</span>
+		</li>
+	</ul>
+</script>	
+<script id="paymemt" type="text/html">
+	{{each list as value i}}
+	<div class="mui-input-row mui-radio paytype">
+		<label>
+			{{if value.id=='wxpay'}}
+			    <img src="images/icon_wxpay.png" class="mui-pull-left payicon"/>
+			    <div class="mui-pull-left paylabel">
+					<p class="payname">{{value.description}}支付</p>
+					<p class="paydesc">推荐安装微信5.0版本及以上版本的使用</p>
+				</div>
+			{{else}}
+			    <img src="images/icon_alipay.png" class="mui-pull-left payicon"/>
+			    <div class="mui-pull-left paylabel">
+					<p class="payname">{{value.description}}支付</p>
+					<p class="paydesc">推荐有支付宝账号的用户使用</p>
+				</div>
+			{{/if}}
+		</label>
+		<input name="paymentId" type="radio" value="{{value.id}}">
+	</div>
+	{{/each}}
+</script>	
+<script src="js/mui.min.js"></script>
+<script type="text/javascript" src="js/template.js" ></script>
+<script src="js/api.js"></script>
+<script type="text/javascript" charset="utf-8">
+	mui.init();
+	var pays={};
+	var w=null;
+	var order_sn;
+	
+  	if(window.plus){
+		plusReady();
+	}else{
+		document.addEventListener('plusready',plusReady,false);
+	}
+	
+	function plusReady(){
+		var self = plus.webview.currentWebview();
+		order_sn = self.order_sn;//获取订单号
+		var param = {order_sn:order_sn};
+		
+		//获取订单信息
+		Api.getSpaOrderInfo(param,function(result){
+			document.getElementById('orderInfo').innerHTML = template('orderInfoTpl',result); 
+			//console.log(JSON.stringify(result));
+	    }); 
+		
+		//获取支付方式
+		var paymentData={};
+		paymentData.title = '选择支付方式';
+		plus.payment.getChannels(function(channels){
+			paymentData.list = channels;
+			for(var i in channels){
+				var channel=channels[i];
+				pays[channel.id]=channel;
+			}
+			
+			document.getElementById('payment').innerHTML = template('paymemt', paymentData);
+			console.log(JSON.stringify(paymentData));
+		},function(e){
+	        alert("获取支付通道失败："+e.message);
+	    });
+		
+		self.show();
+		plus.nativeUI.closeWaiting();
+		
+		
+		
+		
+	}
+	
+	//监听支付按钮
+	document.getElementById("btn_pay").addEventListener('tap',function(){
+		var chosed = getRadioValue('paymentId');
+		if(chosed){
+			if(w){return;}//检查是否请求订单中
+			
+			w=plus.nativeUI.showWaiting();
+			console.log('你选择的支付方式是：'+chosed);
+			
+			//获取预支付信息
+			var param = {order_sn:order_sn,pay_type:chosed};
+			Api.getSpaOrderPrePay(param,function(result){
+				w.close();w=null;
+				console.log(JSON.stringify(result));
+				plus.payment.request(pays[chosed],JSON.stringify(result),function(payresult){
+					plus.nativeUI.alert("支付成功",function(){
+						//TODO
+						//back();
+						
+					},"支付结果");
+				},function(error){
+					console.log(JSON.stringify(error));
+					plus.nativeUI.alert("支付失败",null,"支付失败："+error.code);
+				});
+				
+		    },function(result){
+		    	w.close();w=null;
+		    	plus.nativeUI.alert("获取订单信息失败！",null,"支付结果");
+		    });
+			
+		}else{
+			mui.toast('请选择支付方式');
+		}
+		
+	});
+		
+	//获取单选按钮选择的值
+	//传radio名字作为参数。未选返回false；有选择项，返回选项值。
+	function getRadioValue(name){
+		var radioes = document.getElementsByName(name);
+		for(var i=0;i<radioes.length;i++)
+		{
+			if(radioes[i].checked){
+				return radioes[i].value;
+			}
+		}
+		return false;
+	}	
+
+</script>
+
+<!--<script type="text/javascript" charset="utf-8">
+	mui.init();
+	document.addEventListener('plusready',plusReady,false);
+	var pays={};
+	var orderPayCount = 0.02;
+	function plusReady(){
+		var paymentData={};
+		paymentData.title = '选择支付方式';
+		plus.payment.getChannels(function(channels){
+			paymentData.list = channels;
+			for(var i in channels){
+				var channel=channels[i];
+				pays[channel.id]=channel;
+			}
+			
+			document.getElementById('payment').innerHTML = template('paymemt', paymentData);
+		},function(e){
+	        alert("获取支付通道失败："+e.message);
+	    });
+	    
+	    var self = plus.webview.currentWebview();
+	    var spadata = self.item;
+
+	    var html = template('orderPayTpl', spadata);
+		document.getElementById('orderPay').innerHTML = html;
+	    
+	    //console.log(JSON.stringify(spadata));
+	    //console.log(spadata.itemPrice);
+	    orderPayCount = spadata.itemPrice;
+	    
+	    
+	}
+	
+</script>-->
+<!--<script type="text/javascript" charset="utf-8">
+	var btn = document.getElementById("btn_pay");
+	
+	var w=null;
+	var WXPAYSERVER='http://demo.dcloud.net.cn/helloh5/payment/wxpay.php?total=';
+	var ALIPAYSERVER='http://demo.dcloud.net.cn/helloh5/payment/alipay.php?total=';
+	var PAYSERVER='http://demo.dcloud.net.cn/helloh5/payment/alipay.php?total=';
+
+	btn.addEventListener('tap',function(){
+		var chosed = getRadioValue('paymentId');
+		if(chosed){
+			console.log('你选择的支付方式是：'+chosed);
+			pay(chosed);
+		}
+		
+	});
+	
+	//获取单选按钮选择的值
+	//传radio名字作为参数。未选返回false；有选择项，返回选项值。
+	function getRadioValue(name){
+		var radioes = document.getElementsByName(name);
+		for(var i=0;i<radioes.length;i++)
+		{
+			if(radioes[i].checked){
+				return radioes[i].value;
+			}
+		}
+		return false;
+	}
+	
+	// 支付
+	function pay(id){
+		if(w){return;}//检查是否请求订单中
+		//console.log(orderPayCount);return;
+		
+		
+		
+		switch(id){
+			case "wxpay":
+				PAYSERVER = WXPAYSERVER;
+				break;
+//			case "alipay";
+//				PAYSERVER = ALIPAYSERVER;
+//				break;
+			default: 
+				PAYSERVER = ALIPAYSERVER;
+				break;	
+		}
+		w=plus.nativeUI.showWaiting();
+		// 请求支付订单
+		//var amount = 0.01;//document.getElementById('total').value;
+		var xhr=new XMLHttpRequest();
+		xhr.onreadystatechange=function(){
+			switch(xhr.readyState){
+				case 4:
+				w.close();w=null;
+				if(xhr.status==200){
+					console.log(xhr.responseText); 
+					plus.payment.request(pays[id],xhr.responseText,function(result){
+						plus.nativeUI.alert("支付成功",function(){
+							//TODO
+							//back();
+							
+						},"支付结果");
+					},function(error){
+						plus.nativeUI.alert("支付失败",null,"支付失败："+error.code);
+					});
+				}else{
+					plus.nativeUI.alert("获取订单信息失败！",null,"支付结果");
+				}
+				break;
+				default:
+				break;
+			}
+		}
+		
+		xhr.open('GET',PAYSERVER+orderPayCount);
+		xhr.send();
+	}
+</script>-->
+</body>
+</html>

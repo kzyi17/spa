@@ -1,0 +1,88 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+		{$action_name}
+    </DIV>
+
+    <div class="content" style="height: 440px;">
+    <if condition="ACTION_NAME EQ 'refundmentDocshow'">
+    <form action="__URL__/refundmentDocshow" method="post">
+    <input type="hidden" value="{$data.id}" name="data[id]" />
+    </if>
+	<table class="tab" width="60%" cellspacing="0" cellpadding="0" border="0">
+		<colgroup><col widtd="200px">
+		<col>
+		</colgroup><tbody>
+			<tr class="t_l">
+				<td width="15%">订单号：</td><td>{$data.order_no}</td>
+			</tr>
+			<tr class="t_l">
+				<td>订单时间：</td><td>{$data.create_time|date="Y-m-d H-i",###}</td>
+			</tr>
+
+			<tr class="t_l">
+				<td>用户名：</td><td>{$data.username}</td>
+			</tr>
+			<tr class="t_l">
+				<td>退款时间：</td><td>{$data.time|date="Y-m-d H-i",###}</td>
+			</tr>
+			<tr class="t_l">
+				<td>退款金额：</td><td>{$data.amount}</td>
+			</tr>
+			<tr class="t_l">
+				<td>退款意见：</td><td>{$data.content}</td>
+			</tr>
+			<if condition="ACTION_NAME EQ 'refundmentShow'">
+			<tr class="t_l">
+				<td>退款状态：</td><td><if condition="$data['pay_status'] eq 0">申请退款<elseif condition="$data['pay_status'] eq 1" />退款失败<else />退款成功</if></td>
+			</tr>
+			<tr class="t_l">
+				<td>操作员：</td><td>{$data.admin}</td>
+			</tr>
+			</if>
+			<if condition="ACTION_NAME EQ 'refundmentDocshow'">
+				<tr>
+					<td>处理：</td>
+					<td align="left">
+						<label><input type="radio" checked="checked" value="2" name="data[pay_status]">同意</label>
+						<label><input type="radio" value="1" name="data[pay_status]">拒绝</label>
+					</td>
+				</tr>
+				<tr class="t_l">
+				<td>处理留言：</td><td><textarea name="data[dispose_idea]" rows="5" cols="120"></textarea></td>
+			</tr>
+			</if>
+
+
+		</tbody>
+	</table>
+	<table width="100%" style="margin:10px auto" class="tab">
+				<tr class="">
+								<td>商品名称</td>
+								<td>商品原价</td>
+								<td>实际价格</td>
+								<td>商品数量</td>
+								<td>小计</td>
+							</tr>
+				<volist name="productList" id="pro">
+							<tr>
+								<td>{$pro.name}</td>
+								<td>{$pro.goods_price}</td>
+								<td>{$pro.real_price}</td>
+								<td>{$pro.goods_nums}</td>
+								<td><?php echo($pro['goods_nums']*$pro['real_price']);?></td>
+							</tr>
+			</volist>
+		</table>
+	<if condition="ACTION_NAME EQ 'refundmentDocshow'"><button class="btn" type="submit"><span>确 定</span></button></form></if>
+</div>
+
+
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>

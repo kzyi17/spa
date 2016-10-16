@@ -1,0 +1,61 @@
+<include file="Public:head"/>
+<js href="__PUBLIC__/js/common.js,{:C('WEB_STATICS')}/js/form/form.js"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>文章访问明细：</DIV> 【{$info['title']}】
+    </DIV>
+    <table width="99.5%">
+    	<colgroup>
+  			<col />
+			<col />
+		</colgroup>
+		<tbody>
+			<tr>
+				<td>
+				</td>
+				<td align="right">
+    			</td>
+			</tr>
+		</tbody>	
+    </table>
+    
+    <table width="620" border="0" cellpadding="0" cellspacing="0" class="tab">
+    	<colgroup>
+  			<col width="50px"/>
+			<col/>
+			<col/>
+		</colgroup>
+      <thead>
+        <tr align="center">
+          <td></td>
+          <td>访问IP</td>
+          <td>访问时间</td>
+        </tr>
+      </thead>
+      <tbody>
+        <volist name="logList" id="vo">
+          <tr id="">
+            <td align="center"></td>
+            <td align="center">{$vo['client_ip']}</td>
+            <td align="center">{:date('Y-m-d H:i:s',$vo['create_time'])}</td>
+          </tr>
+        </volist>
+      </tbody>
+    </table>
+    <form action="" method="post" id="opForm">
+      <input id="cid" type="hidden" name="data[class_id]" />
+      <input id="act" type="hidden" name="act" />
+      <input id="pid" type="hidden" name="data[pid]" />
+      <input id="name" type="hidden" name="data[class_name]" />
+    </form>
+    <div class="commonBtnArea" >
+        {$page}
+    </div>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+
+<include file="Public:foot"/>

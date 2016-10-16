@@ -1,0 +1,139 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<html class="ui-page-login">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>用户登录</title>
+	<base href="/mlbspa/weixin/<?php echo TMPL_PATH; echo MODULE_NAME;?>/" />
+	<link href="css/mui.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="css/style.css" />
+	<style>
+		.ui-logo {
+			width: 100px;
+			height: 100px;
+			margin: 20px auto 25px auto;
+			background-image: url(images/user-photo.png);
+			background-position: center center;
+			background-repeat: no-repeat; 
+			background-size: 100% 100%;
+			border-radius: 60px;
+		}
+		.mui-content-padded {
+			margin-top: 20px;
+		}
+		.ui-login-form {
+			border: solid 1px #ddd;
+			border-radius: 5px;
+			margin: 10px;
+			overflow: hidden;
+			background-color: #ddd;
+		}
+		.ui-login-form input {
+			border: none;
+			margin: 0px;
+			font-size: 18px;
+			padding: 15px !important;
+			border-radius: 0px;
+			height: auto;
+		}
+		.ui-login-form input:first-child {
+			margin-bottom: 1px;
+		}
+		.mui-btn-block {
+			padding: 12px 0px;
+		}
+		.mui-checkbox label {
+			display: inline-block;
+			width: auto;
+			vertical-align: text-bottom;
+			padding: 2px 0px;
+			color: #777;
+		}
+		.mui-checkbox input {
+			position: relative !important;
+			top: auto!important;
+			left: auto!important;
+			right: auto!important;
+			bottom: auto!important;
+			margin: 0px;
+			padding: 0px;
+			vertical-align: text-bottom;
+		}
+		.mui-checkbox {
+			margin: 3px 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">用户登录</h1>	
+		<button class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" id='reg'>注册</button>
+	</header>
+	<div class="mui-content">
+		<div class="ui-logo"></div>
+		<form class="ui-login-form">
+			<input id='account' type="text" class="mui-input-clear mui-input" placeholder="账号" value="">
+			<input id='password' type="password" class="mui-input-clear mui-input" placeholder="密码" value="">
+		</form>
+		<div class="mui-checkbox">
+			<input class="mui-checkbox" id='autoLogin' name="checkbox" type="checkbox">
+			<label>记住我的状态</label>
+		</div>
+		<div class="mui-content-padded">
+			<button id='login' class="mui-btn mui-btn-block mui-btn-danger mui-btn-primary">登录</button>
+		</div>
+	</div>
+	<script src="js/mui.min.js"></script>
+	<script src="js/api.js"></script>
+	<script src="js/app.js"></script>
+	<script>
+		(function($, doc) {
+			$.init();
+			$.ready(function() {
+				var loginButton = doc.querySelector('#login');
+				var accountBox = doc.querySelector('#account');
+				var passwordBox = doc.querySelector('#password');
+				var autoLoginButton = doc.querySelector("#autoLogin");
+				var regButton = doc.getElementById('reg');
+				loginButton.addEventListener('tap', function(event) {
+					if(accountBox.value=='' || passwordBox.value==''){
+						$.toast('用户、密码不能为空！');
+					} else {
+						var loginInfo = {
+							account: accountBox.value,
+							password: passwordBox.value
+						};
+						Api.login(loginInfo,function(result){
+							$.ajax({
+								data:result,
+								type:"post",
+								url:"/mlbspa/weixin/user/login.html",
+								success:function(data){
+									$.toast(data.info);
+									setTimeout(function(){
+										window.location = data.url;
+									},2000);
+								},
+								error:function(xhr,type,errorThrown){
+									//异常处理；
+									console.log(type);
+								}
+							});
+							
+						},function(result){
+							$.toast(result.errmsg);
+						});
+						
+					}
+				});
+				regButton.addEventListener('tap', function(event) {
+					window.location = "<?php echo U('user/reg');?>";
+				}, false);
+			});
+		}(mui, document));
+	</script>
+</body>
+
+</html>

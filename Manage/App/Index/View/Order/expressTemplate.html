@@ -1,0 +1,50 @@
+<css rel="stylesheet" href="../Public/css/base.css" />
+<js href="{:C('WEB_STATICS')}/js/jquery-1.9.0.min.js" />
+<div class="container">
+	<table class="m_10" width="100%" cellspacing="0" cellpadding="0" border="0">
+		<col />
+		<tr>
+			<td align="left"><img src="{:C('WEB_STATICS')}/public/logo.png" width="250" height="53" /></td>
+		</tr>
+	</table>
+
+	<div class="container">
+		<form action='{:U('order/expressPrint')}' method='post' id='express_print'>
+			<input type='hidden' name='order_id' id='order_id' value='' />
+			<input type='hidden' name='express_id' id='express_id' value='' />
+
+			
+			<table class="tab" width="100%" cellspacing="0" cellpadding="0" border="0" style='margin-top:15px'>
+				<tr>
+					<th>收货人姓名:</th><td align='left'>{$order.accept_name}&nbsp;</td>
+				</tr>
+				<tr>
+					<th>收货地址:</th><td align='left'>{$orderRow.province_str'} &nbsp; {$orderRow['city_str']} &nbsp; {$orderRow['area_str']} &nbsp; {$orderRow['address']}</td>
+				</tr>
+				<tr>
+					<th>联系手机:</th><td align='left'>{$orderRow.mobile}&nbsp;</td>
+				</tr>
+				<tr>
+					<th>联系电话:</th><td align='left'>{$orderRow.telphone}&nbsp;</td>
+				</tr>
+				<tr>
+					<th>邮编:</th><td align='left'>{$orderRow.postcode}&nbsp;</td>
+				</tr>
+				<tr>
+					<th>订单附言:</th><td align='left'>{$orderRow.postscript}&nbsp;</td>
+				</tr>
+				<tr>
+					<th></th>
+					<td align='left'>
+						<if condition="$express">
+						<volist name="express" id='printRow'>
+						<input type="submit" class="btn" onclick="$('#express_id').val('{$printRow.id}');$('#order_id').val('{$orderRow.order_id}');" value="{$printRow.name}">
+						</volist>
+						<else />
+						当前还没有快递单模板<a href=''>点击新建</a>
+						</if>
+					</td>
+			</table>
+		</form>
+	</div>
+</div>

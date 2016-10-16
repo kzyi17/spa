@@ -1,0 +1,27 @@
+<DIV id=Left>
+  <DIV id=control></DIV>
+  <div class="subMenuList">
+        <div class="itemTitle"><if condition="CONTROLLER_NAME eq 'Index'">常用操作<else/>子菜单</if> </div>
+        <if condition="$isThreeMenu eq 1">
+        <ul>
+            <foreach name="sub_menu" item="secend">
+                <div class="menuItemTitle">{$secend.info}</div>
+                <foreach name="secend.list" item="sv">
+                	<li><a href="{$sv.url}">{$sv.title}</a></li>
+                </foreach>
+            </foreach>
+        </ul>
+        <else />
+        <ul>
+            <foreach name="sub_menu" item="sv">
+                <li><a href="{$sv.url}">{$sv.title}</a></li>
+            </foreach>
+        </ul>
+        </if>
+        
+  </div>
+  <!--
+  <DIV class=QRcode>移动设备访问本页：<BR>
+    <BR>
+    <IMG src="{$QRcodeUrl}"></DIV>-->
+</DIV>

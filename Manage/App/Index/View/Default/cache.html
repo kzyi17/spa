@@ -1,0 +1,181 @@
+<include file="Public:head" />
+<DIV class=clear></DIV>
+        <div class="mainBody"> <include file="Public:left" />
+            <div id="Right">
+                <div class="contentArea">
+                    <div class="Item hr">
+                        <div class="current">前台缓存文件删除</div>
+                    </div>
+                        <table width="99.5%" border="0" cellspacing="0" cellpadding="0" class="table1" id='table_Member'>
+                            <tr>
+                            <form action="__URL__/del_cache" method="post">
+                            <th width="20px;" style="text-align:center"><input name="alldel_Membercache" id="alldel_Membercache" type="checkbox" value=""/></th>
+                            <th  width="170px;" style="text-align:center">文件夹名称</th>
+                            <th  style="text-align:center">文件夹路径</th>
+                            </tr>
+							<volist name='mobile' id='m'>
+                            <tr id='mobile{$m.name}'>
+                            <td><input name="del[]" type="checkbox" value="{$m.path}" class="del_Membercache"/></td>
+                            <td>{$m.name}</td>
+                            <td><a href="javascript:GetChildrenList('{:base64_encode($m['path'])}','mobile','{$m.name}')">{$m.path}</a></td>
+                            </tr>
+                            </volist>
+                            </table>
+                            <input class="btn test" value="删除前台台缓存" id="Membercache" type="submit" ></input>
+							</form>
+                            <div class="Item hr">
+                        <div class="current">后台缓存文件删除</div>
+                    </div>
+                             <table width="99.5%" border="0" cellspacing="0" cellpadding="0" class="table1" id='table_Manage'>
+                            <tr>
+                            <form action="__URL__/del_cache" method="post">
+                            <th width="20px;"   style="text-align:center"><input name="alldel_Managecache" id='alldel_Managecache' type="checkbox" value=""/></th>
+                            <th  width="170px;" style="text-align:center">文件夹名称</th>
+                            <th  style="text-align:center">文件夹路径</th>
+                            </tr>
+                            <volist name="manage" id="ma" key="k" >
+                            <tr>
+                            <td><input name="del[]" class="del_Managecache" type="checkbox" value="{$ma.path}"/></td>
+                            <td>{$ma.name}</td>
+                            <td><a href="javascript:GetChildrenList('{:base64_encode($ma['path'])}','manage','{$ma.name}')">{$ma.path}</a></td>
+                            </tr>
+                            </volist>
+                        </table>
+                         <input class="btn test" value="删除后台缓存" id="Managecache" type="submit" ></input></form>
+                         <div class="Item hr">
+                      
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+<include file="Public:foot"/>
+<script type="text/javascript">
+$(function(){
+    clickCheckbox();
+    $("#Managecache").click(function(){
+         if($("#table_Manage input[type='checkbox']:checked").size()==0){
+                popup.alert("请先选择要删除的缓存吧");
+                return false;
+         }
+            });
+    $("#Membercache").click(function(){
+         if($("#table_Member input[type='checkbox']:checked").size()==0){
+                popup.alert("请先选择要删除的缓存吧");
+                return false;
+         }
+            });
+    $("#Homepagecache").click(function(){
+        if($("#table_Homepage input[type='checkbox']:checked").size()==0){
+               popup.alert("请先选择要删除的缓存吧");
+               return false;
+        }
+           });  
+    $("#WWWcache").click(function(){
+        if($("#table_WWW input[type='checkbox']:checked").size()==0){
+               popup.alert("请先选择要删除的缓存吧");
+               return false;
+        }
+           });  
+    $("#Agentcache").click(function(){
+        if($("#table_Agent input[type='checkbox']:checked").size()==0){
+               popup.alert("请先选择要删除的缓存吧");
+               return false;
+        }
+           });
+    $("#Centercache").click(function(){
+        if($("#table_Center input[type='checkbox']:checked").size()==0){
+               popup.alert("请先选择要删除的缓存吧");
+               return false;
+        }
+           });
+    $("#Businesscache").click(function(){
+        if($("#table_Business input[type='checkbox']:checked").size()==0){
+               popup.alert("请先选择要删除的缓存吧");
+               return false;
+        }
+           });
+    $("#alldel_Membercache").click( 
+     function(){ 
+     if(this.checked){ 
+     $(".del_Membercache").prop('checked', true); 
+    }else{ 
+     $(".del_Membercache").prop('checked', false);
+    } 
+    } 
+    );
+	$("#alldel_Managecache").click( 
+     function(){ 
+     if(this.checked){ 
+     $(".del_Managecache").prop('checked', true); 
+    }else{ 
+     $(".del_Managecache").prop('checked', false);
+    } 
+    } 
+    );
+	$("#alldel_Homepagecache").click( 
+     function(){ 
+     if(this.checked){ 
+     $(".alldel_Homepagecache").prop('checked', true); 
+    }else{ 
+     $(".alldel_Homepagecache").prop('checked', false);
+    } 
+    } 
+    );
+	$("#alldel_WWWcache").click( 
+     function(){ 
+     if(this.checked){ 
+     $(".alldel_WWWcache").prop('checked', true); 
+    }else{ 
+     $(".alldel_WWWcache").prop('checked', false);
+    } 
+    } 
+    );
+	$("#alldel_Agentcache").click( 
+		     function(){ 
+		     if(this.checked){ 
+		     $(".alldel_Agentcache").prop('checked', true); 
+		    }else{ 
+		     $(".alldel_Agentcache").prop('checked', false);
+		    } 
+		    } 
+		    );
+	$("#alldel_Centercache").click( 
+		     function(){ 
+		     if(this.checked){ 
+		     $(".alldel_Centercache").prop('checked', true); 
+		    }else{ 
+		     $(".alldel_Centercache").prop('checked', false);
+		    } 
+		    } 
+		    );
+	$("#alldel_Businesscache").click( 
+		     function(){ 
+		     if(this.checked){ 
+		     $(".alldel_Businesscache").prop('checked', true); 
+		    }else{ 
+		     $(".alldel_Businesscache").prop('checked', false);
+		    } 
+		    } 
+		    );
+    
+})
+
+function GetChildrenList(file,type,name){
+	var html='';
+	/*$.post("{:U('Default/getChildrenFiles')}",{'file':file,'type':type},function(json){
+		if(json){
+			for(key in json){
+				html +='<tr id="'+type+json[key].name+'"><td><input type="checkbox" class="del_Membercache" value="'+key+'" name="del[]"></td><td>'+json[key].name+'</td><td><a href=\'javascript:GetChildrenList("'+json[key].decode_path+'","'+type+'","'+json[key].name+'")\' title="">'+json[key].path+'</a></td></tr>';
+			}
+			//$('#'+type+name).after(html);
+		}else{
+			return false;
+		}
+	},'json');*/
+}
+
+</script>
+</BODY></HTML>
+
+

@@ -1,0 +1,45 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<html class="ui-page-login">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title></title>
+<base href="/mlbspa/weixin/Public/" />
+<link href="css/mui.min.css" rel="stylesheet" />
+<link href="css/style.css" rel="stylesheet" />
+<style>
+	.news-title{
+    	text-align: center;
+    	line-height: 40px;
+    }
+    .news-title-sub{
+    	padding: 0 10px;
+    }
+    .news-contnet{
+    	clear: both;
+    	padding: 10px 10px;
+    }
+</style>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav myheader">
+	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	<h1 class="mui-title">文章内容</h1>
+	<a href="<?php echo U('register','userid='.$uid);?>" class="mui-btn-link mui-pull-right" id="BtnShare">注册</a>
+</header>
+<div class="mui-content">
+	<div class="news-title"><?php echo ($art['title']); ?></div>
+	<div class="news-title-sub"><span class="mui-pull-left"><?php echo date('Y-m-d',$art['create_time']);?></span><span class="mui-pull-right">顶部广告位内容</span></div>
+	<div class="news-contnet">
+		<?php echo ($art['content']); ?>
+	</div>
+</div>
+<script src="js/mui.min.js"></script>
+<script>
+(function($, doc) {
+	$.init();
+	
+}(mui, document));
+</script>
+</body>
+</html>

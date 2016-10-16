@@ -1,0 +1,450 @@
+<include file="Public:head"/>
+<js href="{:C('WEB_STATICS')}/js/form/form.js,{:C('WEB_STATICS')}/js/artTemplate/artTemplate.js" />
+<js href="__PUBLIC__/js/kindeditor/kindeditor-min.js,__PUBLIC__/js/kindeditor/lang/zh_CN.js"/>
+<style>
+.inactive{color:#ccc; cursor:default;}
+</style>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$action_name}</DIV>
+    </DIV>
+
+    <div class="headbar clearfix">
+        <ul class="tab_goods" name="menu1">
+            <li id="li_1" class="selected"><a href="javascript:void(0)" hidefocus="true" onclick="select_tab('1')">订单信息</a></li>
+            <li id="li_2"><a href="javascript:void(0)" hidefocus="true" onclick="select_tab('2')">订单备注</a></li>
+            <li id="li_3"><a href="javascript:void(0)" hidefocus="true" onclick="select_tab('3')">订单附言</a></li>
+        </ul>
+    </div>
+
+    <div class="content_box" style="height:100%">
+        <div class="content form_content">
+
+                <input type="hidden" name="id" value="{$data.order_id}" />
+                <input type='hidden' name="img" value="" />
+                <input type='hidden' name="_imgList" value="" />
+                <input type='hidden' name="callback" value="" />
+                <div id="table_box_1" style="">
+					<div style='float:left;width:100%;'>
+					<table class="border_table tab" cellspacing="0" cellpadding="0">
+						<colgroup><col width="550px">
+						<col width="100px">
+						<col width="100px">
+						<col width="100px">
+						<col>
+						</colgroup><thead>
+							<tr class="">
+								<th>商品名称</th>
+								<th>商品原价</th>
+								<th>实际价格</th>
+								<th>商品数量</th>
+								<th>小计</th>
+							</tr>
+						</thead>
+						<tbody>
+						<volist name="data.product" id="pro">
+							<tr>
+								<td>{$pro.name}
+								<?php for($i=0;$i<count($pro['spec_array']);$i++):?>&nbsp;
+									<?php echo $pro['spec_array'][$i]['name']?>:
+									<?php if ($pro['spec_array'][$i]['type'] ==1):?>
+									<?php echo $pro['spec_array'][$i]['value']?>
+									<?php else:?>
+									<img src="{:C('WEB_STATICS')}<?php echo $pro['spec_array'][$i]['value']?>" width="50px" height="40px" />
+									<?php endif; ?>
+								<?php endfor;?>
+								</td>
+								<td>{$pro.goods_price}</td>
+								<td>{$pro.real_price}</td>
+								<td>{$pro.goods_nums}</td>
+								<td><?php printf("%.2f",($pro['goods_nums']*$pro['real_price']));?></td>
+								
+							</tr>
+						</volist>
+						</tbody>
+					</table>
+					
+                   <table class="border_table f_l tab" style="float:left;width:300px;margin-right:20px;" cellspacing="0" cellpadding="0" border="0">
+						<colgroup><col width="80px">
+						<col>
+						</colgroup><thead>
+							<tr><th colspan="2" height='24'>订单金额明细</th></tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th>订单类型:</th><td><if condition="$data['order_type'] eq 0">普通订单<elseif condition="$data['order_type'] eq 3"/>(套餐订单)<elseif condition="$data['order_type'] eq 1"/>团购<else />限时抢购</if></td>
+							</tr>
+							<tr>
+								<th>商品总额:</th><td>{$data.goods_amount}</td>
+							</tr>
+							<tr>
+								<th>保价费用:</th><td>
+								<if condition="$data['is_insured'] eq 1">
+								{$data.insured}<else />不保价</if></td>
+							</tr>
+							<tr>
+								<th>税金:</th><td>{$data.taxes}</td>
+							</tr>
+							<tr>
+								<th>优惠总额:</th><td>{$data.promotions}</td>
+							</tr>
+							<tr>
+								<th>支付费用:</th><td>{$data.pay_fee}</td>
+							</tr>
+							<tr>
+								<th>物流费用:</th><td>{$data.shipping_fee}</td>
+							</tr>
+							<tr>
+								<th>增加或减少金额(优惠券):</th><td>{$data.discount}</td>
+							</tr>
+							<tr>
+								<th>订单总额:</th><td>{$data.order_amount}</td>
+							</tr>
+							
+						</tbody>
+					</table>
+					<table class="border_table f_l tab" cellpadding="0" cellspacing='0' style="float:left;width:300px;margin-right:20px;">
+						<colgroup><col width="80px">
+						<col>
+						</colgroup><thead>
+							<tr><th colspan="2" height='24'>订单其他信息</th></tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th>配送方式:</th><td>{$data.deliveryName}</td>
+							</tr>
+							<tr>
+								<th>配送保价:</th><td><if condition="$data['is_insured'] eq 1">保价<else />不保价</if></td>
+							</tr>
+							<tr>
+								<th>商品重量:</th><td>{$data.goods_weight}</td>
+							</tr>
+							<tr>
+								<th>支付方式:</th><td>{$data.payTypeName}</td>
+							</tr>
+							<tr>
+								<th>是否要票:</th><td><if condition="$data['invoice'] eq 1">是<else />否</if></td>
+							</tr>
+							<tr>
+								<th>发票抬头:</th><td>{$data.invoice_title}</td>
+							</tr>
+							<tr>
+								<th>可得积分:</th><td> {$data.points}</td>
+							</tr>
+						</tbody>
+					</table>
+					<table class="border_table f_l tab" cellpadding="0" cellspacing='0' style="float:left;width:300px;margin-right:20px;">
+			<colgroup><col width="80px">
+			<col>
+			</colgroup><thead>
+				<tr><th colspan="2" height='24'>收货人信息</th></tr>
+			</thead>
+			<tbody>
+				<!-- <tr>
+					<th>发货日期:</th><td><if condition="$data['distribution_time'] eq 1">任意<elseif condition="$data['distribution_time'] eq 2"/>周一至周末<else />周末</if></td>
+				</tr> -->
+				<tr>
+					<th>姓名:</th><td>{$data.accept_name}</td>
+				</tr>
+				<tr>
+					<th>电话:</th><td>{$data.mobile}</td>
+				</tr>
+				<tr>
+					<th>手机 :</th><td>{$data.telphone}</td>
+				</tr>
+				<tr>
+					<th>地区:</th><td>
+					{$data.provinceName} {$data.cityName} {$data.areaName}
+					</td>
+				</tr>
+				<tr>
+					<th>地址:</th><td>{$data.address}</td>
+				</tr>
+				<tr>
+					<th>邮编:</th><td>{$data.postcode}</td>
+				</tr>
+				<tr>
+					<th>订单生成时间:</th><td>{$data.create_time|date='Y-m-d H:i',###}</td>
+				</tr>
+			</tbody>
+		</table>
+		<table class="tab" cellspacing="0" cellpadding="0" border="0" style="float:left;width:300px;margin-right:20px;">
+		<tr align='center'><td colspan='3'>订单状态</td></tr>
+		<tr align='center'><td><if condition="$data['pay_status'] eq 0">未付款<elseif condition="$data['pay_status'] eq 1"/><b class='green'>已付款</b><elseif condition="$data['pay_status'] eq 2"/>退款完成<else/><span class="red"><b>申请退款</b></span></if></td>
+
+          <td><if condition="$data.status eq 1">生成订单<elseif condition="$data.status eq 2"/>确认订单<elseif condition="$data.status eq 3"/>取消订单<elseif condition="$data.status eq 4"/>作废订单<else /><b class='green'>完成订单</b></if>
+		  </td>
+		  <td><if condition="$data['distribution_status'] eq 5"><b class='green'>已收货</b><elseif  condition="$data['distribution_status'] eq 1" /><b class='green'>已发货</b><else/>未发货</if></td></tr>
+		</table>
+		</div>
+			<div class="pages_bar" style='float:left;'>
+						<div class="t_c" id="ctrlButtonArea">
+							<button type="button" class="btn" id="to_pay" onclick="pay({$data.order_id});"><span><if condition="$data.pay_type eq 0">货到付款确认<else/>支付</if></span></button>
+							<button type="button" class="btn" id="to_deliver" onclick="deliver({$data.order_id});"><span>发货</span></button>
+							<button type="button" class="btn" id="to_refundment" onclick="refundment({$data.order_id});"><span>退款</span></button>
+							<button type="button" class="btn" onclick="complete({$data.order_id},5)"><span>完成</span></button>
+							<button type="button" class="btn" onclick="complete({$data.order_id},4)"><span>作废</span></button>
+                            <button type="button" class="btn" onclick="javascript:history.go(-1);"><span>返回</span></button>
+						</div>
+					</div>
+                </div>
+
+                <div id="table_box_2" cellpadding="0" cellspacing="0" style="display:none">
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="tab">
+
+                        <tr width="90%">
+                            <td width="8%">用户备注</td>
+                            <td width="92%">{$data.postscript}</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div id="table_box_3" cellpadding="0" cellspacing="0" style="display:none">
+					<form action="" method="POST" name="noteform">
+					<input type="hidden" name="order_id" value="{$data.order_id}" />
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="tab">
+                        <tr height="50">
+						<th width="200">订单附言:</th>
+						<td align="left"  width="90%"><textarea id="note" cols="100" rows="8" name="note">{$data.note}</textarea></td>
+					</tr>
+					<tr height="50">
+						<th width="200"> </th>
+						<td align="left"><button class="btn" type="submit" id="submit"><span>保存</span></button></td>
+					</tr>
+                    <script>
+					$('#submit').click(function(){
+					var formObject = document.forms['noteform'];
+					$.post("__URL__/orderNote", $(formObject).serialize(), function(json){
+						if(json.status == 1){
+							//popup.alert(json.url);
+							location.href =json.url;
+							return true;
+						}else{
+							popup.alert(json.info);
+							return false;
+						}
+					},'json');
+					return false;
+					});
+					</script>
+                    </table></form>
+                </div>
+
+
+        </div>
+		
+    </div>
+
+  </DIV>
+</DIV>
+</DIV>
+
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>
+	<script>
+
+//选择当前Tab
+function select_tab(curr_tab)
+{
+	$(".content > div").hide();
+	$(".pages_bar").show();
+	$("#table_box_"+curr_tab).show();
+	$("ul[name=menu1] > li").removeClass('selected');
+	$('#li_'+curr_tab).addClass('selected');
+	$('.commonBtnArea').css('display','block');
+}
+</script>
+<script type='text/javascript'>
+
+var pay_status = '{$data.pay_status}';
+var pay_type = '{$data.pay_type}';
+var status = '{$data.status}';
+var distribution_status = '{$data.distribution_status}';
+var order_no = '{$data.order_no}';
+//DOM加载完毕后运行
+$(function()
+{
+	select_tab(1);
+	initButton();
+});
+
+/**
+ * 订单操作按钮初始化
+ */
+function initButton()
+{
+	//订单当前为活跃状态
+	<if condition="$data.status lt 3">
+		//付款按钮锁定 已经付过款
+		<if condition="$data.pay_status neq 0">
+			$('#to_pay').attr('disabled','disabled');
+			$('#to_pay').addClass('inactive');
+		</if>
+		
+		//发货按钮锁定 已经发过货
+		<if condition="$data.distribution_status neq 0">
+			$('#to_deliver').attr('disabled','disabled');
+			$('#to_deliver').addClass('inactive');
+		</if>
+
+		//退款按钮锁定 未付款或者已经退款
+		<if condition="$data.pay_status eq 0 OR $data.pay_status eq 2">
+			$('#to_refundment').attr('disabled','disabled');
+			$('#to_refundment').addClass('inactive');
+		</if>
+	//订单当前为非活跃状态
+	<else />
+		//全部操作区域的按钮锁定
+		$('#ctrlButtonArea button').attr('disabled','disabled');
+		$('#ctrlButtonArea button').addClass('inactive');
+
+		//订单完成且付款 退款按钮可以点击
+		<if condition="$data.status eq 5 AND $data.pay_status eq 1">
+			$('#to_refundment').removeAttr('disabled');
+			$('#to_refundment').removeClass('inactive');
+		</if>
+	</if>
+	<if condition="$data.pay_type eq 0 and $data.status eq 2">
+			$('#to_pay').attr('disabled','disabled');
+			$('#to_pay').addClass('inactive');
+	</if>
+}
+
+
+
+//完成或作废订单
+function complete(id,statusVal)
+{
+
+	if(pay_type!='0' && pay_status=='0' && statusVal == '5')
+	{
+		alert('请先支付订单金额，再完成订单!');
+		return false;
+	}
+	if(distribution_status=='0' && statusVal == '5')
+	{
+		alert('请发货，再完成订单!');
+		return false;
+	}
+	var order_no = {$data.order_no};
+	$.getJSON("__URL__/orderComplete",{'order_no':order_no,'type':statusVal,'id':id}, function(data)
+	{
+		if(data.status==1)
+		{
+			actionCallback();
+		}
+		else
+		{
+			//alert(data.status);
+			alert('发生错误');
+		}
+	});
+}
+
+//退款
+function refundment(id)
+{
+	var url=document.URL;
+	url     = url.replace('orderShow','orderRefundment');
+	art.dialog.open(url,{
+		id:'refundment',
+		cancelVal:'关闭',
+		okVal:'退款',
+	    title: '订单号:{$data.order_no}【退款到余额账户】',
+	    ok:function(iframeWin, topWin){
+	    	iframeWin.document.forms[0].submit();
+	    	return false;
+	    },
+	    cancel:function(){
+	    	return true;
+		}
+	});
+}
+
+//付款
+function pay(id)
+{
+	var url=document.URL;
+	url     = url.replace('orderShow','orderCollection');
+	if(pay_type=='0'){
+		var okValue = '确认';
+	}else{
+		var okValue = '付款'
+	}
+	art.dialog.open(url,{
+		id:'pay',
+	    title: '订单号:{$data.order_no}【付款】',
+	    cancelVal:'关闭',
+		okVal:okValue,
+	    ok:function(iframeWin, topWin){
+			iframeWin.document.forms['payform'].submit();
+			return false;
+	    },
+	    cancel:function (){
+	    	return true;
+		}
+	});
+}
+
+//发货
+function deliver(id)
+{
+	if(pay_type!='0' && pay_status=='0')
+	{
+		alert('请先支付订单金额，再发货!');
+		return false;
+	}
+	if(pay_type=='0' && status=='1')
+	{
+		alert('请发货，再完成订单!');
+		return false;
+	}
+	var url=document.URL;
+	url     = url.replace('orderShow','orderDeliver');
+	var deliv = art.dialog.open(url,{
+		id:'deliver',
+	    title: '订单号:{$data.order_no}【发货】',
+	    cancelVal:'关闭',
+		okVal:'发货',
+	    ok:function(iframeWin, topWin){
+			var formObject = iframeWin.document.forms['deliverform'];
+			var code = $(formObject).find('input[name="deliver[delivery_code]"]').val();
+			if(code==''){
+				alert('请输入配送单号');return false;
+			}
+	    	iframeWin.document.forms[0].submit();
+	    	return false;
+	    },
+	    cancel:function (){
+	    	return true;
+		}
+	});
+}
+
+//执行回调处理
+function actionCallback()
+{
+	var url = document.URL;
+	window.location.reload();
+	location.href=url;
+}
+function actionCallbackmy(msg)
+{
+	alert(msg);
+	window.location.reload();
+}
+//操作失败回调
+function actionFailCallback()
+{
+	alert('操作失败');
+}
+//操作失败回调
+function actionFailCallbackmy(msg)
+{
+	alert(msg);
+	window.location.reload();
+}
+</script>

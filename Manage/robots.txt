@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /App/Runtime
+Disallow: /App/Common
+Disallow: /App/Index/Model
+Disallow: /App/Index/View
+Disallow: /App/Public

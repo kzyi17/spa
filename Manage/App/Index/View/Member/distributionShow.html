@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="overflow-y:auto">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="/Public/css/base.css"  rel="stylesheet" type="text/css"/>
+<title></title>
+<body>
+<div>
+	<form action="__URL__/memberDelAll" method="post" id='memberdistri' name="member_list">
+	<table width="99.5%" border="0" cellspacing="0" cellpadding="0" class="tab">
+	  
+      <thead>
+      <tr><td colspan="7"><strong>会员（{$recommend_member}）获得会员（{$member}）的返利记录</strong></td></tr>
+		<tr>
+        	<td><input name="checkall" id="checkall" type="checkbox" value="" onclick="selectAll('check[]')"/></td>      
+            <td>订单号</td>
+            <td>订单金额（不含运费）</td>
+            <td>返利比例（‰）</td>
+            <td>返利金额</td>
+            <td>订单成交时间</td>
+            <td>处理状态</td>       
+		</tr>
+        <volist name="list" id="item">
+        <tr>
+        	<td><input name="check[]" type="checkbox" id="checkone" value="{$item.id}" /></td>
+            <td>{$item.order_sn}</td>
+            <td>{$item.order_amount}</td>
+            <td>{$item.discount}</td>
+            <td>{$item.amount}</td>
+            <td>{:date('Y-m-d H:i:s',$item['time'])}</td>
+            <td><switch name="item.status"><case value="-1">失败</case><case value="0">未处理</case><case value="1">处理中</case><case value="2">返利成功</case><default />异常</switch></td>
+            
+        </tr>
+        </volist>
+ 	  </thead>
+    </table>
+	</form>
+
+</div>
+</body>
+</html>

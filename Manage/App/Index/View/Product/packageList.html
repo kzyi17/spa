@@ -1,0 +1,89 @@
+<include file="Public:head"/>
+<js href="__PUBLIC__/js/common.js,{:C('WEB_STATICS')}/js/form/form.js"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$action_name}</DIV>
+    </DIV>
+    <table width="99.5%">
+    	<colgroup>
+  			<col />
+			<col width="660px"/>
+		</colgroup>
+		<tbody>
+			<tr>
+				<td>
+					<a class='btn' href="{:U('product/packageAdd')}"> 添加套餐   </a>
+					
+					
+				</td>
+				<td>
+    			</td>
+			</tr>
+		</tbody>	
+    </table>
+    
+    <table width="99.5%" border="0" cellpadding="0" cellspacing="0" class="tab">
+    	<colgroup>
+  			<col width="60px"/>
+			<col/>
+			<col/>
+			<col width="100px"/>
+			<col width="100px"/>
+			<col width="200px"/>
+			
+			<col width="140px"/>
+		</colgroup>
+      <thead>
+        <tr align="center">
+          <td >选择</td>
+          <td >套餐名称</td>
+          <td >套餐商品</td>
+          <td >商品总价</td>
+          <td >优惠价</td>
+          <td >有效期</td>
+         
+          <td >操作</td>
+        </tr>
+      </thead>
+      <tbody>
+        <volist name="packageList" id="vo">
+          <tr  id="{$vo['package_id']}">
+            <td align="center"><input name="del_id[]" type="checkbox" value="{$vo.product_id}" /></td>
+            <td >{$vo.package_name}</td>
+            <td align="left">
+				<volist name="vo.goods" id="item">
+					<img src="{:C('WEB_STATICS')}{$item.photo}" width="38" height="38"/> 
+					
+				</volist>
+			</td>
+            <td align="center">{$vo.total_price}</td>
+            <td align="center">{$vo.package_amount}</td>
+            <td align="center">{:date('Y-m-d',$vo['start_time'])} 至 {:date('Y-m-d',$vo['end_time'])}</td>
+            
+            <td align="center">
+			<if condition="$search['is_del'] eq 1">
+			<a href='javascript:updateShelf({$vo["product_id"]},0,'恢复')'>[恢复删除]</a>
+			<a href='javascript:productRecyleDel({$vo["product_id"]})'>[强力删除]</a>
+			<else />
+			 <a href='{:U("Product/packageEdit","id=".$vo['package_id'])}'>[编辑]</a> <a href="javascript:void(0)" onclick='delModel({link:"<php>echo U("Product/packageDel","id=".$vo["package_id"])</php>"})'>[删除]</a>
+			</if>
+			</td>
+          </tr>
+        </volist>
+      </tbody>
+    </table>
+    
+    <div class="commonBtnArea" >
+        {$page}
+    </div>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+<script>
+
+
+</script>

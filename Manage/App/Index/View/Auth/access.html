@@ -1,0 +1,57 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$action_name}</DIV>
+    </DIV>
+    <script language="javascript" type="text/javascript" src="__PUBLIC__/js/datePicker/WdatePicker.js"></script>
+  <table width="99.5%" border="0" cellspacing="0" cellpadding="0" class="tab">
+               <tr colspan="12"><div style="margin-bottom:10px;">
+              </div></tr>
+                    <thead>
+                            <tr>
+
+                                <td width="6%">ID</td>
+                                <td width="15%">管理员账号</td>
+                                <td width="15%">类型</td>
+                                <td width="15%">开通时间</td>
+                                <td width="30%">授权组</td>
+                                <td width="">操作</td>
+                            </tr>
+                        </thead>
+
+                        <volist name="list" id="vo" key="k">
+                        <tr align="center"  id="{$vo.id}">
+                                <td>{$vo.uid}</td>
+                                <td>{$vo.user_code}</td>
+                                <td>{$vo.typeName}</td>
+                                <td>{$vo.create_time|date="Y-m-d h:i",###}</td>
+                                <td>{$vo.groupsTitle}</td>
+                                <td><input class="btn submit" type="button" href="javascript:void(0);" onclick="javascript:toUrl({$vo.uid});return false;" value="组管理" /></td>
+
+
+                            </tr>
+
+                            </volist>
+
+                             <tr align="center">
+                          <td colspan="12">{$page}</td>
+                          </tr>
+                    </table>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>
+<script type="text/javascript">
+
+function toUrl($uid)
+{
+     window.location.href="__URL__/accessGroup?id="+$uid;
+}
+</SCRIPT>
+
+
+

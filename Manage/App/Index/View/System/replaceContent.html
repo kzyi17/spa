@@ -1,0 +1,68 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>产品内容替换</DIV>
+    </DIV>
+      <form name="form" method="post" action="__URL__/replaceContent" novalidate="true">
+
+			<table class="tab" border="0" cellspacing="0" cellpadding="0">
+				<tbody><tr>
+					<td>被替换的内容:</td>
+					<td>
+						<input type="text" alt="输入被替换的内容"  placeholder="输入被替换的内容" pattern="required"  name="data[replaceContent]"  class="normal">
+					</td>
+				</tr>
+
+				<tr>
+					<td>新内容:</td>
+					<td>
+						<input type="text"  alt="输入新内容"  placeholder="输入新内容" pattern="required"  name="data[newContent]" class="normal">
+					</td>
+				</tr>
+                
+               <tr>
+					<td>替换产品ID:</td>
+					<td>
+						<input type="text"  alt="输入开始ID"  placeholder="输入开始ID" pattern="required"  name="data[startId]" class="normal"> —— 
+                        <input type="text"  alt="输入结束ID"  placeholder="输入结束ID"   name="data[endId]" class="normal">
+					</td>
+				</tr> 
+			
+
+				<tr>
+					<td></td><td><button type="submit" class="btn" id="submit"><span>确 定</span></button></td>
+                    
+				</tr>
+			</tbody></table>
+            </form>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>
+<script>
+
+$('#submit').click(function(){
+
+	var formObject = document.forms['form'];
+	$.post("__URL__/replaceContent", $(formObject).serialize(), function(json){
+
+		if(json.status == 1)
+		{
+			popup.alert(json.info);
+			location.href =json.url;
+			return false;
+		}
+		else
+		{
+			popup.alert(json.info);
+			return false;
+		}
+	},'json');
+	return false;
+});
+</script>
+

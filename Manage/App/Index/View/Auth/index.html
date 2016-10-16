@@ -1,0 +1,157 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$action_name}</DIV>
+    </DIV>
+    <script language="javascript" type="text/javascript" src="__PUBLIC__/js/datePicker/WdatePicker.js"></script>
+    <table width="99.5%" border="0" cellspacing="0" cellpadding="0" class="tab">
+      <tr colspan="12">
+        <div style="margin-bottom:10px;">
+          <form action="" method="post">
+            关键字：
+            <input type="text"  class="input" name="keywords" style="width:100px;" value="{$keywords}"/>
+            <input type="submit" value="搜索" class="btn submit" style="margin-left:20px;"/>
+            <input type="button" value="新增管理员" class="btn submit" onclick="javascript:addNewUser();" style="margin-left:20px;"/>
+          </form>
+         <div style="float:right;"><a href="__URL__/userType" class="btn">管理员类型</a></div>
+        </div>
+      </tr>
+      <thead>
+        <tr>
+          <td width="6%">ID</td>
+          <td width="16%">类型</td>
+          <td width="12%">用户名</td>
+		  <td width="12%">管理员姓名</td>
+          <td width="24%">开通时间</td>
+          <td width="10%">状态</td>
+          <td width="">操作</td>
+        </tr>
+      </thead>
+      <form action="" method="post" >
+        <volist name="list" id="vo" key="k">
+          <tr align="center" id="{$vo.uid}">
+            <td>{$vo.uid}</td>
+            <td>{$vo.typeName}</td>
+            <td>{$vo.user_code}</td>
+			<td>{$vo.user_name}</td>
+            <td>{$vo.create_time|date='Y-m-d H:i',###}</td>
+            <td>{$vo.statusTxt}</td>
+            <td><if condition="$vo.uid GT 1">[ <a title="" href="javascript:void(0);" class="opStatus"  val="{$vo.status}">{$vo.chStatusTxt}</a> ][ <a href="javascript:addNewUser({$vo.uid});">编辑 </a> ] [ <a onclick="delModel('__URL__/AuthDel/id/{$vo.uid}')" href="javascript:void(0);"  >删除 </a> ]</if></td>
+
+          </tr>
+        </volist>
+      </form>
+      <tr align="center">
+        <td colspan="12">{$page}</td>
+      </tr>
+    </table>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>
+<script type="text/javascript">
+
+$(function(){
+	//快捷启用禁用操作
+	$(".opStatus").click(function(){
+		var obj=$(this);
+		var id=$(this).parents("tr").attr("id");
+		var status=$(this).attr("val");
+		$.getJSON("__URL__/opUsersStatus", { uid:id, status:status }, function(json){
+			if(json.status==1){
+				//popup.success(json.info);
+				$(obj).attr("val",json.data.status).html(status==1?"启用":"禁用").parents("td").prev().html(status==1?'<font color="red">禁用</font>':"启用");
+			}else{
+				popup.alert(json.info);
+			}
+		});
+	});
+});
+
+
+//删除指定id管理员
+function delModel(url){
+	if(url!=null){
+		popup.confirm('删除管理员','你确定要删除吗',function(action){
+			if(action == 'ok'){
+			 $.ajax({
+				 type: "GET",
+				 url: url,
+				 dataType: "json",
+				success: function(json){
+					if(json.status==1){
+						popup.alert(json.info);
+						window.location.reload();
+						return false;
+					}else{
+						popup.alert(json.info);
+						
+						return false;
+					}
+				}
+			 });
+			}
+		});
+		//删除多个
+	}else{
+
+	}
+}
+function addNewUser(user_id){
+	var url = "__URL__/AuthEdit/id/@user_id@";
+	url = url.replace('@user_id@',user_id?user_id:0);
+	art.dialog.open(url,{
+		id:'addRuleWin',
+	    title:'管理员设置',
+	    okVal:'确定',
+	    ok:function(iframeWin, topWin){
+	    	var formObject = iframeWin.document.forms['UserForm'];
+	    	var user_code = $(iframeWin.document).find('input[name="data[user_code]"]').val();
+			var password = $(iframeWin.document).find('input[name="data[user_password]"]').val();
+			var uid = $(iframeWin.document).find('input[name="data[uid]"]').val();
+			var password2 = $(iframeWin.document).find('input[name="repassword"]').val();
+			var admin_type = $(iframeWin.document).find('input[name="admin_type"]').val();
+			if( (uid=='' && checkUsercode(user_code) && checkPassword(password,password2)) || (uid!='' && password == password2)){
+			   $.post("__URL__/AuthEdit", $(formObject).serialize(), function(json){
+
+					if(json.status == 1)
+					{
+						popup.alert(json.info);
+						window.location.reload();
+						return true;
+					}
+					else
+					{
+						popup.alert(json.info);
+						return false;
+					}
+				},'json');
+	   	 	}else{
+	   	 		if(!checkPassword(password,password2))
+	   	 			$(iframeWin.document).find('input[name="repassword"]').next('label').html('密码不能为空或不一致');
+	   	 		if(!checkUsercode(user_code))
+	   	 			$(iframeWin.document).find('input[name="data[user_code]"]').next('label').html('用户名不能为空或不符合');
+	   	 		return false;
+	   	 	}
+	    }
+	});
+}
+//检测用户名
+function checkUsercode(user_code){
+	if(user_code =='')
+		return false;
+	return true;
+}
+//检测密码
+function checkPassword(pass,repass){
+	if(pass =='' || repass =='')
+		return false;
+	if(pass != repass)
+		return false;
+	return true;
+}
+</script>

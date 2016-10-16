@@ -1,0 +1,37 @@
+<include file="Public:popup_head"/>
+</head>
+<body>
+<div class="pop_win" style="width:450px;height:200px;">
+	<form name="PositionForm" callback="submitCallback();" action="#">
+	<input type="hidden" <if condition="$data['position_id'] gt 0">name="data[position_id]"</if> value="{$data.position_id}" />
+		<table class="form_table" style="width:95%">
+			<tr>
+				<td class="t_r">位置：</td>
+				<td>
+					<input type="text" value="{$data.position_name}" name="data[position_name]">
+				</td>
+			</tr>
+			<tr id="orderNo">
+				<td class="t_r">宽度：</td>
+				<td><input type="text" name="data[width]"  value="{$data.width}"/></td>
+			</tr>
+			<tr id="orderNo" >
+				<td class="t_r">高度：</td>
+				<td><input type="text"  name="data[height]" value="{$data.height}"/></td>
+			</tr>
+			<tr id="orderNo" >
+				<td class="t_r">编号：</td>
+				<td><input type="text"  name="data[ad_sn]" value="{$data.ad_sn}"/></td>
+			</tr>
+			<tr>
+				<td class="t_r">描述：</td>
+				<td><textarea name="data[desc]">{$data.desc}</textarea></td>
+			</tr>
+		</table>
+	</form>    
+</div>
+<script type='text/javascript'>
+
+</script>
+</body>
+</html>

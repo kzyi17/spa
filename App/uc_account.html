@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>账户与安全</title>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+    	.mui-table-view {
+			margin-top: 20px;
+		}
+		#head{
+			line-height: 40px;
+		}
+		.head{
+			height: 40px;
+		}
+		#head-img {
+			position: absolute;
+			bottom: 10px;
+			right: 40px;
+			width: 40px;
+			height: 40px; 
+		}
+		
+    </style>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">我的资料</h1>
+    <button class="mui-btn mui-btn-link mui-pull-right" id="saveBtn">保存</button>
+</header>	
+
+<div class="mui-content">
+	<div class="mui-scroll">
+		<ul class="mui-table-view">
+			<li class="mui-table-view-cell">
+				<a id="head" class="mui-navigate-right">头像
+				<span class="mui-pull-right head">
+					<img class="head-img mui-action-preview" id="head-img" src=""/>
+				</span>
+			</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a id="nicknameBtn">昵称<span class="mui-pull-right" id="nickname"></span></a>
+			</li>
+		</ul>
+		<ul class="mui-table-view">
+			<li class="mui-table-view-cell">
+				<a>手机号(暂不支持修改)<span class="mui-pull-right" id="phone"></span></a>
+			</li>
+		</ul>
+	</div>
+</div>
+	
+<script src="js/mui.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+<script>
+(function($, doc) {
+	$.init();
+	var formData = {};
+	var isModify = false;
+	var old_back = $.back;
+	var saveBtn = doc.getElementById('saveBtn');
+	var nicknameBtn = doc.getElementById('nicknameBtn');
+	var nicknameBox = doc.getElementById('nickname');
+	
+	$.plusReady(function() {
+		var state = app.getState();
+		var account = state.account;
+		formData.user_id = account.user_id;
+		nicknameBox.innerText = account.nickname;
+		doc.getElementById('phone').innerText = account.phone;
+		doc.getElementById('head-img').src = account.user_icon;
+	});
+	
+	//监听按钮-昵称
+	nicknameBtn.addEventListener('tap',function(event){
+		old = nicknameBox.innerText;
+		event.detail.gesture.preventDefault();
+		mui.prompt('请输入您的昵称', old, '美联帮', ['取消', '确定'], function(e) {
+			if (e.index == 1 && e.value != "") {
+				nicknameBox.innerText = e.value;
+				formData.nickname = e.value; 
+				isModify = true; 
+			}
+		})
+	},false);
+	
+	//重写返回事件
+	$.back = function(){
+		if(!isModify){
+			old_back();
+		}else{
+			var btn = ["确定离开","返回修改"];
+			$.confirm('确认不保存离开当前窗口吗？','美联帮',btn,function(e){
+			    if(e.index==0){
+			    	//执行mui封装好的窗口关闭逻辑；
+			    	old_back();
+			    }
+			});
+		}
+	}
+	
+	//更换头像
+	mui(".mui-table-view-cell").on("tap", "#head", function(e) {
+		if(mui.os.plus){
+			var a = [{
+				title: "拍照"
+			}, {
+				title: "从手机相册选择"
+			}];
+			plus.nativeUI.actionSheet({
+				title: "修改头像",
+				cancel: "取消",
+				buttons: a
+			}, function(b) {
+				switch (b.index) {
+					case 0:
+						break;
+					case 1:
+						getImage();
+						break;
+					case 2:
+						galleryImg();
+						break;
+					default:
+						break
+				}
+			})	
+		}
+		
+	});
+	
+	//拍照 
+	function getImage() {
+		var c = plus.camera.getCamera();
+		c.captureImage(function(p) {
+			plus.io.resolveLocalFileSystemURL(p, function(entry) {
+				var localurl = entry.toLocalURL(); //把拍照的目录路径，变成本地url路径，例如file:///....之类的。
+				//压缩图片
+				compressImg(localurl,function(event){
+					var newImg = event.target;
+					showImg(newImg);//显示图片
+					
+					//读取base64图片数据
+					base64Encode(newImg,function ( e ) {
+						// Get data
+						isModify = true;
+						formData.userhead = e.target.result; 
+						console.log( e.target.result );
+					});
+				});
+			}, function(e) {
+				console.log("读取拍照文件错误：" + e.message);
+			});	
+			
+		}, function(s) {
+			$.toast("取消拍照");
+			//console.log("error：" + JSON.stringify(s));
+		})
+	}
+	
+	//相册选取照片
+	function galleryImg() {
+		mui.toast("从相册中选择一张图片");
+        plus.gallery.pick(function(e) {
+            //压缩图片
+			compressImg(e,function(event){
+				var newImg = event.target;
+				showImg(newImg);//显示图片
+				
+				//读取base64图片数据
+				base64Encode(newImg,function ( e ) {
+					// Get data
+					isModify = true;
+					formData.userhead = e.target.result;
+					console.log( e.target.result );
+				});
+			});
+        }, function(e) {
+            mui.toast("取消选择图片");
+        }, {
+            filter: "image",
+        });
+	};
+	
+	//base64编码
+	function base64Encode(url,successCallback){
+		successCallback = successCallback || $.noop;
+		plus.io.resolveLocalFileSystemURL(url, function(entry) {
+			var reader = null;
+			entry.file( function ( file ) {
+				reader = new plus.io.FileReader();
+				reader.onloadend = successCallback ;
+				reader.readAsDataURL( file );
+			});
+		},function(e) {
+			console.log("读取文件错误：" + e.message);
+		});
+	}
+	
+	
+	//压缩图片
+	function compressImg(url,successCallback){
+		successCallback = successCallback || $.noop;
+	    plus.zip.compressImage({
+			src:url,
+			dst:"_doc/userhead.jpg",
+			quality:50,
+			width:"400px",
+			overwrite:true
+		},function(event) {
+			successCallback(event);
+		},function(error) {
+			console.log(JSON.stringify(error));
+		});
+	}
+	
+	//显示图片 
+    function showImg(url) {
+    	// 兼容以“file:”开头的情况
+	    if (0 != url.toString().indexOf("file://")) {
+	        url = "file://" + url;
+	    }
+	    var headimg = document.getElementById("head-img");
+	    headimg.src = url + "?version=" + new Date().getTime();
+    } 
+    
+    //监听按钮-保存设置
+	saveBtn.addEventListener('tap',function(event){
+		if(!isModify){
+			alert('您还未做任何修改');
+		}else{
+			/*console.log(JSON.stringify(formData));
+			return;*/
+			$.confirm('您确定保存资料吗？','美联帮',['确定保存','返回修改'],function(e){
+				if (e.index == 0) {
+					
+					console.log(JSON.stringify(formData));
+					//保存资料
+					Api.updateInfo(formData,function(result){
+						isModify = false;
+						console.log(JSON.stringify(result));
+						
+						//保存用户信息
+						var state = app.getState();
+						state.account = result.userInfo;
+						app.setState(state);
+						
+						
+						var ws = plus.webview.currentWebview();//获取当前窗体
+						ws.opener().reload();//刷新上一个窗体
+						plus.webview.close(ws,'slide-out-bottom',600);//关闭当前页面
+						
+						$.toast('修改资料成功');
+						
+					},function(result){
+						//console.log(JSON.stringify(result));
+						alert(result.errmsg);
+					});
+					
+				} 
+			});
+		}
+	},false);
+	
+}(mui, document));	
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+    <script type="text/javascript" charset="UTF-8">
+      	mui.init();
+    </script>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">提现申请</h1>
+</header>	
+<div class="mui-content">
+    <ul class="mui-table-view mui-grid-view mui-grid-9">
+		<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" id="btnOrderToShop">
+			<a >
+				<div class="menu_icon">
+					0.00元
+				</div>
+				<div class="mui-media-body">我的余额</div>
+			</a>
+		</li>
+		<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" id="btnOrderToHome">
+			<a >
+				<div class="menu_icon">
+					0张
+				</div>
+				<div class="mui-media-body">我的优惠劵</div>
+			</a>
+		</li>
+		<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" id="btnAdShop">
+			<a>
+				<div class="menu_icon">
+					0分
+				</div>
+				<div class="mui-media-body">我的积分</div>
+			</a>
+		</li>
+		<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" id="btnAdShop">
+			<a>
+				<div class="menu_icon">
+					0元
+				</div>
+				<div class="mui-media-body">我的佣金</div>
+			</a>
+		</li>
+	</ul>
+	<form class="mui-input-group">
+		<div class="mui-input-row">
+			<label>提现金额</label>
+			<input type="text" placeholder="">
+		</div>
+		<div class="mui-input-row">
+			<label>账户</label>
+			<input type="text" class="mui-input-clear" placeholder="支付宝/微信/银行卡">
+		</div>
+		<div class="mui-input-row">
+			<label>开户行</label>
+			<input type="text" class="mui-input-clear" placeholder="支付宝/微信/银行卡">
+		</div>
+		<div class="mui-input-row">
+			<label>姓名</label>
+			<input type="text" class="mui-input-clear" placeholder="">
+		</div>
+		<div class="mui-input-row">
+			<label>电话</label>
+			<input type="text" class="mui-input-clear" placeholder="">
+		</div>
+		
+	</form>
+	<div class="mui-button-row" style="margin-top: 20px;">
+		<button type="button" class="mui-btn mui-btn-danger" onclick="return false;">提交</button>
+	</div>
+	<ul class="mui-table mui-table-view" style="margin-top: 20px;">
+		<li class="mui-tab-label">
+			<span class="mui-table-view-cell ">编号</span>
+			<span class="mui-table-view-cell ">金额</span>
+			<span class="mui-table-view-cell ">账户</span>
+			<span class="mui-table-view-cell ">状态</span>
+		</li>
+		<!--<li class="mui-tab-item mui-table-view-cell">dd</li>-->
+	</ul>
+	
+</div>
+</body>
+</html>

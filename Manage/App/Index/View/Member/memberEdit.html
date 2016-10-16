@@ -1,0 +1,137 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+<div id="Right">
+      <div class="Item hr">
+          <div class="current">修改会员信息</div>
+      </div>
+      <form action='__URL__/MemberEdit' method='post' id='memberForm'>
+		<table class="form_table tab" style="width:95%" border="0" cellspacing="0" cellpadding="0" >
+			<col width="120px" />
+			<col />
+			<input type="hidden" name="data[member_id]" value="{$data.member_id}" />
+			<tr>
+				<td style='text-align:right'>会员姓名：</td><td align="left"><input class="input" name="data[member_name]" value="{$data.member_name}" type="text" pattern="required" alt="名字不能为空" /> <label class="spec_font1"></label></td>
+			</tr>
+			<!--<tr>
+				<td style='text-align:right'>原密码：</td><td align="left"><input class="input"  disabled="disabled"  value="123456" type="password" maxLength="6"  /> <label class="spec_font1"></label></td>
+			</tr>-->
+			<tr>
+				<td style='text-align:right'>新密码密码：</td><td align="left"><input class="input"  id="member_password" value="" type="password" /> <label class="spec_font1">空为不更改</label></td>
+			</tr>
+			<tr>
+				<td style='text-align:right'>确认密码：</td><td align="left"><input class="input" id="member_password1" name="data[member_password]" value="" type="password" /> <label class="spec_font1">空为不更改</label></td>
+			</tr>
+			<!--<tr>
+				<td style='text-align:right'>分销等级：</td>
+				<td align="left"><select>
+				<volist name="list" id="lev">
+				<option value="{$lev.min_points}" <if condition="$data['level_sn'] eq $lev['level_sn']"> selected="selected"</if>>{$lev.level_name}</option>
+				</volist>
+				</select>
+				</td>
+			</tr>-->
+			<tr>
+				<td style='text-align:right'>邮箱：</td><td align="left"><input class="input" style="width:280px;" type="text" name="data[member_email]" value="{$data.member_email}" /></td>
+			</tr>
+			<tr>
+				<td style='text-align:right'>手机：</td><td align="left"><input class="input" style="width:280px;" type="text" name="data[member_mobile]" value="{$data.member_mobile}" /></td>
+			</tr>
+			<tr>
+				<td style='text-align:right'>推荐人：</td><td align="left">
+				{$data.RecommendMemberName}
+
+				</td>
+			</tr>
+			<tr>
+				<td style='text-align:right'>我的存款:</td><td align="left">{$data.my_account}</td>
+			</tr>
+
+			<tr>
+				<td style='text-align:right'>我的积分:</td><td align="left">{$data.my_points}</td>
+			</tr>
+			<tr>
+				<td style='text-align:right'>是否锁定:</td><td align="left">
+				<input disabled="disabled" type="radio" name="data[is_lock]" value="0"  <if condition="$data['is_lock'] eq 0"> checked="checked"</if>/>否
+				<input  disabled="disabled" type="radio" name="data[is_lock]" value="1"  <if condition="$data['is_lock'] eq 1"> checked="checked"</if>/>是
+				</td>
+			</tr>
+		</table>
+
+	</form>
+      <div class="commonBtnArea" >
+          <button class="btn submit">提交</button><button class="btn button1">返回</button>
+      </div>
+  </div>
+
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>
+<script type="text/javascript">
+/*验证密码*/
+function check_pass(){
+	var pass = $.trim($("#member_password").val());
+	var pass1 = $.trim($("#member_password1").val());
+	if(pass !='')
+	$("#member_password").next('label').html('<font style="">验证通过</font>');
+	if(pass.length>0 && pass.length<6){
+		$("#member_password").next('label').html('<font style="color:red">确认密码长度小于6位</font>');
+		return false;
+	}
+	if(pass1 !='')
+		$("#member_password1").next('label').html('<font style="">验证通过</font>');
+	if(pass1.length>0 && pass1.length<6){
+		$("#member_password1").next('label').html('<font style="color:red">确认密码长度小于6位</font>');
+		return false;
+	}
+
+	if(pass!=pass1){
+		$("#member_password1").next('label').attr('class','disvalid-msg');
+		$("#member_password1").next('label').html('<font style="color:red">请二次密码不一致</font>');
+		return false;
+	}
+	return true;
+}
+/*blur验证密码*/
+$(".input").on('blur',function(){
+	check_pass();
+});
+$(function(){
+    $(".submit").click(function(){
+        if(!check_pass())/*提交时验证密码*/
+			return false;
+		var data = new Array();;
+		member_name = $("input[name='data[member_name]']").val();
+		member_password = $("#member_password1").val();
+		member_email = $("input[name='data[member_email]']").val();
+		member_mobile = $("input[name='data[member_mobile]']").val();
+		member_id = $("input[name='data[member_id]']").val();
+		var str ="{'member_name':'"+member_name+"','member_password':'"+member_password+"','member_email':'"+member_email+"','member_mobile':'"+member_mobile+"','member_id':'"+member_id +"'}";
+		var str2 = eval('('+str+')');
+		$.ajax({
+			type: 'POST',
+			url: '__URL__/MemberEdit',
+			data: { data: str2,
+					},      //传给php的值
+			success: function(json){
+				if(json.status==1){
+					popup.alert(json.info);
+					//window.location.href(json.url);
+					location.href =json.url;
+					//$("json.id").remove();
+					return false;
+				}else{
+					popup.alert(json.info);
+					return false;
+				}
+			},
+			dataType: 'json',
+	    });
+		});
+})
+$(".button1").click(function(){
+		window.history.back();
+	})
+</script>

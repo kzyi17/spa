@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="overflow-y:auto">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>管理后台</title>
+<css rel="stylesheet" href="/Public/css/base.css" />
+<js href="{:C('WEB_STATICS')}/js/jquery-1.9.0.min.js" />
+</head>
+<body style="width:750px;min-height:400px;">
+<div class="pop_win">
+	<form action="__URL__/orderDeliver" method="post" id="deliverform">
+		<input type="hidden" name="order_no" value="{$order.order_no}"/>
+		<input type="hidden" name="order_id" value="{$order.order_id}"/>
+		<input type="hidden" name="weight_total" id="weight_total" value="{$goods_weight}"/>
+		<input type="hidden" name="deliver[member_id]" value="{$order.member_id}"/>
+		<input type="hidden" name="ogid" id="ogid" value="{$ogid}" />
+		<input type="hidden" name="deliver[freight]" value="{$orderdata.shipping_fee}" />
+		<input type="hidden" name="deliver[freight_code]" value="{$order.freight_code}" />
+		<table width="90%" class="border_table" style="margin:10px auto">
+			<col width="100px" />
+			<col />
+			<col width="100px" />
+			<col />
+			<tbody>
+				<tr>
+					<th>订单号:</th><td align="left">{$order.order_no}</td>
+					<th>下单时间:</th><td align="left">{$order.create_time|date="Y-m-d H-i",###}</td>
+				</tr>
+				<tr>
+					<th>配送方式:</th>
+					<td align="left">
+						<select name="deliver[shipping_id]" pattern="required" alt="请选择支付方式" >
+						<volist name="delivery" id="deliver">
+						<option value="{$deliver.id}" <if condition="$deliver['id'] eq $order['shipping_id']"> selected="selected"</if>>{$deliver.name}</option>
+						</volist>
+						</select>
+					</td>
+					<th>配送费用:</th><td align="left">{$order.real_freight}</td>
+				</tr>
+				<tr>
+					<th>配送单号:</th><td align="left" colspan="3"><input type="text" class="small" name="deliver[delivery_code]" pattern="required"/></td>
+				</tr>
+				<tr>
+					<th>是否保价:</th><td align="left"><if condition="$orderdata.is_insured eq 0">否<else />是</if></td><th>保价费用:</th><td align="left">￥{$orderdata.insured}元</td>
+				</tr>
+				<tr>
+					<th>收货人姓名:</th><td align="left"><input type="text" class="small" name="deliver[name]" value="{$order.accept_name}" pattern="required"/></td>
+					<th>电话:</th><td align="left"><input type="text" class="small" name="deliver[telphone]" value="{$orderdata.telphone}" pattern="phone" empty /></td>
+				</tr>
+				<tr>
+					<th>手机:</th><td align="left"><input type="text" class="small" name="deliver[mobile]" value="{$orderdata.mobile}" pattern="mobi"/></td>
+					<th>邮政编码:</th><td align="left"><input type="text" name="deliver[postcode]" class="small" value="{$orderdata.postcode}" pattern="zip" empty /></td>
+				</tr>
+				<tr>
+					<th>地区:</th>
+					<td align="left" colspan="3">
+						<select onchange="areaChangeCallback(this);" parent="this" child="orderdata[city]" name="deliver[province]">
+							<option value="0">请选择地区</option>
+							<volist name="areaData.province" id="province">
+							<option value="{$province.area_id}" <if condition="$orderdata['province'] eq $province['area_id']"> selected="selected"</if>>{$province.area_name}</option>
+							</volist>
+						</select>
+						<select onchange="areaChangeCallback(this);" parent="orderdata[province]" child="orderdata[area]" name="deliver[city]">
+							<volist name="areaData.city" id="city">
+							<option value="{$city.area_id}" <if condition="$orderdata['city'] eq $city['area_id']"> selected="selected"</if>>{$city.area_name}</option>
+							</volist>
+						</select>
+						<select pattern="required" parent="orderdata[city]" name="deliver[area]">
+							<volist name="areaData.area" id="area">
+							<option value="{$area.area_id}"  <if condition="$orderdata['area'] eq $area['area_id']"> selected="selected"</if>>{$area.area_name}</option>
+							</volist>
+							</select>
+					</td>
+				</tr>
+				<tr>
+					<th>地址:</th><td align="left" colspan="3"><input type="text" class="normal" name="deliver[address]" value="{$orderdata.address}" size="50" pattern="required"/></td>
+				</tr>
+				<tr>
+					<th>发货单备注:</th><td align="left" colspan="3"><textarea name="deliver[note]" rows="3" cols="85"></textarea></td>
+				</tr>
+				<tr><th>短信通知</th><td><label id='send'>发送短信</label><input type='checkbox' name="sendcode" value='1' checked="checked" /></td></tr>
+			</tbody>
+		</table>
+		
+		<table width="100%" class="border_table" style="margin:10px auto">
+			<col />
+			<col width="80px" />
+			<col width="80px" />
+			<col width="130px" />
+			<thead>
+				<tr><th>商品名称</th><th>商品价格</th><th>购买数量</th><th>商品总价格</th></tr>
+			</thead>
+			<tbody>
+				<volist name="product" id="pro">
+					<tr>
+						<td>{$pro.name}</td>
+						<td>{$pro.real_price}</td>
+						<td>{$pro.goods_nums}</td>
+						<td><?php echo($pro['goods_nums']*$pro['real_price']);?></td>
+					</tr>
+				</volist>
+			</tbody>
+		</table>
+		
+	</form>
+</div>
+<script>
+$('#send').on('click',function(){
+	$(this).siblings('input').trigger('click');
+});
+</script>
+<script type="text/javascript">
+//DOM加载完毕
+$(function(){
+	//初始化地域联动
+	template.compile("areaTemplate",areaTemplate);
+
+	createAreaSelect('province',0,{$province});
+	createAreaSelect('city',{$province},{$city});
+	createAreaSelect('area',{$city},{$area});
+});
+
+/**
+ * 生成地域js联动下拉框
+ * @param name
+ * @param parent_id
+ * @param select_id
+ */
+
+function createAreaSelect(area_id,childName)
+{
+	//生成地区
+	$.ajax({
+		type: "GET",
+		 url: "__APP__/Public/area_child/pid/" +area_id,
+		 dataType: "json",
+		  success: function(data){
+			var html = '<option value="0">请选择地区</option>';
+			for(i=0;i<data.length;i++){
+				html += '<option value="'+ data[i]['area_id'] +'">'+ data[i]['area_name'] +'</option>';
+			}
+			$('[name="'+childName+'"]').html(html);
+		  }
+	});
+}
+function areaChangeCallback(_self)
+{
+	var parent_id = _self.value;
+	var childName = $(_self).attr('child');
+	if(!childName)
+	{
+	return;
+	}
+	var pid = $(_self).val();
+	//生成js联动菜单
+	createAreaSelect(pid,childName);
+}
+</script>
+</body>
+</html>

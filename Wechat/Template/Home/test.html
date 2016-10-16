@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	sdsdfsdf
+	<body>
+	</body>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+		wx.config({
+    debug: false,
+    appId: '{$signPackage["appId"]}',
+    timestamp: {$signPackage["timestamp"]},
+    nonceStr: '{$signPackage["nonceStr"]}',
+    signature: '{$signPackage["signature"]}',
+    jsApiList: [
+      'onMenuShareTimeline',
+      'onMenuShareAppMessage',
+    ]
+});
+wx.ready(function () {
+	var shareData = {
+		    title: '我是木可，我闯过101关，我的视力超过显微镜，不服来战！',
+		    desc: 'http://www.yuentin.com.cn/gm/gecbz/yanse/',
+		    link: 'http://www.yuentin.com.cn/gm/gecbz/yanse/',
+		    imgUrl: ''
+		  };
+    wx.onMenuShareAppMessage(shareData);
+    wx.onMenuShareTimeline(shareData);
+});
+
+
+wx.error(function (res) {
+  alert(res.errMsg);
+});
+		
+	</script>
+</html>

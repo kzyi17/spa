@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0048)http://127.0.0.1/phpadmin/system.php/Index/index -->
+<HTML xmlns="http://www.w3.org/1999/xhtml">
+<HEAD>
+<TITLE>总运营管理中心  - 秀姿美</TITLE>
+<META content="text/html; charset=utf-8" http-equiv=Content-Type>
+<SCRIPT type=text/javascript src="/Public/js/base.js"></SCRIPT>
+<link href="/Public/css/base.css"  rel="stylesheet" type="text/css"/>
+<link href="/Public/css/layout.css"  rel="stylesheet" type="text/css"/>
+<link href="/Public/css/spec.css"  rel="stylesheet" type="text/css"/>
+<css rel="stylesheet" href="{:C('WEB_STATICS')}/js/asyncbox/skins/default.css" />
+<css rel="stylesheet" href="{:C('WEB_STATICS')}/js/artdialog/skins/default.css" />
+<js href="{:C('WEB_STATICS')}/js/jquery-1.9.0.min.js,{:C('WEB_STATICS')}/js/jquery.form.js" />
+<js href="{:C('WEB_STATICS')}/js/artdialog/artdialog.js,{:C('WEB_STATICS')}/js/artdialog/plugins/iframeTools.js" />
+</head>
+
+<body style="width:600px;min-height:430px;">
+<div class="pop_win">
+	<form action='__URL__/brandEdit' method='post'   enctype='multipart/form-data' id='brandForm'>
+		<table class="form_table tab" style="width:95%" >
+			<col width="120px" />
+			<col />
+			<if condition="$data['brand_id'] neq null">
+			<input type="hidden" name="data[brand_id]" value="{$data.brand_id}" />
+			</if>
+			<tr>
+				<td style='text-align:right'>品牌名称：</td><td align="left"><input class="input" name="data[brand_name]" value="{$data.brand_name}" type="text" pattern="required" alt="名字不能为空" /> <label class="spec_font1">* （必填）</label></td>
+			</tr>
+
+			<tr>
+				<td style='text-align:right'>分类：</td>
+				<td align="left">
+				<ul class="select">
+
+					<volist name="brandCate" id="vo">
+
+					<li><label>
+
+					<input type="checkbox" value="{$vo.cate_id}"<?php if (in_array($vo['cate_id'], $data['category_ids'])){ echo ' checked="checked"';}  ?> name="data[category_ids][]" />
+					{$vo.cate_name} </label></li>
+					</volist>
+                </ul>
+
+
+				</td>
+			</tr>
+			<tr>
+				<td style='text-align:right'>品牌地址：</td><td align="left"><input class="input" style="width:280px;" type="text" name="data[site_url]" value="{$data.site_url}" /></td>
+			</tr>
+			<tr id="imgbox">
+				<td align="left"><div class="imgbox">
+				<if condition="($data['logo_url'] neq null) AND ($data['logo_url'] neq '')">
+				<img class="img_border"  width="50px" height="50px" src="{:C('WEB_STATICS')}{$data.logo_url}" />
+				</if></div>
+				</td>
+				<td >
+								<input type="hidden" class="logo_url" value="" name="data[logo_url]"><button class="btn" onClick="getUploadButtonHtml(this)"type="button"><span>选择图片</span></button></td>
+
+			</tr>
+
+			<tr>
+				<td style='text-align:right'>品牌描述：</td>
+				<td align="left">
+				<textarea name="data[description]" style="width: 433px; height: 145px;" >{$data.description}</textarea></td>
+			</tr>
+		</table>
+	</form>
+
+	<script>
+	window.updatePic=updatePic;
+	function updatePic(indexValue,srcValue)
+	{
+		$('.imgbox').html('<img src={:C('WEB_STATICS')}'+srcValue+' class="img_border" width="50px" height="50px"  />');
+		$('.logo_url').val(srcValue);
+		art.dialog({id:'uploadIframe'}).close();
+		return false;
+	}
+	//上传按钮html
+	function getUploadButtonHtml(obj)
+	{
+		var specIndex = 0;
+		var tempUrl = '/Pictrue/pic/specIndex/@specIndex@/isSimple/1/fold/brand';
+		tempUrl     = tempUrl.replace('@specIndex@',specIndex);
+		art.dialog.open(tempUrl,
+		{
+			'id':"uploadIframe",
+			'title':'选择图片上传的方式',
+			'ok':function(iframeWin, topWin)
+			{
+		    	iframeWin.document.forms[0].submit();
+		    	return false;
+			}
+		});
+	}
+
+
+
+	</script>
+</div>

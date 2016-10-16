@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>兑换确认</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<base href="__MODULE__/{:TMPL_PATH}{:MODULE_NAME}/" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet"/>
+		<style>
+			.mt10{margin-top: 10px;}
+	    	.mt15{margin-top: 15px;}
+	    </style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">兑换确认</h1>
+		</header>
+		<div class="mui-content">
+		    <div id="spadetail"> 
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell mui-media">
+						<span class="mui-pull-left">兑换商品：</span>
+						<span class="mui-pull-right">{$goodsInfo['goods_name']}</span>
+					</li>
+					<li class="mui-table-view-cell mui-media">
+						<span class="mui-pull-left">消耗积分：</span>
+						<span class="mui-pull-right">{$goodsInfo['exchange_point']}</span>
+					</li>
+				</ul>
+				<h5 class="mt10">收货地址</h5>
+				<ul class="mui-table-view" id="choseaddress">
+					
+				</ul>
+			</div>
+			<nav class="mui-bar mui-bar-footer">
+				<if condition="$goodsInfo['stock'] elt 0"> 
+					<button type="button" class="mui-btn mui-btn-warning mui-btn-block" id="btn_commit" style="min-width: 10em; max-width:80%;margin: 0 auto;" disabled="true">商品库存不够，无法兑换</button>
+				<elseif condition="$userInfo['sharepoint'] lt $goodsInfo['exchange_point']"/>
+					<button type="button" class="mui-btn mui-btn-warning mui-btn-block" id="btn_commit" style="min-width: 10em; max-width:80%;margin: 0 auto;" disabled="true">积分不够，无法兑换</button>
+				<else /> 
+					<button type="button" class="mui-btn mui-btn-warning mui-btn-block" id="btn_commit" style="min-width: 10em; max-width:80%;margin: 0 auto;">确认兑换</button>
+				</if>
+			</nav>
+		</div>
+		<script id="addressTpl" type="text/html">
+		    <li class="mui-table-view-cell mui-media">
+				<a class="mui-navigate-right" onclick="addrPicker()">
+					<span class="mui-icon mui-icon-home mui-pull-left" ></span>
+					<div class="mui-media-body">
+						<div class="mui-ellipsis"><span><%=ship_user_name%></span> <span><%=mobile%></span></div>
+						<p class="mui-ellipsis"><span><%=province_name%><%=city_name%><%=area_name%> <%=address%></span></p>
+					</div>	
+				</a>
+			</li>
+		</script>
+		<script src="js/mui.min.js"></script>
+		<link href="css/mui.picker.css" rel="stylesheet"/>
+		<link href="css/mui.poppicker.css" rel="stylesheet"/>
+		<script src="js/mui.picker.min.js"></script>
+		<script src="js/arttmpl.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/api.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			var addressBtn = document.getElementById("addressBtn");
+			var picker = new mui.PopPicker(); 
+			var addressJsonData = {:json_encode($userInfo['addressList'])};
+			var default_address = null;
+			var choseAddressId = null;
+			var goodsId = {$goodsInfo['sharegoods_id']};
+			var userId = {$userInfo['user_id']};
+			for(i = 0; i < addressJsonData.length; i ++){
+				tmp_addressName = '';
+				if(addressJsonData[i].is_default==1){
+					default_address = addressJsonData[i].id;
+					var html = template('addressTpl', addressJsonData[i]);
+					document.getElementById('choseaddress').innerHTML = html;
+					tmp_addressName = '[默认] ';
+					choseAddressId = addressJsonData[i].id;
+				}
+				tmp_addressName += addressJsonData[i].ship_user_name + ' '+ addressJsonData[i].city_name + addressJsonData[i].area_name + addressJsonData[i].address;
+				addressJsonData[i].value = addressJsonData[i].id;
+				addressJsonData[i].text = tmp_addressName;
+			}
+			
+			picker.setData(addressJsonData); 
+			picker.pickers[0].setSelectedValue(default_address);
+			
+			function addrPicker(){
+				picker.show(function (selectItems) {
+				    var html = template('addressTpl', selectItems[0]);
+					document.getElementById('choseaddress').innerHTML = html;
+					choseAddressId = selectItems[0].value;
+			    })
+			}
+			
+			document.getElementById("btn_commit").addEventListener('tap',function(){
+				var param = {goods_id:goodsId,user_id:userId,address_id:choseAddressId};
+				Api.exchangeShare(param,function(res){
+					mui.alert(res.successmsg,'兑换提示','确定',function(e){
+						window.location = "{:U('user/exchange')}";
+					});
+				},function(res){
+					//mui.confirm(res.errmsg);
+					mui.alert(res.errmsg,'兑换提示','确定',function(e){
+						console.log(JSON.stringify(res));
+					});
+					
+				});
+				
+			},false);
+			
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,151 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$action_name}</DIV>
+    </DIV>
+    <form action="" method="post" id="quickForm">
+       <IMG src="/Public/images/icon_search.gif" align="absmiddle">
+      <input type="hidden" name="act" value="add" />
+      
+      <input placeholder="输入你要搜索的品牌名称" id="newName" class="input" type="text" name="data[brand_name]" value="" />
+      &nbsp;
+	  <input type="submit"  class="btn search" value="搜索">
+	  <input type="hidden" value="add" name="act">
+	  <a class="btn" onclick="addNewBrand();">添加品牌</a>
+    </form>
+	
+    <table width="99.5%" border="0" cellpadding="0" cellspacing="0" class="tab">
+      <thead>
+        <tr align="center">
+          <td width="13%">品牌名称</td>
+          <td width="13%">所属分类</td>
+          <td width="25%">品牌网址</td>
+          <td width="">品牌描述</td>
+          <td width="5%">排序</td>
+          <td width="13%">操作</td>
+        </tr>
+      </thead>
+      <tbody>
+        <volist name="list" id="vo">
+          <tr>
+			
+            <td align="center">{$vo.brand_name}</td>
+            <td>{$vo.cate_name}</td>
+            <td style="cursor: pointer;"><a href="{$vo.site_url}" target="_blank">{$vo.site_url}</a></td>
+            <td>{$vo.description}</td>
+            <td align="center">{$vo.sort}</td>
+            <td align="center">
+            [ <a href="javascript:addNewBrand({$vo.brand_id});" class="">编辑</a> ]	[ <a href="javascript:void(0);" class="delRow" onclick="delModel('__URL__/brandDel/id/{$vo.brand_id}');">删除</a> ]	
+            </td>
+          </tr>
+        </volist>
+      </tbody>
+    </table>
+	
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+
+<include file="Public:foot"/>
+</BODY></HTML>
+
+<SCRIPT type=text/javascript>
+//删除指定id规格
+function delModel(url){
+	if(url!=null){
+		popup.confirm('删除商品品牌','你确定要删除吗',function(action){
+			if(action == 'ok'){
+				
+			 $.ajax({
+				 type: "GET",
+				 url: url,
+				 dataType: "json",
+				success: function(json){
+					if(json.status==1){
+						popup.alert(json.info);
+						window.location.reload();
+						//$("json.id").remove();
+						return false;
+					}else{
+						popup.alert(json.info);
+						return false;
+					}
+				}
+			 });
+			}
+		});
+		//删除多个
+	}else{
+		
+	}
+}
+
+
+
+//添加新品牌
+function addNewBrand(brand_id)
+{
+	var url = "__URL__/brandEdit/id/@brand_id@";
+	url = url.replace('@brand_id@',brand_id?brand_id:0);
+	art.dialog.open(url,{
+		id:'addBrandWin',
+	    title:'品牌设置',
+	    okVal:'确定',
+	    ok:function(iframeWin, topWin){
+			
+	    	var formObject = iframeWin.document.forms['brandForm'];	   
+		   $.post("__URL__/brandEdit", $(formObject).serialize(), function(json){
+				
+				if(json.status == 1)
+				{
+					window.location.reload();
+					return true;
+				}
+				else
+				{
+				//	alert(json.info);
+					popup.alert(json.info);
+					return false;
+				}
+			},'json');
+
+	    }
+	});
+}
+</SCRIPT>
+
+<script type="text/javascript">
+		
+
+
+            $(function(){
+            	  $(".search").click(function(){
+                    if($("#newName").val()==''){
+                        popup.alert("分类名称不能为空滴！");
+                        return false;
+                    }
+					var name = $("#newName").val();
+					var url = $(this).attr('href');
+					//组装搜索条件
+                   // $(this).attr('href',url+'/data/'+name);
+					$('#quickForm').Submit();
+                    return false;
+                });
+
+                
+                $(".quickSubmit").click(function(){
+                    if($("#newName").val()==''){
+                        popup.alert("分类名称不能为空滴！");
+                        return false;
+                    }
+                    commonAjaxSubmit("","#quickForm");
+                    return false;
+                });
+
+               
+            });
+        </script>
+		

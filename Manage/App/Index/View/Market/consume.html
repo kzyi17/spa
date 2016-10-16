@@ -1,0 +1,57 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$action_name}</DIV>
+    </DIV>
+	<script language="javascript" type="text/javascript" src="__PUBLIC__/js/datePicker/WdatePicker.js"></script>
+  <table width="99.5%" border="0" cellspacing="0" cellpadding="0" class="tab">
+               
+                    <thead>
+                            <tr>
+                                
+                                <td width="15%">类型</td>
+								<td width="15%">时间</td>
+                                <td width="6%">统计</td>
+								<td width="6%">操作</td>
+                            </tr>
+                        </thead>
+							<tr align="center">                               
+                                <td>订单总金额</td>
+								<td>
+               <input type="text"  name="order_amountsstarttime"  class="input" style="width:100px;"class="Wdate" onFocus="WdatePicker({isShowClear:true,readOnly:true,realDateFmt:'yyyy-MM-dd',realTimeFmt:'HH:mm:ss',maxDate:'%y-%M-%d'})" />
+               -<input type="text" name="order_amountsendtime"  style="width:100px;"   class="input" class="Wdate" id="d4312" onFocus="WdatePicker({isShowClear:true,realDateFmt:'yyyy-MM-dd',realTimeFmt:'HH:mm:ss',readOnly:true,maxDate:'%y-%M-%d'})" />
+               </td>
+                                <td id='order_amounts'>{$order_amounts}</td>
+								<td><a href="javascript:count('order_amounts');" class="btn">确定</a></td>
+                            </tr>
+							<tr align="center"> 
+                                <td>人均消费金额</td>
+								<td><input type="text"  name="member_consumestarttime"  class="input" style="width:100px;"class="Wdate" onFocus="WdatePicker({isShowClear:true,readOnly:true,realDateFmt:'yyyy-MM-dd',realTimeFmt:'HH:mm:ss',maxDate:'%y-%M-%d'})"/>
+               -<input type="text" name="member_consumeendtime"  style="width:100px;"   class="input" class="Wdate" id="d4312" onFocus="WdatePicker({isShowClear:true,realDateFmt:'yyyy-MM-dd',realTimeFmt:'HH:mm:ss',readOnly:true,maxDate:'%y-%M-%d'})" />
+			   </td>
+                                <td id='member_consume'>{$member_consume}</td>
+								<td><a href="javascript:count('member_consume');" class="btn">确定</a></td>
+                            </tr>
+                            
+                             
+                    </table>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>
+<script>
+function count(type){
+	var starttime = $('input[name="'+type+ 'starttime"]').val();
+	var endtime = $('input[name="'+type+ 'endtime"]').val();
+	$('#'+type).html('<img src="/Public/images/loading.gif" />');
+	$.getJSON('{:U('Market/getjson')}',{'type':type,'starttime':starttime,'endtime':endtime},function(json){
+		$('#'+type).html(json);
+	});
+}
+</script>
+
+

@@ -1,0 +1,524 @@
+{
+  "home.html": {
+    "resources": [
+      "images/demo/runpic2.jpg",
+      "images/icon_menu_04.png",
+      "fonts/mui.ttf",
+      "images/demo/runpic4.jpg",
+      "images/icon_menu_08.png",
+      "images/icon_menu_03.png",
+      "images/icon_menu_07.png",
+      "images/icon_menu_06.png",
+      "images/index_adm.jpg",
+      "images/icon_menu_01.png",
+      "images/icon_menu_05.png",
+      "images/demo/runpic1.jpg",
+      "images/demo/runpic3.jpg",
+      "images/icon_menu_02.png",
+      "css/style.css",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "js/app.js",
+      "images/icon_menu_09.png",
+      "images/icon_menu_12.png",
+      "css/iconfont.css",
+      "fonts/iconfont.ttf",
+      "js/template.js",
+      "js/api.js"
+    ],
+    "refer": [
+      "spaList.html",
+      "ad_home.html",
+      "changecity.html",
+      "share_home.html",
+      "userCenter.html",
+      "merchantList.html",
+      "spaDetail.html"
+    ]
+  },
+  "main.html": {
+    "resources": [
+      "home.html",
+      "js/mui.min.js",
+      "css/iconfont.css",
+      "css/mui.min.css",
+      "css/style.css",
+      "fonts/iconfont.ttf"
+    ],
+    "refer": [
+      "home.html",
+      "userCenter.html",
+      "merchantList.html",
+      "spaList.html"
+    ]
+  },
+  "spaList.html": {
+    "resources": [
+      "js/template.js",
+      "js/api.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/app.js",
+      "spaList_list.html"
+    ],
+    "refer": [
+      "spaDetail.html",
+      "spaList_list.html"
+    ]
+  },
+  "userCenter.html": {
+    "resources": [
+      "js/app.js",
+      "js/mui.min.js",
+      "images/icon_user_07.jpg",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/template.js",
+      "js/api.js"
+    ],
+    "refer": [
+      "login.html",
+      "myOrderList.html",
+      "about.html",
+      "uc_account.html",
+      "ticket.html",
+      "withdraw.html",
+      "uc_address.html"
+    ]
+  },
+  "login.html": {
+    "resources": [
+      "js/api.js",
+      "images/user-photo.png",
+      "js/app.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css"
+    ],
+    "refer": [
+      "reg.html"
+    ]
+  },
+  "myOrderList.html": {
+    "resources": [
+      "js/template.helper.js",
+      "js/app.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/template.js",
+      "js/api.js"
+    ],
+    "refer": []
+  },
+  "ad_home.html": {
+    "resources": [
+      "images/demo/runpic2.jpg",
+      "images/icon_menu_04.png",
+      "fonts/mui.ttf",
+      "css/style.css",
+      "images/spa/spaitem_03_200x200.jpg",
+      "images/demo/runpic4.jpg",
+      "images/icon_menu_03.png",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "images/icon_menu_01.png",
+      "images/spa/spaitem_01_200x200.jpg",
+      "images/spa/spaitem_04_200x200.jpg",
+      "images/spa/spaitem_02_200x200.jpg",
+      "js/template.js",
+      "js/api.js",
+      "images/icon_menu_02.png",
+      "images/demo/runpic1.jpg",
+      "images/demo/runpic3.jpg"
+    ],
+    "refer": [
+      "ad_adList.html",
+      "ad_exchangeList.html"
+    ]
+  },
+  "ad_adList.html": {
+    "refer": [
+      "ad_adDetail.html"
+    ],
+    "resources": []
+  },
+  "ad_adDetail.html": {
+    "resources": [
+      "js/app.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "images/demo/runpic4.jpg",
+      "js/template.js",
+      "js/api.js"
+    ],
+    "refer": [
+      "login.html"
+    ]
+  },
+  "merchantList.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/template.js",
+      "js/api.js",
+      "fonts/mui.ttf",
+      "merchantList_list.html"
+    ],
+    "refer": [
+      "merchantList_list.html"
+    ]
+  },
+  "changecity.html": {
+    "resources": [
+      "css/mui.indexedlist.css",
+      "js/mui.indexedlist.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/app.js"
+    ],
+    "refer": []
+  },
+  "about.html": {
+    "resources": [
+      "images/logo_108.PNG",
+      "images/logo_108.png",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css"
+    ],
+    "refer": []
+  },
+  "reg.html": {
+    "resources": [
+      "js/app.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/api.js"
+    ],
+    "refer": []
+  },
+  "share_home.html": {
+    "resources": [
+      "images/icon_menu_03.png",
+      "images/icon_menu_04.png",
+      "images/spa/spaitem_01_200x200.jpg",
+      "images/spa/spaitem_04_200x200.jpg",
+      "images/spa/spaitem_02_200x200.jpg",
+      "images/spa/spaitem_03_200x200.jpg",
+      "images/demo/runpic2.jpg",
+      "fonts/mui.ttf",
+      "css/style.css",
+      "images/demo/runpic4.jpg",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "images/icon_menu_01.png",
+      "js/template.js",
+      "js/api.js",
+      "images/icon_menu_02.png",
+      "images/demo/runpic1.jpg",
+      "images/demo/runpic3.jpg",
+      "images/icon_menu_16.png",
+      "images/icon_menu_13.png",
+      "images/icon_menu_15.png",
+      "images/icon_menu_14.png",
+      "images/demo/ad_demo.jpg",
+      "js/app.js",
+      "js/arttmpl.js"
+    ],
+    "refer": [
+      "share_guide.html",
+      "share_news_list.html",
+      "share_myshare.html",
+      "share_earndetail.html",
+      "ad_exchangeList.html",
+      "login.html",
+      "share_exchangeList.html"
+    ]
+  },
+  "uc_account.html": {
+    "resources": [
+      "js/app.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/api.js"
+    ],
+    "refer": []
+  },
+  "share_guide.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/template.js",
+      "js/api.js",
+      "js/arttmpl.js"
+    ],
+    "refer": [
+      "share_guide_detail.html"
+    ]
+  },
+  "share_guide_detail.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/template.js",
+      "js/api.js",
+      "js/arttmpl.js"
+    ],
+    "refer": []
+  },
+  "share_news_list.html": {
+    "refer": [
+      "share_guide_detail.html",
+      "share_news_detail.html"
+    ],
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/template.js",
+      "js/api.js",
+      "js/mui.pullToRefresh.js",
+      "js/mui.pullToRefresh.material.js",
+      "js/arttmpl.js",
+      "js/template.helper.js",
+      "images/nopic.jpg"
+    ]
+  },
+  "share_news_detail.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/template.js",
+      "js/api.js",
+      "js/arttmpl.js",
+      "js/template.helper.js",
+      "js/app.js",
+      "images/demo/runpic2.jpg",
+      "images/demo/runpic4.jpg",
+      "images/demo/runpic3.jpg",
+      "images/demo/runpic1.jpg",
+      "images/demo/ad_demo.jpg",
+      "images/nopic.jpg"
+    ],
+    "refer": []
+  },
+  "share_myshare.html": {
+    "resources": [
+      "js/template.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/api.js",
+      "images/80x80.png",
+      "js/app.js"
+    ],
+    "refer": []
+  },
+  "share_earndetail.html": {
+    "resources": [
+      "js/template.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/api.js",
+      "js/arttmpl.js",
+      "js/app.js",
+      "js/template.helper.js"
+    ],
+    "refer": []
+  },
+  "ad_exchangeList.html": {
+    "resources": [
+      "js/template.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/api.js"
+    ],
+    "refer": []
+  },
+  "ticket.html": {
+    "resources": [
+      "js/app.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/template.js",
+      "js/api.js"
+    ],
+    "refer": []
+  },
+  "withdraw.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css"
+    ],
+    "refer": []
+  },
+  "merchantList_list.html": {
+    "resources": [
+      "js/arttmpl.js",
+      "js/app.js",
+      "images/nopic.jpg",
+      "js/api.js"
+    ],
+    "refer": [
+      "merchantDetail.html"
+    ]
+  },
+  "merchantDetail.html": {
+    "resources": [
+      "images/nopic_b.jpg",
+      "js/template.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "js/api.js"
+    ],
+    "refer": []
+  },
+  "spaList_list.html": {
+    "resources": [
+      "js/app.js",
+      "js/api.js",
+      "js/arttmpl.js",
+      "images/nopic.jpg"
+    ],
+    "refer": [
+      "spaDetail.html"
+    ]
+  },
+  "spaDetail.html": {
+    "resources": [
+      "js/template.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/api.js"
+    ],
+    "refer": [
+      "spaOrderCommit.html"
+    ]
+  },
+  "share_exchangeList.html": {
+    "resources": [
+      "js/template.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/api.js",
+      "images/spa/spaitem_01_200x200.jpg",
+      "images/spa/spaitem_04_200x200.jpg",
+      "images/spa/spaitem_02_200x200.jpg",
+      "images/spa/spaitem_03_200x200.jpg",
+      "js/arttmpl.js",
+      "images/nopic.jpg"
+    ],
+    "refer": [
+      "share_exchangeDetail.html"
+    ]
+  },
+  "share_exchangeDetail.html": {
+    "resources": [
+      "js/app.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/template.js",
+      "images/demo/runpic4.jpg",
+      "js/api.js",
+      "%3C%\u003dad_top[1][\u0027_url\u0027]+ad_top[1][\u0027content\u0027]%%3E",
+      "%3C%\u003d_url%20+%20gallery[i][\u0027cover_folder\u0027]+gallery[i][\u0027cover_name\u0027]+\u0027_s.\u0027+gallery[i][\u0027cover_type\u0027]%%3E",
+      "%3C%\u003dad_top[0][\u0027_url\u0027]+ad_top[0][\u0027content\u0027]%%3E",
+      "%3C%\u003d_url%20+%20gallery[i][\u0027folder\u0027]+gallery[i][\u0027name\u0027]+\u0027_s.\u0027+gallery[i][\u0027type\u0027]%%3E",
+      "js/arttmpl.js",
+      "images/nopic_b.jpg"
+    ],
+    "refer": [
+      "share_exchangeCommit.html"
+    ]
+  },
+  "uc_address.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/app.js",
+      "js/api.js",
+      "js/arttmpl.js"
+    ],
+    "refer": [
+      "uc_address_edit.html"
+    ]
+  },
+  "uc_address_edit.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/mui.picker.js",
+      "js/mui.poppicker.js",
+      "js/city.data-3.js",
+      "css/mui.poppicker.css",
+      "css/mui.picker.css",
+      "js/app.js",
+      "js/api.js"
+    ],
+    "refer": []
+  },
+  "spaOrderCommit.html": {
+    "resources": [
+      "js/app.js"
+    ]
+  },
+  "share_exchangeCommit.html": {
+    "resources": [
+      "js/template.js",
+      "js/app.js",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/api.js",
+      "js/arttmpl.js"
+    ],
+    "refer": [
+      "uc_address.html",
+      "uc_address_edit.html"
+    ]
+  }
+}

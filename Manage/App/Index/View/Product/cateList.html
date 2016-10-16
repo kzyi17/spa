@@ -1,0 +1,129 @@
+<include file="Public:head"/>
+<style>
+.cb-enable, .cb-disable, .cb-enable span, .cb-disable span { background: url(../Public/images/form_onoff.png) repeat-x; display: block; float: left;margin-right: 0px;cursor:pointer;}
+.cb-enable span, .cb-disable span { font-weight: bold; line-height: 24px; background-repeat: no-repeat; display: block;}
+.cb-enable span { background-position: left -72px; padding: 0 10px;}
+.cb-disable span { background-position: right -144px; padding: 0 10px;}
+.cb-disable.selected { background-position: 0 -24px;}
+.cb-disable.selected span { background-position: right -168px; color: #fff;}
+.cb-enable.selected { background-position: 0 -48px;}
+.cb-enable.selected span { background-position: left -120px; color: #fff;}
+.cb-enable{margin-right: 0px;}
+#site_status1{opacity:0.2;position:absolute;left:-999px;top:12px;}
+#site_status0{opacity:0.2;position:absolute;left:-999px;top:12px;}
+</style>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$action_name}</DIV>
+    </DIV>
+      <a href="{:U('product/cateadd')}" class="btn">添加分类</a>
+    <table width="99.5%" border="0" cellpadding="0" cellspacing="0" class="tab">
+   		<col width="80px" />
+		<col />
+    	<col width="80px"/>
+    	<col width="180px"/>	
+    	
+      <thead>
+        <tr align="center">
+          <td><strong>分类ID</strong></td>
+          <td><strong>分类结构 </strong><b title="单击分类隐藏/显示该分类下在子类">[i]</b></td>
+          <td><strong>排序</strong></td>
+		  <td><strong>推荐</strong></td> 
+          <td ><strong>操作</strong></td>
+        </tr>
+      </thead>
+      <tbody>
+        <volist name="list" id="tree">
+          <tr pid="{$tree.pid}" cid="{$tree.class_id}">
+            <td align="center">{$tree.class_id}
+              <input type="hidden" name="cid" value="{$tree.class_id}"/></td>
+            <td class="tree" style="cursor: pointer;">{$tree.fullname}</td>
+            <td>{$tree.sort}</td>
+             
+			<td align="center" >
+				<label class="cb-enable <if condition="$tree['recommend'] eq 1"> selected</if>" for="site_status1" style="margin-right: 0px;cursor:pointer;" onclick="setStatus(this,{$tree.class_id});"><span>开启</span></label>
+				<label class="cb-disable <if condition="$tree['recommend'] eq 0"> selected</if>" for="site_status0" onclick="setStatus(this,{$tree.class_id});" style="cursor:pointer;"><span>关闭</span></label>
+				<input type="radio" value="1" name="site_status" id="site_status1">
+				<input type="radio" value="0" name="site_status" id="site_status0">
+			</td>
+			
+            <td align="center">
+            	[ <a href="javascript:void(0);" class="delRow">删除分类</a> ]
+            	[ <a href="{:U('product/cateEdit',array('id'=>$tree['class_id']))}" class="opCat">修改分类</a> ]
+            </td>
+          </tr>
+        </volist>
+      </tbody>
+    </table>
+    <form action="" method="post" id="opForm">
+      <input id="cid" type="hidden" name="data[class_id]" />
+      <input id="act" type="hidden" name="act" />
+      <input id="pid" type="hidden" name="data[pid]" />
+      <input id="name" type="hidden" name="data[class_name]" />
+    </form>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML><script type="text/javascript">
+            $(function(){
+            	 $(".delRow").click(function(){
+            		 var obj=$(this).parents("tr");
+            		 $("#cid").val(obj.find("input[name='cid']").val());
+                     $("#act").val("del");
+                     $("#pid").val(obj.find("select[name='pid']").val());
+                     $("#name").val(obj.find("input[name='classname']").val());
+            		 popup.confirm('你真的打算删除该分类吗?','温馨提示',function(action){
+                         if(action == 'ok'){
+                             commonAjaxSubmit("","#opForm");
+                             //popup.alert($("#cid").val());
+                         }
+                     });
+            		 return false;
+            	 });
+
+
+                var chn=function(cid,op){
+                    if(op=="show"){
+                        $("tr[pid='"+cid+"']").each(function(){
+                            $(this).removeAttr("status").show();
+                            chn($(this).attr("cid"),"show");
+                        });
+                    }else{
+                        $("tr[pid='"+cid+"']").each(function(){
+                            $(this).attr("status",1).hide();
+                            chn($(this).attr("cid"),"hide");
+                        });
+                    }
+                }
+                $(".tree").click(function(){
+                    if($(this).attr("status")!=1){
+                        chn($(this).parent().attr("cid"),"hide");
+                        $(this).attr("status",1);
+                    }else{
+                        chn($(this).parent().attr("cid"),"show");
+                        $(this).removeAttr("status");
+                    }
+                });
+            });
+        </script>
+<script>
+
+function setStatus(obj,class_id){
+	$(obj).addClass('selected');
+	$(obj).siblings('label').removeClass('selected');
+	var statusobj = $(obj).attr('for');
+	var status = $('#'+statusobj).val();
+	//alert(status);
+	$.getJSON('__URL__/cateRecommend',{'class_id':class_id,'status':status},function(data){
+		if(data.status==1){
+		}else{
+			//popup.alert("推荐失败");
+		}
+	});
+	
+}
+</script>

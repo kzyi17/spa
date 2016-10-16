@@ -1,0 +1,74 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$action_name}</DIV>
+    </DIV>
+	<script language="javascript" type="text/javascript" src="__PUBLIC__/js/datePicker/WdatePicker.js"></script>
+	<form action="" method="post">
+				<select name="type" id="type">
+				<option value="day" <if condition="$type eq 'day'"> selected="selected"</if>>按天统计</option>
+				<option value="mon" <if condition="$type eq 'mon'"> selected="selected"</if>>按月统计</option>
+				<!--<option value="year">按年统计</option>-->
+				</select>
+               &nbsp;&nbsp;&nbsp;&nbsp;统计时间：
+               <input type="text" id="d4311" name="starttime"  class="input" style="width:100px;"class="Wdate" onFocus="WdatePicker({isShowClear:true,readOnly:true,realDateFmt:'yyyy-MM-dd',realTimeFmt:'HH:mm:ss',maxDate:'%y-%M-%d'})" value="{$starttime}"/>
+               -<input type="text" name="endtime"  style="width:100px;"   class="input" class="Wdate" id="d4312" onFocus="WdatePicker({isShowClear:true,realDateFmt:'yyyy-MM-dd',realTimeFmt:'HH:mm:ss',readOnly:true,maxDate:'%y-%M-%d'})"  value="{$endtime}"/>
+<input type="submit" value="搜索" class="btn submit" style="margin-left:20px;"/>
+<a href='{:U('Market/todayOrderList')}' class='btn'>今天的订单</a>
+               </form>
+			   
+  <table width="99.5%" border="0" cellspacing="0" cellpadding="0" class="tab">
+               
+                    <thead>
+                            <tr>
+                                
+                                <td width="10%">时间</td>
+								<td width="20%">总金额<label style="color:#a6a6a6;">(有效订单的总金额)</label></td>
+								<td width="15%">已付款金额<label style="color:#a6a6a6;">(有效订单)</label></td>
+								<td width="15%">未付款金额<label style="color:#a6a6a6;">(有效订单)</label></td>
+								<td width="20%">退款款金额<label style="color:#a6a6a6;">(有效订单)</label></td>
+                                <td width="6%">有效订单</td>
+								<td width="6%">无效订单</td>
+								<!--<td width="6%">购买人数</td>-->
+								<td width="6%">客单价</td>
+                            </tr>
+                        </thead>
+							<volist name='list' id='vo'>
+							<tr align="center">                               
+                                <td>{$vo.time}</td>
+								<td><php> printf("%.2f",$vo['amount']);</php></td>
+								<td><php> printf("%.2f",$vo['pay_amount']);</php></td>
+								<td><php> printf("%.2f",$vo['no_pay_amount']);</php></td>
+								<td><php> printf("%.2f",$vo['refund_amount']);</php></td>
+								<td>{$vo.valid_order_count}</td>
+								<td>{$vo.no_order_count}</td>
+								<td><b><php> printf("%.2f",$vo['member_consume']);</php></b></td>
+                            </tr>
+							</volist>
+                            
+                             
+                    </table>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>
+<script>
+$('#type').on('change',function(){
+	var type = $(this).val();
+	if(type=='day'){
+		$('#d4311').val('');$('#d4312').val('');
+		$('#d4311').attr('onFocus','WdatePicker({isShowClear:true,readOnly:true,realDateFmt:"yyyy-MM-dd",realTimeFmt:"HH:mm:ss",maxDate:"%y-%M-%d"})');
+		$('#d4312').attr('onFocus','WdatePicker(isShowClear:true,readOnly:true,realDateFmt:"yyyy-MM-dd",realTimeFmt:"HH:mm:ss",maxDate:"%y-%M-%d"})');
+	}else{
+		$('#d4311').val('');$('#d4312').val('');
+		$('#d4311').attr('onFocus','WdatePicker({dateFmt:"yyyy-MM",isShowClear:true,readOnly:true,realDateFmt:"yyyy-MM-dd",realTimeFmt:"HH:mm:ss",maxDate:"%y-%M-%d"})');
+		$('#d4312').attr('onFocus','WdatePicker({dateFmt:"yyyy-MM",isShowClear:true,readOnly:true,realDateFmt:"yyyy-MM-dd",realTimeFmt:"HH:mm:ss",maxDate:"%y-%M-%d"})');
+	}
+});
+</script>
+
+

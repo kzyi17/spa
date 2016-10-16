@@ -1,0 +1,62 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+		{$action_name}
+    </DIV>
+
+    <div class="content" style="height: 440px;">
+	<form action="/iwebshop/index.php?controller=order&amp;action=refundment_doc_show_save" method="post">
+		<input type="hidden" value="2" name="rid">
+		<table width="100%" style="margin:10px auto" class="border_table">
+			<colgroup><col width="200px">
+			<col>
+			</colgroup><tbody>
+				<tr>
+					<th>订单号：</th><td align="left">20140527143836221426</td>
+				</tr>
+				<tr>
+					<th>用户名：</th><td align="left">wang</td>
+				</tr>
+				<tr>
+					<th>联系方式：</th><td align="left">13245885693</td>
+				</tr>
+				<tr>
+					<th>退款金额：</th><td align="left">40.70</td>
+				</tr>
+				<tr>
+					<th>退款原因：</th><td align="left">SDFASDF</td>
+				</tr>
+				<tr>
+					<th>申请时间：</th><td align="left">2014-05-27 15:27:02</td>
+				</tr>
+				<tr>
+					<th>处理：</th>
+					<td align="left">
+						<label><input type="radio" checked="checked" value="2" name="pay_status">同意</label>
+						<label><input type="radio" value="1" name="pay_status">拒绝</label>
+					</td>
+				</tr>
+				<tr>
+					<th>处理意见：</th>
+					<td align="left">
+						<textarea name="dispose_idea" rows="5" cols="120"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2"><button onclick="return checkForm()" class="submit" type="submit"><span>确 定</span></button></td>
+				</tr>
+			</tbody>
+		</table>
+		
+	</form>
+</div>
+
+
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>

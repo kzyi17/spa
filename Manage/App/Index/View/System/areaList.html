@@ -1,0 +1,177 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$action_name}</DIV>
+    </DIV>
+    <script language="javascript" type="text/javascript" src="__PUBLIC__/js/datePicker/WdatePicker.js"></script>
+    <js href="{:C('WEB_STATICS')}/js/form/form.js,{:C('WEB_STATICS')}/js/artTemplate/artTemplate.js" />
+    <div style="margin-bottom:10px;">
+    <form action="{:U('System/areaList')}" method="post">
+    <input type="hidden" value="0" name="data[parent_id]"/>
+    关键字：<input type="text"  class="input" name="area_name" style="width:100px;" value="{$keywords}"/>
+<input type="submit" value="搜索" class="btn submit" id="submit" style="margin-left:20px;"/>
+<a class="btn" onclick="addAreaMode(0);" href="javascript:void(0);">添加</a>
+               </form></div>
+               <form action="" method="get">
+  <table width="99.5%" border="0" cellspacing="0" cellpadding="0" class="tab">
+                    <thead>
+                            <tr id="0">
+
+                                <td width="15%">名称</td>
+                                <td width="15%">ID</td>
+
+                                <td width="5%">排序</td>
+                                <td width="">操作</td>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody">
+                        <volist name="list" id="vo" key="k">
+                        <tr align="center" id="{$vo.area_id}" status="1" class="{$vo.parents}">
+                                <td align='left' style="padding-left:<?php echo(30 * $vo['level'] +10)?>px;">
+                                <if condition="$vo['child'] eq 1"><a href="javascript:toggleArea({$vo.area_id});"  class="toggle"><img  src="{:C('WEB_STATICS')}/public/open.gif" /></a></if>
+                                <input type="text" class="input" attrval='{$vo.area_name}' onblur='areaUpdate(this,"area_name")' value='{$vo.area_name}' /></td>
+                                <td>{$vo.area_id}</td>
+                                <td><input type='text' attrval='{$vo.sort}' value='{$vo.sort}' onblur='areaUpdate(this,"sort")' class='input' style='width:50px;'/></td>
+                                <td width="20%">[ <a href="javascript:addAreaMode({$vo.area_id});">添加</a> ] [ <a onclick="delModel({$vo.area_id})" href="javascript:void(0);" class="del" >删除 </a> ]</td>
+                            </tr>
+
+                            </volist>
+
+                             <tr align="right">
+                          <td colspan="4">{$page}</td>
+                          </tr>
+                          </tbody>
+                          <!--地域模板 开始-->
+							<script type='text/html' id='areaRowTemplate'>
+							<tr align="center" class="<%=item.parents%>" status="1" id="<%=item.area_id%>">
+                                <td align="left" style="padding-left:<%=(item.level * 30 +10) %>px;">
+								<%if(item.child ==1){%>
+								<a class="toggle" href="javascript:toggleArea(<%=item.area_id%>);"><img src="http://statics.showmay.com/public/open.gif"></a><%}%>
+								<input type="text" class="input" onblur="areaUpdate(this,'area_name')" value='<%=item.area_name%>' /></td>
+                                <td><%=item.area_id%></td>
+                                <td><input type="text" style="width:50px;" onblur="areaUpdate(this,'sort')" class="input" value="<%=item.sort%>"></td>
+                                <td width="20%">[ <a href="javascript:addAreaMode(<%=item.area_id%>);">添加</a> ] [ <a class="del" href="javascript:void(0);" onclick="delModel(<%=item.area_id%>)">删除 </a> ]</td>
+                            </tr>
+							</script>
+
+                    </table></form>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+
+<script>
+$('#submit').on('click',function(){
+	if($('input[name="data[area_name]"]').val()==''){
+		$('input[name="data[area_name]"]').removeAttr('name');
+	}
+	$('input[name="data[parent_id]"]').removeAttr('name');
+
+});
+function toggleArea(areaId){
+	if($('#' +areaId ).attr('status') ==1){
+		$.getJSON("__URL__/areaJson", { id:areaId}, function(json){
+ 			for(i=0;i<json.length;i++){
+ 				var data = json[i];
+ 				var areaRow = data ? data : {};
+ 				var html = template.render('areaRowTemplate',{item:areaRow});
+ 				$('#' +areaId).after(html);
+			}
+ 			$('#' +areaId+ ' td a img').attr('src','{:C('WEB_STATICS')}/public/close.gif');
+			$('#' +areaId ).attr('status',0)
+		});
+	}else{
+		$('.' +areaId ).remove();
+		$('#' +areaId+ ' td a img').attr('src','{:C('WEB_STATICS')}/public/open.gif');
+		$('#' +areaId ).attr('status',1)
+	}
+
+}
+function areaUpdate(object,name){
+	var value = $(object).val();
+	var oldvalue = $(object).attr('attrval');
+	
+	//var data = array();
+	if(value!=oldvalue){
+		var areaId = $(object).parent().parent().attr('id');
+		$.getJSON("__URL__/areaUpdate",{"area_id":areaId,name:name,value:value},function(json){
+			art.dialog.tips(json.info, 1.5);
+		});
+	}
+}
+
+/**
+ * 添加地区
+ * areaId 对应的地区下添加的新地区
+ */
+function addAreaMode(areaId)
+{
+	if(areaId !=0){
+		art.dialog.prompt('添加新地域',function(area_name){
+			$.getJSON("__URL__/areaUpdate",{"parent_id":areaId,"area_name":area_name},function(result){
+				if(result.status == 1)
+				{
+					$('#' +areaId ).attr('status',1);
+					if($('#' +areaId+ ' td a img').attr('src')){
+						$('#' +areaId+ ' td a img').attr('src','{:C('WEB_STATICS')}/public/open.gif');
+						$('.' +areaId ).remove();
+					}
+					else{
+						var name = $('#' +areaId+ ' td').first().html();
+						name = '<a href="javascript:toggleArea('+areaId +');" class="toggle"><img src="http://statics.showmay.com/public/open.gif"></a>'+ name;
+						$('#' +areaId+ ' td').first().html(name);
+					}
+					toggleArea(areaId);
+				}else{
+					art.dialog.tips(result.info, 1.5);
+				}
+			});
+		});
+	}else{  //添加第一级地区
+		var area_name = $('input[name="data[area_name]"]').val();
+		if(area_name ==''){
+			popup.alert('地区不能为空');
+			return false;
+		}
+
+		$.getJSON("__URL__/areaUpdate",{"parent_id":areaId,"area_name":area_name},function(json){
+			if(json.status == 1)
+			{
+				var data = json;
+				data['parents'] =0;
+				data['level'] =0;
+ 				var areaRow = data ? data : {};
+ 				var html = template.render('areaRowTemplate',{item:areaRow});
+ 				$('#tbody').before(html);
+			}
+			else{
+				art.dialog.tips(json.info, 1.5);
+			}
+		});
+	}
+}
+
+function delModel(areaId){
+	$.getJSON("__URL__/areaDel",{"area_id":areaId},function(json){
+		if(json.status == 1)
+		{
+			if(json.child == 0){
+				$('#' +json.parent_id +' td:first a').remove();
+			}
+			art.dialog.tips(json.info, 1.5);
+			$('#' +areaId).remove();
+		}else{
+			art.dialog.tips(json.info, 1.5);
+		}
+
+	});
+}
+</script>
+
+<include file="Public:foot"/>
+</BODY></HTML>
+
+
+

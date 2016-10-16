@@ -1,0 +1,144 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$action_name}</DIV>
+    </DIV>
+    <script language="javascript" type="text/javascript" src="__PUBLIC__/js/datePicker/WdatePicker.js"></script>
+    <table width="99.5%" border="0" cellspacing="0" cellpadding="0" class="tab">
+      <tr colspan="12">
+        <div style="margin-bottom:10px;">
+          <input type="button" value="新增" onClick="javascript:addNewRule();" class="btn submit" style="margin-left:20px;"/>
+        </div>
+      </tr>
+      <thead>
+        <tr>
+          <td width="3%"><input name="checkall" id="checkall" type="checkbox" value="" onclick="selected()"/></td>
+          <td width="6%">ID</td>
+          <td width="15%">规则</td>
+          <td width="15%">标题</td>
+          <td width="25%">附加条件</td>
+          <td width="5%">排序</td>
+          <td width="5%">状态</td>
+          <td width="">操作</td>
+        </tr>
+      </thead>
+      <volist name="list" id="vo" key="k">
+        <tr align="center"  id="{$vo.id}">
+          <td><input name="del_id[]" type="checkbox" id="checkone" value="{$vo.id}" /></td>
+          <td>{$vo.id}</td>
+          <td align="left">{$vo.name}</td>
+          <td align="left">{$vo.title}</td>
+          <td align="left">{$vo.condition}</td>
+          <td>{$vo.sort}</td>
+          <td>{$vo.statusTxt}</td>
+          <td>[ <a title="" href="javascript:void(0);" class="opStatus"  val="{$vo.status}">{$vo.chStatusTxt}</a> ]
+            <input class="btn submit" type="button" onclick="javascript:addNewRule({$vo.id});" value="编辑" />
+            <input class="btn submit" type="button" onclick="javascript:delModel({$vo.id});" value="删除" /></td>
+        </tr>
+      </volist>
+      <tr align="left">
+        <td colspan="12"><button class="btn submit"  id="submitButton">批量删除</button></td>
+      </tr>
+      <tr align="center">
+        <td colspan="12">{$page}</td>
+      </tr>
+    </table>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML><script type="text/javascript">
+
+$(function(){
+	//快捷启用禁用操作
+	$(".opStatus").click(function(){
+		var obj=$(this);
+		var id=$(this).parents("tr").attr("id");
+		var status=$(this).attr("val");
+		$.getJSON("__URL__/opCommonStatus?table=AuthRule", { id:id, status:status }, function(json){
+			if(json.status==1){
+				popup.success(json.info);
+				$(obj).attr("val",json.data.status).html(status==1?"启用":"禁用").parents("td").prev().html(status==1?"禁用":"启用");
+			}else{
+				popup.alert(json.info);
+			}
+		});
+	});
+});
+
+//添加用户组
+function addNewRule(rule_id)
+{
+	var url = "__URL__/ruleEdit/id/@rule_id@";
+	url = url.replace('@rule_id@',rule_id?rule_id:0);
+	art.dialog.open(url,{
+		id:'addRuleWin',
+	    title:'规则设置',
+	    okVal:'确定',
+	    ok:function(iframeWin, topWin){
+
+	    	var formObject = iframeWin.document.forms['ruleForm'];
+		   $.post("__URL__/ruleEdit", $(formObject).serialize(), function(json){
+
+				if(json.status == 1)
+				{
+					window.location.reload();
+					return true;
+				}
+				else
+				{
+					popup.alert(json.info);
+					return false;
+				}
+			},'json');
+
+	    }
+	});
+}
+
+$('#submitButton').click(function(){
+	popup.confirm('你确定删除所选吗？','你确定要删除所选吗',function(action){
+		if(action == 'ok'){
+			var delids = new Array();
+			var ids = $('input[name="del_id[]"]');
+			var j = 0;
+			for(i=0;i<ids.length;i++){
+				if(ids.eq(i).is(":checked")==true){
+					delids[j] = ids.eq(i).val();
+					j++;
+				}
+			}
+			$.ajax({
+				 type: "GET",
+				 url: '__URL__/ruleDelAll/del_id/' + delids,
+				 dataType: "json",
+				success: function(json){
+					if(json.status==1){
+						popup.alert(json.info);
+						window.location.reload();
+						//$("json.id").remove();
+						return false;
+					}else{
+						popup.alert(json.info);
+						return false;
+					}
+				}
+			 });
+		}
+	});
+});
+
+function delModel(id){
+	$.getJSON("__URL__/ruleDelAll/", { del_id:id}, function(json){
+		if(json.status==1){
+			popup.success(json.info);
+			$('#'+id).remove();
+		}else{
+			popup.alert(json.info);
+		}
+	});
+}
+</SCRIPT>

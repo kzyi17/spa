@@ -1,0 +1,63 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+<div id="Right">
+      <div class="Item hr">
+          <div class="current">修改账户密码</div>
+      </div>
+      <form action="" method="post">
+          <table width="99.5%" border="0" cellspacing="0" cellpadding="0" class="table1">
+              <TBODY>
+              <tr>
+                  <th width="120">当前账号：</th>
+                  <td><input disabled="disabled" name="user_code" type="text" class="input" size="40" value="{$my_info.user_code}" /></td>
+                  <input type="hidden" name="user_code" value="{$my_info.user_code}" />
+              </tr>
+              <tr>
+                  <th>现密码：</th>
+                  <td><input class="input" name="pwd0" type="password" size="40" value="" /></td>
+              </tr>
+              <tr>
+                  <th>新密码：</th>
+                  <td><input class="input" name="pwd" type="password" size="40" value="" /></td>
+              </tr>
+              <tr>
+                  <th>确认密码：</th>
+                  <td><input class="input" name="pwd1" type="password" size="40" value="" /></td>
+              </tr>
+              </TBODY>
+          </table>
+      </form>
+      <div class="commonBtnArea" >
+          <button class="btn submit">提交</button><button class="btn button1">返回</button>
+      </div>
+  </div>
+
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>
+<script type="text/javascript">
+$(function(){
+    $(".submit").click(function(){
+        if($.trim($("input[name='pwd0']").val())==''){
+            popup.alert("旧密码不能为空");
+            return false;
+        }
+        if($.trim($("input[name='pwd']").val())==''){
+            popup.alert("新密码不能为空");
+            return false;
+        }
+        if($.trim($("input[name='pwd1']").val())==''){
+            popup.alert("请再次输入确认你的密码");
+            return false;
+        }
+        commonAjaxSubmit();
+		return false;
+    });
+})
+$(".button1").click(function(){
+		window.history.back();
+	})
+</script>

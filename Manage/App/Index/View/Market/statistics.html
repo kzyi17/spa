@@ -1,0 +1,82 @@
+<include file="Public:head"/>
+<js href="__PUBLIC__/js/common.js,{:C('WEB_STATICS')}/js/form/form.js"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$action_name}</DIV>
+    </DIV>
+    <script language="javascript" type="text/javascript" src="__PUBLIC__/js/datePicker/WdatePicker.js"></script>
+	<form action="" method="post" name='searchForm'>分销商：
+	<input type="text"  class="input" name="member_code" style="width:100px;" value="{$member_code}"/>
+	<select name='level_sn'>
+		<option value=''>全部分销等级</option>
+		<volist name='levelList' id='level'>
+		
+		<option value='{$level.level_id}'>{$level.level_name}</option>
+		</volist>
+	</select>
+               &nbsp;&nbsp;&nbsp;&nbsp;记录时间：
+               <input type="text" id="d4311" name="starttime"  class="input" style="width:100px;"class="Wdate" onFocus="WdatePicker({isShowClear:true,readOnly:true,realDateFmt:'yyyy-MM-dd',realTimeFmt:'HH:mm:ss',maxDate:'%y-%M-%d'})" value="{$starttime}"/>
+               -<input type="text" name="endtime"  style="width:100px;"   class="input" class="Wdate" id="d4312" onFocus="WdatePicker({isShowClear:true,realDateFmt:'yyyy-MM-dd',realTimeFmt:'HH:mm:ss',readOnly:true,maxDate:'%y-%M-%d'})"  value="{$endtime}"/>
+<input type="submit" value="搜索" class="btn submit" style="margin-left:20px;" id='sub'/>
+<input type='hidden' value='1' name='type' />
+<input type='submit' value="导出csv" class="btn submit" style="margin-left:20px;" id='csv'/>
+               </form>
+			   
+			   <table width="99.5%" border="0" cellspacing="0" cellpadding="0" class="tab">
+               
+                    <thead>
+                            <tr>
+                                
+                                <td width="10%">分销商</td>
+								<td width="15%">注册时间</td>
+								<td width="12%">分销等级</td>
+								<td width="8%">推荐的会员</td>
+								<td width="10%">交易次数</td>
+								<td width="15%">上次交易时间</td>
+								<td width="12%">消费的金额</td>
+								<td width="12%">返利成功金额</td>
+								<td width="15%">活跃度</td>
+                            </tr>
+                        </thead>
+							<volist name='list' id='vo'>
+							<tr align="center">                               
+                                <td>{$vo.member_code}</td>
+								<td>{$vo.create_time|date="Y-m-d : H-i",###}</td>
+								<td>{$vo.level}</td>
+								<td>{$vo.recommendMembers}</td>
+								<td>{$vo.count}</td>
+								<td><if condition="$vo['last_time'] neq null">{$vo.last_time|date='Y-m-d H:i',###}</if></td>
+								<td><php> printf("%.2f",$vo['amount']);</php></td>
+								<td><php> printf("%.2f",$vo['distribution_amount']);</php></td>
+								<td><b><?php printf("%.3f",($vo['liveness']));?></b></td>
+                            </tr>
+							</volist>
+							<tr align="center">
+						<td colspan="9">{$page}</td>
+							</tr>
+                            
+                             
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>
+<script>
+var formObj = new Form('searchForm');
+$(function()
+{
+	<if condition="($search)"> 
+		var searchForm = {:json_encode($search)};
+		formObj.init(searchForm);
+	</if>
+});
+$('#csv').on('click',function(){
+	$('input[name="type"]').val('0');
+});
+$('#sub').on('click',function(){
+	$('input[name="type"]').val('1');
+});
+</script>

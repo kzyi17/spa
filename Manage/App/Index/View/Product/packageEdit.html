@@ -1,0 +1,335 @@
+<include file="Public:head"/>
+<js href="__PUBLIC__/js/kindeditor/kindeditor-min.js,__PUBLIC__/js/kindeditor/lang/zh_CN.js,__PUBLIC__/js/artTemplate/artTemplate.js,__PUBLIC__/js/artTemplate/artTemplate-plugin.js,{:C('WEB_STATICS')}/js/form/form.js"/>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/datePicker/WdatePicker.js"></script>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$pagetitle}</DIV>
+    </DIV>
+
+    <div class="headbar clearfix">
+        <ul class="tab_goods" name="menu1">
+            <li id="li_1" class="selected"><a href="javascript:void(0)" hidefocus="true" onclick="select_tab('1')">套餐信息</a></li>
+            <!--  <li id="li_2"><a href="javascript:void(0)" hidefocus="true" onclick="select_tab('2')">备注</a></li>-->
+        </ul>
+    </div>
+    
+    <div class="content_box">
+    	<div class="content_box">
+        <form action="__URL__/packageSave" name="goodsForm" method="post">
+        	<input type="hidden" name="package_id" value="{$package.package_id}" />
+        	<div class="content form_content">
+                <!-- 商品信息 -->
+                <div id="table_box_1">
+               		<table width="99.5%" border="0" cellspacing="0" cellpadding="0" class="form_table">
+			            <tr>
+			                <th width="100"><span class="font2">*</span> 套餐名称：</th>
+			                <td><input id="title" type="text" pattern="required" alt="套餐名称" class="input" size="50" name="package_name" value="{$package.package_name}"/> <label>*（模型名称必须填写）</label></td>
+			            </tr>
+			            <tr>
+			                <th width="100"><span class="font2">*</span> 有效时间：</th>
+			                <td><input type="text" name="start_time"  class="input Wdate" style="width:100px;" onFocus="WdatePicker({isShowClear:true,realDateFmt:'yyyy-MM-dd',realTimeFmt:'HH:mm:ss'})" value="<if condition='$package'>{:date('Y-m-d',$package['start_time'])}</if>" pattern='date' alt="请填写正确的日期"/>
+				               -- <input type="text" name="end_time" class="input Wdate" style="width:100px;" onFocus="WdatePicker({isShowClear:true,realDateFmt:'yyyy-MM-dd',realTimeFmt:'HH:mm:ss'})"  value="<if condition='$package'>{:date('Y-m-d',$package['end_time'])}</if>" pattern='date' alt="请填写正确的日期"/></td>
+			            </tr>
+			             <tr>
+			                <th width="100"> 套餐优惠价：</th>
+			                <td>
+							<input class="tiny small" name="package_amount" type="text" pattern="float" value="{$package['package_amount']?$package['package_amount']:0}"/>
+							<a href='javascript:void(0);' class='btn' onclick="memberPrice(this)">分销价</a> 
+							<volist name="package.levelPrice" id="level">
+							<!--{$level.level_name}
+							<input  name="level_id[]" type="hidden"  value="{$level.level_id}"/>
+							<input class="tiny small" name="group_price[]" type="text" value="{$level.price}"/>-->
+							</volist>
+							留空或设置为0时，套餐价格为商品原价。</td>
+			            </tr>
+			             <tr>
+			                <th width="100"> 是否上架：</th>
+			                <td><input name="is_sale" type="radio" value="0" <if condition="$package['is_sale']==0">checked="checked"</if> /> 下架  <input name="is_sale" type="radio" value="1" <if condition="$package['is_sale']==1">checked="checked"</if>/> 上架</td>
+			            </tr>
+			            <tr>
+			                <th width="100" valign="top">商品搭配：</th>
+			                <td>
+			                	<div style="padding:10px 0;"><a class="btn" onclick="searchGoods('{:u('Product/orderSearchGoods','type=1')}',searchGoodsCallback);">添加搭配</a></div>
+								<table width="98%" style="margin:0 auto;" class="tab">
+								  <thead>
+									<tr>
+										<td width="200">搭配名称</td>
+										<td>搭配商品</td>
+										
+										<td width="80">是否必须</td>
+										<td width="100">操作</td>
+									</tr>
+								  </thead>
+								  <tbody id="goodsBox">
+								  	<volist name="package.goods" id="item">
+									<tr align="center"> 
+										<input type='hidden' name='product[goods_id][]' value='{$item.goods_id}' />
+										<input type='hidden' name='product[product_id][]' value='{$item.product_id}' />
+										<input type='hidden' name='product[goods_price][]' value='{$item.goods_price}' />
+										<input type='hidden' name='product[goods_array][]' value='{$item.goods_array}' />
+										<td>
+											<input name='product[match_name][]' class='input' type='text' value="{$item.match_name}"  pattern='required'/>
+										</td>
+										<td>
+											<img src="{:C('WEB_STATICS')}{$item.goods_photo}" width="50px" height="50px" class="spec_photo" />
+											{$item.goods_name}
+										</td>
+										<td><input type='checkbox' onclick="selectCheck(this,'product[is_required][]')"  <if condition="$item['is_required']==1">checked="checked"</if>/><input type='hidden' name='product[is_required][]' value='{$item.is_required}' /></td>
+										<td>
+											<a href="javascript:void(0)" onclick="$(this).parent().parent().remove();">
+												<img class="operator" src="" alt="删除" />
+											</a>
+										</td>
+									</tr>
+									
+									</volist>
+								  </tbody>
+								  <!--商品模板-->
+				<script type='text/html' id='goodsTrTemplate'>
+				<tr align="center">
+					<input type='hidden' name='product[goods_id][]' value='<%=item.id%>' />
+					<input type='hidden' name='product[product_id][]' value='<%=item.product_id%>' />
+					<input type='hidden' name='product[market_price][]' value='<%=item.market_price%>' />
+					<input type='hidden' name='product[goods_price][]' value='<%=item.goods_price%>' />
+					<input type='hidden' name='product[goods_array][]' value='<%=item.goods_array%>' />
+					<td>
+						<input name='product[match_name][]' class='input' type='text' pattern='required'/>
+					</td>					
+					<td>
+						<%if(item.img!=null && item.img!="" && item.img!=undefined){%>
+						<img src="<%=item.imgparent%><%=item.img%>" width="50px" height="50px" class="spec_photo" />
+						<%}else{%>
+							
+						<%}%>
+						<%=item.name%>
+						<%if(item.spec_array){%>
+							<label class="attr">
+							<%var spec_array = item.spec_array%>
+							<%for(var index in spec_array){%>
+								<%var value = spec_array[index]%>
+								<%=value["name"]%>:
+								<%if(value["type"] == 1){%>
+									<%=value['value']%>
+								<%}else{%>
+									<img src="<%=item.imgparent%><%=value['value']%>" width="50px" height="40px" class="spec_photo" />
+								<%}%>
+							<%}%>
+							</label>
+						<%}%>
+					</td>
+					<td><input type='checkbox' onclick="selectCheck(this,'product[is_required][]')" value='1'/><input type='hidden' name='product[is_required][]' value='0' /></td>
+					<td>
+						<a href="javascript:void(0)" onclick="$(this).parent().parent().remove();">
+							<img class="operator" src="" alt="删除" />
+						</a>
+					</td>
+				</tr>
+				</script>
+								</table>
+			                </td>
+			            </tr>
+					</table>
+                </div>
+                <!-- 描述 -->
+                <div id="table_box_2" cellpadding="0" cellspacing="0" style="display:none">
+                hhh
+                </div>
+            </div>
+            <div class="commonBtnArea" >
+                <button class="btn submit" type="submit" onclick="return checkForm()">提交</button>   <button class="btn button1" onclick="location.href='javascript:history.back();';return false;">返回</button>
+            </div>
+        </form>
+        </div>
+    </div>
+
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>
+<script language="javascript">
+
+//tab标签切换
+function select_tab(curr_tab)
+{
+	$(".form_content > div").hide();
+	$("#table_box_"+curr_tab).show();
+	$("ul[name=menu1] > li").removeClass('selected');
+	$('#li_'+curr_tab).addClass('selected');
+}
+
+//var attrTemplate  = "<tr><td><input name='attr[attr_id][]' type='hidden'/><input name='attr[attr_name][]' class='input' type='text' pattern='required'/></td>";
+//attrTemplate += "<td><select name='attr[attr_type][]'><option value='1'>文本输入</option><option value='2'>单选框</option><option value='3'>复选框</option><option value='4'>下拉框</option></select></td>";
+///attrTemplate += "<td><input name='attr[attr_values][]' class='input' type='text' pattern='required'/></td>";
+//attrTemplate += "<td><input type='checkbox' onclick='selectCheck(this,\"attr[is_linked][]\")'/><input type='hidden' name='attr[is_linked][]' value='0' /></td>";
+//attrTemplate +=	"<td><input type=\"checkbox\" onclick='selectCheck(this,\"attr[is_search][]\")'/><input type='hidden' name='attr[is_search][]' value='0' /></td>";
+//attrTemplate += "<td>[ <a href='javascript:void()' onclick='delAttr(this)'>删除</a> ]</td></tr>"
+
+
+//添加一个模型属性
+function addAttr()
+{
+//var attrTrHtml = "<p>sssffff</p>";//template.render('attrTrTemplate',{'item':[]});
+//$('#attr_list').append(attrTemplate);
+//alert("ssssss");
+}
+
+/**
+ * 筛选商品回调
+ * @param goodsList JQ选中的商品列表节点
+ */
+function searchGoodsCallback(goodsList)
+{
+	//循环插入DOM节点
+	goodsList.each(function()
+	{
+		
+		var data = $(this).attr("data");
+		var temp = $.parseJSON(data);
+		if(temp.spec_array !='')
+			var spec_array = $.parseJSON(temp.spec_array);
+		else{
+			var spec_array = temp.spec_array;
+		}
+		//alert(data);return false;
+		var imgparent = '{:C('WEB_STATICS')}';
+		//alert(data);return false;
+		var insertObject = {"id":temp.goods_id,"name":temp.name,"goods_weight":temp.goods_weight,"market_price":temp.market_price,"goods_price":temp.goods_price,"product_id":temp.product_id,"spec_array":spec_array,"goods_array":data,"imgparent":imgparent,"img":temp.img};
+		insertGoods(insertObject);
+		
+	});
+}
+/**
+ * 生成商品信息
+ */
+function insertGoods(goodsRow)
+{
+	var goodsRow = goodsRow ? goodsRow : {};
+	var goodsTrHtml = template.render('goodsTrTemplate',{item:goodsRow});
+	$("#goodsBox").append(goodsTrHtml,goodsRow);
+}
+
+/**
+ * 进行商品筛选
+ * @param url string 执行的URL
+ * @param callback function 筛选成功后执行的回调函数
+ */
+function searchGoods(url,callback)
+{
+	var step = 0;
+	art.dialog.open(url,
+	{
+		"id":"searchGoods",
+		"height":'80%',
+		"title":"商品筛选",
+		"okVal":"执行",
+		"button":
+		[{
+			"name":"后退",
+			"callback":function(iframeWin,topWin)
+			{
+				if(step > 0)
+				{
+					iframeWin.window.history.go(-1);
+					this.size(1,1);
+					step--;
+				}
+				return false;
+			}
+		}],
+		"ok":function(iframeWin,topWin)
+		{
+			if(step == 0)
+			{
+				iframeWin.document.forms[0].submit();
+				step++;
+				return false;
+			}
+			else if(step == 1)
+			{
+				var goodsList = $(iframeWin.document).find('input[name="id[]"]:checked');
+
+				//添加选中的商品
+				if(goodsList.length == 0)
+				{
+					alert('请选择要添加的商品');
+					return false;
+				}
+				//alert(goodsList.length);return false;
+				//执行处理回调
+				callback(goodsList);
+				return true;
+			}
+		}
+	});
+}
+
+//设置选择复选框的值
+function selectCheck(_self,objet)
+{
+	var checkValue = $(_self).siblings('[name="'+objet+'"]')[0];
+	if($(_self).is(":checked"))
+	{
+		checkValue.value = 1;
+	}else{
+		checkValue.value = 0;
+	}
+}
+
+//删除模型属性
+function delAttr(curr_attr)
+{
+$(curr_attr).parent().parent().remove();
+}
+
+function test(aa){
+	
+	if(aa){
+		alert('aa');
+	}else{
+		alert('bb');
+	}
+	
+}
+/**
+ * 分销商价格
+ * @param obj 按钮所处对象
+ */
+function memberPrice(_self)
+{
+	var package_id =  $('input[name="package_id"]').val();
+	//开启新页面
+	var tempUrl = '__APP__/product/packageMemberPrice/package_id/@package_id@';
+	
+	tempUrl = tempUrl.replace('@package_id@',package_id);
+
+	art.dialog.open(tempUrl,{
+		id:'memberPriceWindow',
+	    title: '此商品对于分销组价格',
+	    ok:function(iframeWin, topWin)
+	    {
+	    	var formObject = iframeWin.document.forms['groupPriceForm'];
+	    	var groupPriceObject = {};
+			
+	    	$(formObject).find('input[name^="groupPrice"]').each(function(){
+	    		if(this.value != '')
+	    		{
+	    			//去掉前缀获取group的ID
+		    		var groupId = this.name.replace('groupPrice','');
+					$(_self).after('<input  name="level_id[]" type="hidden"  value="'+groupId+'"/><input class="tiny small" name="group_price[]" type="hidden" value="'+this.value+'"/>')
+		    		groupPriceObject[groupId] = this.value;
+	    		}
+				
+				
+	    	});
+			
+		}
+	});
+	return false;
+}
+
+
+</script>

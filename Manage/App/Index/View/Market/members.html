@@ -1,0 +1,97 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$action_name}</DIV>
+    </DIV>
+  <table width="99.5%" border="0" cellspacing="0" cellpadding="0" class="tab">
+               
+                    <thead>
+                            <tr>
+                                
+                                <td width="15%">类型</td>
+                                <td width="6%">统计</td>
+                            </tr>
+                        </thead>
+							<tr align="center">                               
+                                <td>锁定分销商</td>
+                                <td>{$lock_count}</td>
+                            </tr>
+							<tr align="center"> 
+                                <td>删除的分销商</td>
+                                <td>{$lock_delete}</td>
+                            </tr>
+							<tr align="center">
+								<td>全部分销商</td>
+                                <td>{$member_count}</td>
+                            </tr>
+                            
+                             
+                    </table>
+	<form action='' method='post'>
+	<select name="lag">
+        <option value="">时间段的生日人数</option>
+		<option value="1" <if condition="$lag eq 1"> selected="selected"</if>>今天</option>
+		<option value="7" <if condition="$lag eq 7"> selected="selected"</if>>7天内</option>
+		<option value="15" <if condition="$lag eq 15"> selected="selected"</if>>15天内</option>
+		<option value="25" <if condition="$lag eq 25"> selected="selected"</if>>25天内</option>
+         </select>
+		 <input type='submit' class='btn' value='确认' />
+		 </form>
+	<table width="99.5%" border="0" cellspacing="0" cellpadding="0" class="tab">
+               
+		<thead>
+				<tr>
+					
+					<td width="15%">分销商</td>
+					<td width="15%">等级</td>
+					<td width="15%">距生日倒计时</td>
+					<td width="6%">出生日期</td>
+				</tr>
+			</thead>
+				<volist name='list' id='vo' key='key'>
+				<tr align="center">                               
+					<td>{$vo.member_code}</td>
+					<td>{$vo.distribution_level.level_name}</td>
+					<td id='{$key}'>00-00-00</td>
+					<td>{$vo.birthday}</td>
+				</tr>
+				</volist>
+				 
+		</table>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>
+<script>
+function GetRTime(){
+		<volist name='list' id='vo' key='key'>
+       var EndTime= new Date('{$vo.time}'); //截止时间 前端路上 http://www.51xuediannao.com/qd63/
+       var NowTime = new Date();
+       var t =EndTime.getTime() - NowTime.getTime();
+       var d=Math.floor(t/1000/60/60/24);
+       var h=Math.floor(t/1000/60/60%24);
+       var m=Math.floor(t/1000/60%60);
+       var s=Math.floor(t/1000%60);
+	   
+	   if(t>0){
+			document.getElementById("{$key}").innerHTML = (Math.abs(h)) + "天" + h + "时"+m + "分"+s + "秒";
+	   }else{
+			h = Math.floor(h+24);
+			m = Math.floor(m+60);
+			s = Math.floor(s+60);
+			//alert(d);
+			document.getElementById("{$key}").innerHTML = '<b style="color:red;">今天生日：还剩时间 '  + (Math.abs(h)) + "时"+(Math.abs(m)) + "分"+(Math.abs(s)) + "秒</b>";
+	   }
+	   
+	   </volist>
+   }
+   
+   setInterval(GetRTime,1000); 
+</script>
+
+
+

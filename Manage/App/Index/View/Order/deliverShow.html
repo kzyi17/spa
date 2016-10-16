@@ -1,0 +1,89 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+		{$action_name}
+    </DIV>
+
+    <div class="content" style="">
+    <div style="height:300px;">
+	<table cellspacing="0" cellpadding="0" border="0" style="float:left;width:300px;margin-right:20px;" class="border_table f_l tab">
+			<thead>
+				<tr><th height="24" colspan="2">订单信息</th></tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th>订单号:</th><td>{$data.order_no}</td>
+				</tr>
+				<tr>
+					<th>操作员:</th><td>{$data.admin}</td>
+				</tr>
+				<tr>
+					<th>会员名:</th><td>{$data.username}</td>
+				</tr>
+				<tr>
+					<th>生成时间:</th><td>{$data.time|date='Y-m-d H:i',###}</td>
+				</tr>
+				<tr>
+					<th>物流单号:</th><td>{$data.delivery_code}</td>
+				</tr>
+				<tr>
+					<th>备注:</th><td>{$data.note}</td>
+				</tr>
+			</tbody>
+		</table>
+		<table cellspacing="0" cellpadding="0" border="0" style="float:left;width:300px;margin-right:20px;" class="border_table f_l tab">
+				<thead>
+					<tr><th height="24" colspan="2">配送信息</th></tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>收货地区:</th><td>{$data.provinceName} {$data.cityName} {$data.areaName}</td>
+					</tr>
+					<tr>
+						<th>收货地址:</th><td>{$data.address}</td>
+					</tr>
+					<tr>
+						<th>手机:</th><td>{$data.mobile}</td>
+					</tr>
+					<tr>
+						<th>运费:</th><td>{$data.freight}</td>
+					</tr>
+					<tr>
+						<th>电话:</th><td>{$data.telphone}</td>
+					</tr>
+					<tr>
+						<th>配送方式:</th><td>{$data.deliveryName}</td>
+					</tr>
+
+				</tbody>
+		</table></div>
+		<div>
+		<table cellspacing="0" cellpadding="0" class="border_table tab" style="width:60%">
+						<thead>
+							<tr class="">
+								<th >商品名称</th>
+								<th align='center' style="width: 100px;">商品数量</th>
+							</tr>
+						</thead>
+						<tbody>
+						<tr>
+						<volist name="data.product" id="pro">
+							<tr>
+								<td>{$pro.name}</td>
+								<td>{$pro.goods_nums}</td>
+							</tr>
+						</volist>
+						</tr>
+						</tbody>
+		</table></div>
+</div>
+
+
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>

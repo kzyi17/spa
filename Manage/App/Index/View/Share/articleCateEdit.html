@@ -1,0 +1,72 @@
+<include file="Public:head"/>
+<js href="__PUBLIC__/js/kindeditor/kindeditor-min.js,__PUBLIC__/js/kindeditor/lang/zh_CN.js,__PUBLIC__/js/artTemplate/artTemplate.js,__PUBLIC__/js/artTemplate/artTemplate-plugin.js,{:C('WEB_STATICS')}/js/form/form.js"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$pagetitle}</DIV>
+    </DIV>
+    <div class="content_box">
+        <form action="__URL__/articleCateSave" name="merchantForm" method="post">
+        	<input type="hidden" name="cate_id" value="{$cate.cate_id}" />
+        	<div class="content form_content">
+        		<div id="table_box_1">
+        			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tab form_table">
+                        <col width="120px" />
+                        <col />
+                        <tr>
+							<td>分类名称：</td>
+							<td><input class="normal" name="cate_name" type="text" value="{$cate.cate_name}" pattern="required" alt="名称不能为空" /><label>*</label></td>
+						</tr>
+						<tr>
+							<td>是否推荐：</td>
+							<td>
+								<if condition="$cate['is_system'] eq 1">
+									<label class='attr'><input type="radio" name="is_system" value="1" checked> 系统分类</label>
+                               		<label class='attr'><input type="radio" name="is_system" value="0" > 普通文章分类</label>
+								<else/>
+									<label class='attr'><input type="radio" name="is_system" value="1" > 系统分类</label>
+                               		<label class='attr'><input type="radio" name="is_system" value="0" checked> 普通文章分类</label>
+								</if>
+							</td>
+						</tr>
+                    </table>
+        		</div>
+            </div>
+            <div class="commonBtnArea" >
+                <button class="btn submit" type="submit" onclick="return checkForm()">保存</button>  
+            </div>
+        </form>
+    </div>
+
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+<script language="javascript">
+$(function()
+{
+	
+	
+});
+
+
+//提交表单前的检查
+function checkForm()
+{
+	//整理商品图片
+	var goodsPhoto = [];
+	$('#thumbnails img').each(function(){
+		goodsPhoto.push(this.alt);
+	});
+	if(goodsPhoto.length > 0)
+	{
+		$('input[name="_imgList"]').val(goodsPhoto.join(','));
+		$('input[name="photo_id"]').val($('#thumbnails img[class="current"]').attr('alt'));
+	}
+	return true;
+}
+
+</script>
+</BODY></HTML>

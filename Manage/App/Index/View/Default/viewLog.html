@@ -1,0 +1,84 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+        <div class="mainBody"> <include file="Public:left" />
+            <div id="Right">
+                <div class="contentArea">
+                    <div class="Item hr">
+                        <div class="current">日志详情</div>
+                    </div>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table1">
+                            <notempty name="agent.company">
+                            <tr>
+                                <th width="120">ID：</th>
+                                <td>
+                                    {$info.ID}
+                                </td>
+                            </tr>
+                            </notempty> 
+                            <tr>
+                                <th width="120">后台ID：</th>
+                                <td>
+                                    {$info.sysName}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th width="120">账号：</th>
+                                <td>{$info.UserCode} </td>
+                            </tr>
+                            <tr>
+                                <th>操作状态：</th>
+                                <td>{$info.actionName}</td>
+                            </tr>
+
+                            <tr>
+                                <th>日志内容：</th>
+                                <td><textarea name="Remark" style="width: 400px;" disabled>{$info.Log}</textarea></td>
+                            </tr>
+                            <tr>
+                                <th>操作时间：</th>
+                                <td>{$info.CreateTime|date='Y-m-d H:i',###}</td>
+                            </tr>
+                        </table>
+                    <div class="commonBtnArea" >
+                         <button class="btn button1">返回</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+<include file="Public:foot" />
+<script type="text/javascript">
+    $(function(){
+        $(".submit").click(function(){
+			if($("#ClassID").val()==''){
+				popup.alert("请选择等级");
+				return false;
+			}
+			<if condition="ACTION_NAME neq 'editAgent'">
+            if($.trim($("input[name='UserName']").val())==''){
+				popup.alert("账号不能为空");
+				return false;
+			}
+			if($.trim($("input[name='UserPwd']").val())==''){
+				popup.alert("密码不能为空");
+				return false;
+			}
+            </if>
+			if($("#Province").val()==''){
+				popup.alert("请选择所在地区");
+				return false;
+			} 
+			if($("#Email").val()==''){
+				popup.alert("请输入经常使用的邮箱");
+				return false;
+			}
+            commonAjaxSubmit();
+        });
+		$(".button1").click(function(){
+			window.history.back();
+		})
+    });
+</script>
+</body>
+</html>

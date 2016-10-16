@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0048)http://127.0.0.1/phpadmin/system.php/Index/index -->
+<HTML xmlns="http://www.w3.org/1999/xhtml">
+<HEAD>
+<TITLE>总运营管理中心  - 秀姿美</TITLE>
+<META content="text/html; charset=utf-8" http-equiv=Content-Type>
+<link href="/Public/css/base.css"  rel="stylesheet" type="text/css"/>
+<link href="/Public/css/layout.css"  rel="stylesheet" type="text/css"/>
+<link href="/Public/css/spec.css"  rel="stylesheet" type="text/css"/>
+<css rel="stylesheet" href="{:C('WEB_STATICS')}/js/asyncbox/skins/default.css" />
+<css rel="stylesheet" href="{:C('WEB_STATICS')}/js/artdialog/skins/default.css" />
+
+</head>
+
+<body style="width:700px;min-height:350px;">
+    <div class='pop_win'>
+
+      <form action='__URL__/userTypeEdit' method='post'  id='TypeForm'>
+		<table class="form_table tab" style="width:95%" >
+			<col width="120px" />
+			<col />
+			<if condition="$data['id'] neq null">
+			<input type="hidden" name="data[id]" value="{$data.id}" />
+			</if>
+			<tr>
+				<td style='text-align:right'>类型ID：</td><td align="left"><input class="input" name="data[admin_type]" value="{$data.admin_type}" type="text" style="width:280px;" /> <label class="spec_font1">* </label></td>
+			</tr>
+			<tr>
+				<td style='text-align:right'>类型名称：</td><td align="left"><input class="input" name="data[type_name]" value="{$data.type_name}" type="text" style="width:280px;" /> <label class="spec_font1">* （必填）</label></td>
+			</tr>
+
+
+
+		</table>
+	</form>
+	</div>
+
+</BODY></HTML>

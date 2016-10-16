@@ -1,0 +1,75 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />	
+<base href="/mlbspa/weixin/<?php echo TMPL_PATH; echo MODULE_NAME;?>/" />
+<link href="css/mui.min.css" rel="stylesheet"/>
+<link rel="stylesheet" type="text/css" href="css/style.css"/>
+<style type="text/css">
+	  body,html,#container{
+	    height: 100%;
+	    margin: 10px 0 0 0;
+	   
+	  }
+</style>
+<title></title>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">商家位置</h1>
+</header>
+<div id="container" tabindex="0"></div>
+<script src="js/mui.min.js"></script>
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=83f5f0d18bd6b1e0f72e1ec3b2339b80&plugin=AMap.CloudDataSearch"></script>
+<script type="text/javascript">
+	mui.ready(function(){
+//		self = plus.webview.currentWebview();
+  	mapId = "<?php echo ($id); ?>";
+		
+		var map;
+	  map = new AMap.Map('container', {
+        resizeEnable: true,
+        zoom: 12
+    });
+		//构造云数据检索类
+    var search = new AMap.CloudDataSearch('56dd00597bbf197f399d0f90');  
+    //根据id查询
+    search.searchById(mapId, cloudSearch_CallBack); 
+    
+    function cloudSearch_CallBack(status, data) {
+        var clouddata = data.datas[0];
+        //添加marker
+        var location = clouddata._location;
+        var marker = new AMap.Marker({
+            map: map,
+            position: location
+        });
+        map.setCenter(marker.getPosition());
+        //添加infowindow
+        var photo = [];
+        if (clouddata._image[0]) 
+        var infoWindow = new AMap.InfoWindow({
+            content: "<font face=\"微软雅黑\"color=\"#3366FF\">" + clouddata._name + "</font><hr />" + photo.join("") + "商家地址：" + clouddata._address + "<br />" + "联系电话：" + clouddata.contact,
+            autoMove: true,
+            offset: {x: 0, y: -30}
+        });
+        infoWindow.open(map, marker.getPosition());
+        console.log(JSON.stringify(clouddata));
+        
+       	marker.on('click', function(e) {
+            infoWindow.open(map, marker.getPosition());
+        });
+    }	
+		
+		
+//		//显示当前页面
+//  self.show();
+//  //关闭等待框
+//  plus.nativeUI.closeWaiting();
+	});
+
+</script>
+</body>
+</html>

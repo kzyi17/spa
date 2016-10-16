@@ -1,0 +1,84 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>物流公司</DIV>
+    </DIV>
+    <a  href="/index.php/System/freightAdd" class="btn submit" style="margin-left:20px;"/>添加物流公司</a>
+  <table width="99.5%" border="0" cellspacing="0" cellpadding="0" class="tab">
+               <tr colspan="12"><div style="margin-bottom:10px;">
+
+               </div></tr>
+                    <thead>
+                            <tr>
+
+                                <td width="20%">物流名称</td>
+                                <td width="25%">物流公司代码</td>
+								<td width="25%">url网址</td>
+                                <td width="15%">排序</td>
+                                <td width="">操作</td>
+                            </tr>
+                        </thead>
+                        <volist name="list" id="vo" key="k">
+                        <tr align="center" id="{$vo.id}">
+                                <td>{$vo.name}</td>
+                                <td>{$vo.code}</td>
+                                <td><a href="{$vo.url}" target="_blank">{$vo.url}</a></td>
+                                <td>{$vo.sort}</td>
+								<td>
+									<a href="{:U('System/freightEdit',array('id'=>$vo['id']))}">[ 编辑 ]</a>
+									<a href="javascript:delModel('{:U('System/freightDel',array('id'=>$vo['id']))}');">[ 删除 ]</a>
+								</td>
+						</tr>
+
+                       </volist>
+                            <tr align="left">
+                          </tr>
+                             <tr align="center">
+                          <td colspan="12">{$page}</td>
+                          </tr>
+                    </table>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>
+<script type="text/javascript">
+
+function toUrl()
+{
+     parent.window.location.href="__URL__/freightEdit";
+}
+//删除指定id会员
+function delModel(url){
+	if(url!=null){
+		popup.confirm('删除物流公司','你确定要删除吗',function(action){
+			if(action == 'ok'){
+			 $.ajax({
+				 type: "GET",
+				 url: url,
+				 dataType: "json",
+				success: function(json){
+					if(json.status==1){
+						popup.alert('删除成功');
+						window.location.reload();
+						//$("json.id").remove();
+						return false;
+					}else{
+						popup.alert(json.info);
+						return false;
+					}
+				}
+			 });
+			}
+		});
+		//删除多个
+	}else{
+
+	}
+}
+</SCRIPT>
+
+

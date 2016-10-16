@@ -1,0 +1,14 @@
+/*顶部导航框*/
+header.mui-bar{background-color: #f61d67;}
+header.mui-bar .mui-title,header.mui-bar .mui-btn-link,header a{color: #FFFFFF;}
+.mui-btn-danger{background-color: #f61d67;border: 1px solid #f61d67;}
+
+/*边距类*/
+.mt0{margin-top: 0px!important;}
+.mt10{margin-top: 10px;}
+.mt20{margin-top: 20px;}
+.mt30{margin-top: 30px;}
+.ml0{margin-left: 0px;}
+.ml10{margin-left: 10px;}
+.ml20{margin-left: 20px;}
+.ml30{margin-left: 30px;}

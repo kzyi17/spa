@@ -1,0 +1,128 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$action_name}</DIV>
+    </DIV>
+    <script language="javascript" type="text/javascript" src="__PUBLIC__/js/datePicker/WdatePicker.js"></script>
+  <table width="99.5%" border="0" cellspacing="0" cellpadding="0" class="tab">
+               <tr colspan="12"><div style="margin-bottom:10px;">
+<input type="button" value="新增" onClick="javascript:addNewGroup();" class="btn submit" style="margin-left:20px;"/>
+              </div></tr>
+                    <thead>
+                            <tr>
+
+                                <td width="6%">ID</td>
+                                <td width="25%">用户组</td>
+                                <td width="15%">状态</td>
+                                <td width="">操作</td>
+                            </tr>
+                        </thead>
+
+                        <volist name="list" id="vo" key="k">
+                        <tr align="center"  id="{$vo.id}">
+                                <td>{$vo.id}</td>
+                                <td>{$vo.title}</td>
+                                <td>{$vo.statusTxt}</td>
+                                <td>[ <a title="" href="javascript:void(0);" class="opStatus"  val="{$vo.status}">{$vo.chStatusTxt}</a> ] <input class="btn submit" type="button" onclick="javascript:addNewGroup({$vo.id});" value="编辑" /> <input class="btn submit" type="button" onclick="javascript:delModel('__URL__/groupDel/id/{$vo.id}');" value="删除" /> <input class="btn submit" type="button" onclick="javascript:toUrl({$vo.id});return false;" value="组规则管理" /></td>
+
+
+                            </tr>
+
+                            </volist>
+
+                             <tr align="center">
+                          <td colspan="12">{$page}</td>
+                          </tr>
+                    </table>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>
+<script type="text/javascript">
+
+$(function(){
+	//快捷启用禁用操作
+	$(".opStatus").click(function(){
+		var obj=$(this);
+		var id=$(this).parents("tr").attr("id");
+		var status=$(this).attr("val");
+		$.getJSON("__URL__/opCommonStatus?table=AuthGroup", { id:id, status:status }, function(json){
+			if(json.status==1){
+				popup.success(json.info);
+				$(obj).attr("val",json.data.status).html(status==1?"启用":"禁用").parents("td").prev().html(status==1?"禁用":"启用");
+			}else{
+				popup.alert(json.info);
+			}
+		});
+	});
+});
+
+//添加用户组
+function addNewGroup(group_id)
+{
+	var url = "__URL__/groupEdit/id/@group_id@";
+	url = url.replace('@group_id@',group_id?group_id:0);
+	art.dialog.open(url,{
+		id:'addBrandWin',
+	    title:'用户组设置',
+	    okVal:'确定',
+	    ok:function(iframeWin, topWin){
+
+	    	var formObject = iframeWin.document.forms['groupForm'];
+		   $.post("__URL__/groupEdit", $(formObject).serialize(), function(json){
+
+				if(json.status == 1)
+				{
+					window.location.reload();
+					return true;
+				}
+				else
+				{
+				//	alert(json.info);
+					popup.alert(json.info);
+					return false;
+				}
+			},'json');
+
+	    }
+	});
+}
+function toUrl($uid)
+{
+     window.location.href="__URL__/groupRule?id="+$uid;
+}
+//删除指定id管理员
+function delModel(url){
+	if(url!=null){
+		popup.confirm('删除管理员','你确定要删除吗',function(action){
+			if(action == 'ok'){
+			 $.ajax({
+				 type: "GET",
+				 url: url,
+				 dataType: "json",
+				success: function(json){
+					if(json.status==1){
+						popup.alert(json.info);
+						window.location.reload();
+						return false;
+					}else{
+						popup.alert(json.info);
+						return false;
+					}
+				}
+			 });
+			}
+		});
+		//删除多个
+	}else{
+
+	}
+}
+</SCRIPT>
+
+
+

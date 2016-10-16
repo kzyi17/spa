@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+    	.mui-table-view {
+			margin-top: 20px;
+		}
+		.mui-table-view:after {
+			height: 0;
+		}
+		
+		.mlbbg{ background-color: #f61d67; color: #FFFFFF;}
+    	.mlbbg p{color: #FFFFFF;}
+    	.mlbbg .mui-table-view-cell,.mlbbg .mui-table-view-cell a{height: 100px;}
+    	.mlbbg .mui-media-object {
+		    line-height: 80px;
+		    max-width: 80px;
+		    height: 80px;
+		}
+		.userinfo_text{ line-height: 40px;}
+		.menu_icon img{width: 100%;}
+		.mui-grid-view.mui-grid-9 .mui-table-view-cell{padding: 4px 8px;}
+    </style>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">用户中心</h1>
+</header>	
+
+<div class="mui-content">
+	<div class="mui-scroll">
+		<ul class="mui-table-view mui-table-view-chevron mlbbg" id="userinfo" style="margin-top: 0;">
+			
+		</ul>
+		<ul class="mui-table-view mui-grid-view mui-grid-9" id="info">
+			
+		</ul>
+		<ul class="mui-table-view mui-table-view-chevron" >
+			<li class="mui-table-view-cell">
+				<a id="order" class="mui-navigate-right">我的预约</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a id="ticket" class="mui-navigate-right">劵包</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a id="address" class="mui-navigate-right">用户地址</a>
+			</li>
+			<!--<li class="mui-table-view-cell">
+				<a id="feedback-btn" class="mui-navigate-right">点评建议</a>
+			</li>-->
+			<li class="mui-table-view-cell mui-collapse">
+				<a id="" class="mui-navigate-right">我的好友</a>
+				<ul class="mui-table-view mui-table-view-chevron">
+					<li class="mui-table-view-cell">
+						<a id="" class="mui-navigate-right">
+							一级好友
+							<span class="mui-pull-right">0人</span>
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a id="" class="mui-navigate-right">
+							二级好友
+							<span class="mui-pull-right">0人</span>
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a id="" class="mui-navigate-right">
+							三级好友
+							<span class="mui-pull-right">0人</span>
+						</a>
+					</li>
+				</ul>	
+			</li>
+			<li class="mui-table-view-cell">
+				<a id="share" class="mui-navigate-right">推荐好友</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a id="withdraw" class="mui-navigate-right">提现</a>
+			</li>
+			<li class="mui-table-view-cell">
+				<a id="about" class="mui-navigate-right">联系我们</a>
+			</li>
+		</ul>
+		<ul class="mui-table-view">
+			<li class="mui-table-view-cell" style="text-align: center;">
+				<a id='exit'>退出</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<!--JSTPL-->
+<script id="userinfoTpl" type="text/html">
+    <li class="mui-table-view-cell mui-media" id="accountbtn">
+	{{if userinfo}}
+	    <a class="mui-navigate-right">
+			<img class="mui-media-object mui-pull-left head-img" id="head-img" src="{{userinfo.user_icon}}">
+			<div class="mui-media-body userinfo_text">
+				<p>{{userinfo.nickname}}</p>
+				<p>{{userinfo.phone}}</p>
+			</div>
+		</a>
+	{{else}}
+	    <a class="mui-navigate-right" id="loginbtn">
+			<img class="mui-media-object mui-pull-left head-img" id="head-img" src="images/icon_user_07.jpg">
+			<div class="mui-media-body userinfo_text">
+				<p>登录/注册</p>
+				<p class='mui-ellipsis'>登录后可享受更多特权</p>
+			</div>
+		</a>
+	{{/if}}
+	</li>
+</script>
+<script id="infoTpl" type="text/html">
+	<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" id="btnOrderToShop">
+		<a >
+			<div class="menu_icon">
+				{{info.account}}元
+			</div>
+			<div class="mui-media-body">我的余额</div>
+		</a>
+	</li>
+	<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" id="btnOrderToHome">
+		<a >
+			<div class="menu_icon">
+				0张
+			</div>
+			<div class="mui-media-body">我的优惠劵</div>
+		</a>
+	</li>
+	<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" id="btnAdShop">
+		<a>
+			<div class="menu_icon">
+				{{info.point}}分
+			</div>
+			<div class="mui-media-body">我的积分</div>
+		</a>
+	</li>
+	<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3" id="btnAdShop">
+		<a>
+			<div class="menu_icon">
+				{{info.freeze_account}}元
+			</div>
+			<div class="mui-media-body">我的佣金</div>
+		</a>
+	</li>
+</script>	
+<script src="js/mui.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+<script src="js/template.js" ></script>
+<script>
+(function($, doc) {
+	$.init();
+	//分享操作
+	var shares = {};
+	$.plusReady(function() {
+		var toMain = function() {
+			setTimeout(function() {
+				$.openWindow({
+					url: 'login.html',
+					id: 'login',
+					show: {
+						aniShow: 'pop-in'
+					},
+					waiting: {
+						autoShow: false
+					}
+				});
+			}, 0);
+		};
+		
+		var tpldata = {
+		    title: '美容项目',
+		    list: 'ss'
+		};
+		//var html = template('userinfoTpl', tpldata);
+		//console.log(html);
+		//document.getElementById('list').innerHTML = html;
+		//app.openView('userCenter.html');
+		//var ws=plus.webview.currentWebview();
+		//console.log( "当前Webview窗口："+ws.getURL() );
+		
+		var state = app.getState();
+		//检查 "登录状态" 开始
+		if (state.token) {
+			//toMain();
+			console.log( "登录状态");
+			console.log( JSON.stringify(state.account));
+			var userinfoData = {};
+			var param = {};
+			param.user_id = state.account.user_id;
+			userinfoData.userinfo = state.account;
+			document.getElementById('userinfo').innerHTML = template('userinfoTpl',userinfoData);
+			Api.getMyInfo(param,function(result){
+				//console.log(JSON.stringify(result)); 
+				var infodata = {};
+				infodata.info = result;
+				document.getElementById('info').innerHTML = template('infoTpl',infodata);
+			});
+			document.getElementById('accountbtn').addEventListener('tap', function() {
+				$.openWindow({
+					url: 'uc_account.html',
+					id: 'uc_account.html',
+					show: {
+						aniShow: 'slide-in-bottom'
+					},
+					
+				});
+			}, false); 
+			
+		}else{
+			toMain();
+			console.log( "未登录");
+			var userinfoData = {};
+			document.getElementById('userinfo').innerHTML = template('userinfoTpl',userinfoData);
+			document.getElementById('loginbtn').addEventListener('tap', function() {
+				$.openWindow({
+					url: 'login.html',
+					id: 'login.html',
+					show: {
+						aniShow: 'slide-in-bottom'
+					},
+					
+				});
+			}, false); 
+			//alert('未登录');
+		}
+		
+		plus.share.getServices(function(s) {
+			if (s && s.length > 0) {
+				for (var i = 0; i < s.length; i++) {
+					var t = s[i];
+					shares[t.id] = t;
+				}
+			}
+		}, function() {
+			console.log("获取分享服务列表失败");
+		});
+		
+		/*plus.share.getServices(function(s) {
+		    console.log(JSON.stringify(s));
+		}, function(e) {
+		    alert("获取分享服务列表失败：" + e.message);
+		});*/
+		
+	});
+	
+	//推荐好友
+	document.getElementById('share').addEventListener('tap', function(){
+		var ids = [{
+				id: "weixin",
+				ex: "WXSceneSession"
+			}, {
+				id: "weixin",
+				ex: "WXSceneTimeline"
+			}, {
+				id: "qq"
+			}],
+			bts = [{
+				title: "发送给微信好友"
+			}, {
+				title: "分享到微信朋友圈"
+			}, {
+				title: "分享到QQ"
+			}];
+		plus.nativeUI.actionSheet({
+			cancel: "取消",
+			buttons: bts
+		}, function(e) {
+			var i = e.index;
+			if (i > 0) {
+				var s_id = ids[i - 1].id;
+				var share = shares[s_id];
+				if (share) { 
+					if (share.authenticated) {
+						shareMessage(share, ids[i - 1].ex);
+					} else {
+						share.authorize(function() {
+							shareMessage(share, ids[i - 1].ex);
+						}, function(e) {
+							console.log("认证授权失败：" + e.code + " - " + e.message);
+						});
+					}
+				} else {
+					mui.toast("无法获取分享服务，请检查manifest.json中分享插件参数配置，并重新打包")
+				}
+			}
+		});	
+	}, false);
+	function shareMessage(share, ex) {
+		var msg = {
+			extra: {
+				scene: ex
+			}
+		};
+		var state = app.getState();
+		var user_id = state.account.user_id;
+		
+		msg.href = "http://mlb.mywork99.com/weixin/index/register??userid="+user_id;
+		msg.title = "分享推荐好友";
+		msg.content = "美联帮会员推荐";
+		/*if (~share.id.indexOf('weibo')) {
+			msg.content += "；体验地址：http://www.dcloud.io/hellomui/";
+		}*/
+		msg.thumbs = ["images/80x80.png"];
+		share.send(msg, function() {
+			console.log("分享到\"" + share.description + "\"成功！ ");
+		}, function(e) {
+			console.log("分享到\"" + share.description + "\"失败: " + e.code + " - " + e.message);
+		});
+	}
+}(mui, document));	
+//退出操作******************
+document.getElementById('exit').addEventListener('tap', function() {
+	if (mui.os.ios) {
+		app.setState({});
+		mui.openWindow({
+			url: 'login.html',
+			id: 'login',
+			show: {
+				aniShow: 'pop-in'
+			},
+			waiting: {
+				autoShow: false
+			}
+		});
+		return;
+	}
+	var btnArray = [{
+		title: "注销当前账号"
+	}, {
+		title: "直接关闭应用"
+	}];
+	plus.nativeUI.actionSheet({
+		cancel: "取消",
+		buttons: btnArray
+	}, function(event) {
+		var index = event.index;
+		switch (index) {
+			case 1:
+				app.setState({});
+				var ws=plus.webview.currentWebview();
+				ws.reload();
+				break;
+			case 2:
+				plus.runtime.quit();
+				break;
+		}
+	});
+}, false);
+//选项卡点击事件
+mui('.mui-bar-tab').on('tap', 'a', function(e) {
+	var targetTab = this.getAttribute('href');
+	
+	if(targetTab=='userCenter.html'){
+		return;
+	}
+	
+	if(targetTab==''){
+		return;
+	}
+	
+	mui.openWindow({
+		url:targetTab,
+		id:targetTab, 
+		show:{
+	    	autoShow:true,//页面loaded事件发生后自动显示，默认为true
+	    },
+	    waiting:{
+	      	autoShow:true,//自动显示等待框，默认为true
+	      	title:'正在努力加载...',//等待对话框上显示的提示内容
+	    }
+	});
+	
+});
+document.getElementById('about').addEventListener('tap', function() {
+	mui.openWindow({
+		url:'about.html',
+		id:'about.html', 
+		show:{
+	    	autoShow:true,
+	    },
+	    waiting:{
+	      	autoShow:true,//自动显示等待框，默认为true
+	      	title:'正在努力加载...',//等待对话框上显示的提示内容
+	    }
+	});
+}, false);
+//我的预约事件
+document.getElementById('order').addEventListener("tap",function () {
+	mui.openWindow({
+		url:"myOrderList.html",
+	    id:"myOrderList",
+	    extras:{
+//		    	city_id:2,
+//	    	order_type:1,
+//		    	cate_id:1,
+	    },
+	    waiting:{
+	      autoShow:true,//自动显示等待框，默认为true
+	      title:'正在加载...',//等待对话框上显示的提示内容
+	    }
+	});
+});
+//券包
+document.getElementById('ticket').addEventListener('tap', function() {
+	mui.openWindow({
+		url:'ticket.html',
+		id:'ticket', 
+		show:{
+	    	autoShow:true,
+	    },
+	    waiting:{
+	      	autoShow:true,//自动显示等待框，默认为true
+	      	title:'正在努力加载...',//等待对话框上显示的提示内容
+	    }
+	});
+}, false);
+//提现
+document.getElementById('withdraw').addEventListener('tap', function() {
+	mui.openWindow({
+		url:'withdraw.html',
+		id:'withdraw', 
+		show:{
+	    	autoShow:true,
+	    },
+	    waiting:{
+	      	autoShow:true,//自动显示等待框，默认为true
+	      	title:'正在努力加载...',//等待对话框上显示的提示内容
+	    }
+	});
+}, false);
+
+//用户地址
+document.getElementById('address').addEventListener('tap', function() {
+	mui.openWindow({
+		url:'uc_address.html',
+		id:'uc_address', 
+		show:{
+	    	autoShow:true,
+	    },
+	    waiting:{
+	      	autoShow:true,//自动显示等待框，默认为true
+	      	title:'正在努力加载...',//等待对话框上显示的提示内容
+	    }
+	});
+}, false);
+
+
+
+</script>
+
+</body>
+</html>

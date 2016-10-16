@@ -1,0 +1,64 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$pagetitle}</DIV>
+    </DIV>
+    <table width="99.5%">
+    	<colgroup>
+  			<col />
+			<col width="660px"/>
+		</colgroup>
+		<tbody>
+			<tr>
+				<td>
+					<a href="{:U('product/couponAdd')}" class="btn"> 添加优惠劵 </a>
+					
+				</td>
+				<td>
+				
+    			</td>
+			</tr>
+		</tbody>	
+    </table>
+    <table width="99.5%" border="0" cellpadding="0" cellspacing="0" class="tab">
+    	<colgroup>
+  			<col width="60px"/>
+			<col/>
+            <col width="120px"/>
+			<col width="280px"/>
+			<col width="200px"/>
+			<col width="160px"/>
+		</colgroup>
+      <thead>
+      	<tr align="center">
+          <td>选择</td>
+          <td>优惠劵名称</td>
+          <td>优惠金额</td>
+          <td>有效时间</td>
+          <td>满足条件</td>
+          <td>操作</td>
+        </tr>
+      </thead>
+      <volist name="couponList" id="item">
+      	  <tr>
+			<td></td>
+            <td>{$item.coupon_name}</td>
+            <td>{$item.coupon_amount}</td>
+            <td>{:date('Y-m-d H:i',$item['start_time'])} 至 {:date('Y-m-d H:i',$item['end_time'])}</td>
+            <td>单笔订单满 {$item.min_amount} 元</td>
+            <td>[<a href="{:U('product/couponEdit',array('id'=>$item['coupon_id']))}">修改</a>] [<a href="javascript:void(0)" onclick='delModel({link:"<php>echo U("Product/couponDel","id=".$item["coupon_id"])</php>"})'>删除</a>]</td>
+         </tr>   
+      </volist>
+	</table>
+    <div class="commonBtnArea" >
+        {$page}
+    </div>
+    
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>

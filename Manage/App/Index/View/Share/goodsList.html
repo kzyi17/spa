@@ -1,0 +1,68 @@
+<include file="Public:head"/>
+<js href="__PUBLIC__/js/common.js,{:C('WEB_STATICS')}/js/form/form.js"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$action_name}</DIV>
+    </DIV>
+    <table width="99.5%">
+    	<colgroup>
+  			<col />
+			<col />
+		</colgroup>
+		<tbody>
+			<tr>
+				<td>
+					<button class='btn' id='checkbuttonall' onclick="selected()"> 全选  </button>
+					<a href="{:U('Share/goodsAdd')}" class="btn">添加积分商品</a>
+				</td>
+				<td align="right">
+    			</td>
+			</tr>
+		</tbody>	
+    </table>
+    
+    <table width="99.5%" border="0" cellpadding="0" cellspacing="0" class="tab">
+    	<colgroup>
+  			<col width="60px"/>
+			<col/>
+			<col/>
+			<col/>
+			<col/>
+			<col width="100px"/>
+		</colgroup>
+      <thead>
+        <tr align="center">
+          <td>选择</td>
+          <td>商品名称</td>
+          <td>商家</td>
+          <td>兑换分数</td>
+          <td>库存</td>
+          <td>操作</td>
+        </tr>
+      </thead>
+      <tbody>
+        <volist name="goodsList" id="vo">
+          <tr id="{$vo['sharegoods_id']}">
+            <td align="center"><input name="del_id[]" type="checkbox" value="{$vo['sharegoods_id']}" /></td>
+            <td>{$vo['goods_name']}</td>
+            <td>{$vo['merchant_name']}</td>
+            <td align="center">{$vo['exchange_point']}</td>
+            <td align="center">{$vo['stock']}</td>
+            <td align="center">
+				<a href='{:U("Share/goodsEdit","id=".$vo['sharegoods_id'])}'>[编辑]</a> 
+				<a href="javascript:void(0)" onclick='delModel({link:"<php>echo U("Share/goodsDel","id=".$vo["sharegoods_id"])</php>"})'>[删除]</a>
+			</td>
+          </tr>
+        </volist>
+      </tbody>
+    </table>
+    <div class="commonBtnArea" >
+        {$page}
+    </div>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>

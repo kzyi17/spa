@@ -1,0 +1,111 @@
+<include file="Public:head"/>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/js/datePicker/WdatePicker.js"></script>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+<div id="Right">
+      <div class="Item hr">
+          <div class="current">修改广告</div>
+      </div>
+      <form action='__URL__/advertEdit' method='post' id='advertForm' enctype="multipart/form-data">
+		<table class="form_table tab" style="width:95%" border="0" cellspacing="0" cellpadding="0" >
+			<col width="120px" />
+			<col />
+			<input type="hidden" name="data[id]" value="{$data.id}" />
+			<tr>
+				<td style='text-align:right'>广告名称：</td><td align="left"><input class="input" name="data[ad_name]" value="{$data.ad_name}" type="text" pattern="required" alt="名字不能为空" /> <label class="spec_font1"></label></td>
+			</tr>
+			<tr>
+				<td style='text-align:right'>链接：</td><td align="left"><input class="input"  name="data[ad_link]"  value="{$data.ad_link}" type="text"  /> <label class="spec_font1"></label></td>
+			</tr>
+			<tr>
+				<td style='text-align:right'>开始时间：</td><td align="left"><input type="text" id="d4311" name="data[start_time]"  class="input" style="width:100px;"class="Wdate" onFocus="WdatePicker({isShowClear:true,readOnly:true,realDateFmt:'yyyy-MM-dd',realTimeFmt:'HH:mm:ss'})" value="{$data.start_time|date='Y-m-d',###}"/><label class="spec_font1"></label></td>
+			</tr>
+			<tr>
+				<td style='text-align:right'>结束时间：</td><td align="left"><input type="text" name="data[end_time]"  style="width:100px;"   class="input" class="Wdate" id="d4312" onFocus="WdatePicker({isShowClear:false,realDateFmt:'yyyy-MM-dd',realTimeFmt:'HH:mm:ss',readOnly:true})"  value="{$data.end_time|date='Y-m-d',###}"/> <label class="spec_font1"></label></td>
+			</tr>
+			<tr>
+				<td style='text-align:right'>排序：</td><td align="left"><input type="text" name="data[sort]"   class="input" style="width:100px;" value="{$data.sort}"/> <label class="spec_font1"></label></td>
+			</tr>
+			<tr>
+				<td style='text-align:right'>广告类型：</td>
+				<td align="left">
+				<select name="data[type]" id="type">
+				<option value="1" <if condition="$data['type'] eq 1"> selected = "selected"</if>>图片</option>
+				<option value="2" <if condition="$data['type'] eq 2"> selected = "selected"</if>>代码</option>
+				</select>
+				</td>
+			</tr>
+			<tr class="content">
+				<td style='text-align:right'>图片：</td>
+				<td align="left">
+				<input name="photo" type='file' />
+				<if condition="$data['type'] eq 1 and $data['content'] neq '' and $data['content'] neq null"><img width="100px;" src="{:C('WEB_STATICS')}/{$data.content}" /></if>
+				</td>
+			</tr>
+			<tr class="content">
+			<js href="__PUBLIC__/js/kindeditor/kindeditor-min.js,__PUBLIC__/js/kindeditor/lang/zh_CN.js,__PUBLIC__/js/artTemplate/artTemplate.js" />
+ 	<script>
+
+ 	    var editor;
+ 	    KindEditor.ready(function(K) {
+ 	    editor = K.create('textarea[name="content"]', {
+ 	                    allowFileManager : true
+
+ 	                });
+
+ 	            });
+ 	</script>
+				<td style='text-align:right'>内容：</td>
+				<td align="left">
+				<textarea name="content" id="content" style="width:800px;height:250px;visibility:hidden;" class="required">{$data.content}</textarea>
+				</td>
+			</tr>
+            <tr>
+				<td style='text-align:right'>广告位置：</td>
+				<td align="left">
+				<select name="data[position_id]" id="position_id">
+				<volist name="position" id="po">
+				<option value="{$po.position_id}" <if condition="$po['position_id'] eq $data['position_id']"> selected = "selected"</if>>{$po.position_name}</option>
+				</volist>
+				</select>
+				</td>
+			</tr>
+			
+		</table>
+	<div class="commonBtnArea" >
+          <button class="btn submit">提交</button><button class="btn button1">返回</button>
+      </div>
+	</form>
+      
+  </div>
+
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>
+<script type="text/javascript">
+
+$(function(){
+	$("#type").trigger('change');
+    
+})
+$("#type").on('change',function(){
+		var value = $(this).val();
+		var i = 0;
+		$('.content').each(function(){
+			$('.content').eq(i).removeAttr('style');
+			if((value-1)==i){
+				
+				$('.content').eq(i).siblings('.content').css('display','none');
+				return false;;
+			}
+			i++;
+		 });
+		
+	});
+$("#add").on('click',function(){
+	$(this).parent().prepend("<input name='photo[]' type='file' /><br />");
+	
+});
+</script>

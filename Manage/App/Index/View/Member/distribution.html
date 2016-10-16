@@ -1,0 +1,84 @@
+<include file="Public:head"/>
+<js src="__PUBLIC__/js/datePicker/WdatePicker.js"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$action_name}</DIV>
+    </DIV>
+
+    <table width="99.5%">
+    	<colgroup>
+  			<col />
+			<col width="660px"/>
+		</colgroup>
+		<tbody>
+			<tr>
+				<td>
+					<!--<button class="btn" onclick="balance_add()">预存款管理</button>
+					<button class="btn">返利管理</button>-->
+				</td>
+				<td>
+					<!--<form action="__URL__/<if condition="ACTION_NAME eq 'index'">index<else/>recycle</if>" method="post">关键字：
+						<input type="text"  class="input" name="keywords" style="width:100px;" value="{$keywords}"/>
+				               &nbsp;&nbsp;&nbsp;&nbsp;注册时间：
+				               <input type="text" id="d4311" name="starttime"  class="input" style="width:100px;"class="Wdate" onFocus="WdatePicker({isShowClear:true,readOnly:true,realDateFmt:'yyyy-MM-dd',realTimeFmt:'HH:mm:ss',maxDate:'%y-%M-%d'})" value="{$starttime}"/>
+				               -<input type="text" name="endtime"  style="width:100px;"   class="input" class="Wdate" id="d4312" onFocus="WdatePicker({isShowClear:false,realDateFmt:'yyyy-MM-dd',realTimeFmt:'HH:mm:ss',readOnly:true,maxDate:'%y-%M-%d'})"  value="{$endtime}"/>
+						<input type="submit" value="搜索" class="btn submit" style="margin-left:20px;"/>
+					</form>-->
+				</td>
+			</tr>
+		</tbody>
+    </table>
+    
+	
+	<form action="__URL__/memberDelAll" method="post" id='memberDel' name="member_list">
+	<table width="99.5%" border="0" cellspacing="0" cellpadding="0" class="tab">
+	  <colgroup>
+        <col width="40px"/>
+        <col />
+        <col />
+        <col />
+        <col />
+        <col />
+        <col />
+        <col />
+        <col width="80px"/>
+        <col width="200px"/>
+	  </colgroup>
+      <thead>
+		<tr>
+        	<td><input name="checkall" id="checkall" type="checkbox" value="" onclick="selectAll('check[]')"/></td>      
+            <td>订单号</td>
+            <td>订单用户</td>
+            <td>返利用户</td>
+            <td>订单金额（不含运费）</td>
+            <td>返利比例（‰）</td>
+            <td>返利金额</td>
+            <td>订单成交时间</td>
+            <td>处理状态</td>
+            <td>操作</td>          
+		</tr>
+        <volist name="list" id="item">
+        <tr>
+        	<td><input name="check[]" type="checkbox" id="checkone" value="{$item.id}" /></td>
+            <td>{$item.order_sn}</td>
+            <td>{$item.order_member_id}</td>
+            <td>{$item.member_id}</td>
+            <td>{$item.order_amount}</td>
+            <td>{$item.discount}</td>
+            <td>{$item.amount}</td>
+            <td>{:date('Y-m-d H:i:s',$item['time'])}</td>
+            <td><switch name="item.status"><case value="-1">失败</case><case value="0">未处理</case><case value="1">处理中</case><case value="2">返利成功</case><default />异常</switch></td>
+            <td>[ 检查 ]</td>
+        </tr>
+        </volist>
+ 	  </thead>
+    </table>
+	</form>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>

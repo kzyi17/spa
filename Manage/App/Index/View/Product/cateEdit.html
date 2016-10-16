@@ -1,0 +1,126 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$pagetitle}</DIV>
+    </DIV>
+    <div class="content_box">
+    	<div class="content_box">
+        <form action="__URL__/cateSave" name="goodsForm" method="post">
+        	<input type="hidden" name="class_id" value="{$cate.class_id}" />
+        	<div class="content form_content">
+        	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tab form_table">
+        		<colgroup>
+        			<col width="150px">
+					<col>
+				</colgroup>
+				<tbody>
+					<tr>
+						<th>分类名称：</th>
+						<td><input class="normal" name="class_name" type="text" value="{$cate.class_name}" pattern="required" alt="分类名称不能为空" /><label>*</label></td>
+					</tr>
+					<tr>
+						<th>上级分类：</th>
+						<td><select class="auto" name="pid" onchange="create_attr(this.value)">
+                               <option value="0">顶级分类 </option>
+                               <volist name="cateList" id="item"> 
+                               	<option value="{$item['class_id']}"  <if condition="$item['class_id'] eq $cate['pid']">selected="selected"</if> >{$item['fullname']}</option>
+                               </volist>
+                               
+                        	</select>
+                    	</td>
+					</tr>
+					<!--  
+					<tr>
+						<th>商品模型：</th>
+						<td>
+							<select class="auto" name="model_id" onchange="create_attr(this.value)">
+                               <option value="0">通用类型 </option>
+                               <volist name="models" id="model"> 
+                               <option value="{$model['cate_id']}">{$model['cate_name']}</option>
+                               </volist>
+                        	</select>
+						</td>
+					</tr>
+					-->
+					<tr>
+						<th>图标：</th>
+						<td>
+							<input type='hidden' class='normal' name='icon' value='' />
+                            <label id="cate_icon"><notempty name="cate.imgurl"><img style="width:50px;height:50px" src="{:C('WEB_STATICS').$cate['imgurl']}"></notempty></label>
+                            <button class="btn" type="button" onclick="myUploader()"><span class="add">上传图片</span></button>
+						</td>
+					</tr>
+					<tr>
+						<th>排序：</th>
+						<td>
+							<input type='text' class='normal' name='sort' value='<present name="cate.sort">{$cate.sort}<else/>99</present>' />
+                            <label></label>
+						</td>
+					</tr>
+					<tr>
+						<th>SEO标题：</th>
+						<td>
+							<input type='text' class='normal' name='title' value='{$cate.title}' />
+						</td>
+					</tr>
+					<tr>
+						<th>SEO关键词：</th>
+						<td>
+							<input type='text' class='normal' name='keywords' value='{$cate.keywords}' />
+                            <label>每个关键词最长为15个字符，超过后系统不予存储</label>
+						</td>
+					</tr>
+					<tr>
+						<th>SEO描述：</th>
+						<td>
+							<textarea name="description">{$cate.description}</textarea>
+						</td>
+					</tr>
+				</tbody>
+        	</table>
+            </div>
+            <div class="commonBtnArea" >
+                <button class="btn submit" type="submit" onclick="return checkForm()">保存</button>  
+            </div>
+        </form>
+        </div>
+    </div>
+
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+<script language="javascript">
+//图片上传组件
+function myUploader()
+{
+	
+	var tempUrl = "{:U('popup/myuploader',array('uploadpath'=>'cate','multi'=>'false'))}";
+	art.dialog.open(tempUrl,{
+			title:'图片上传',
+			okVal:'保存',
+			ok:function(iframeWin, topWin){
+				var uploadObject = $(iframeWin.document).find('[id^="up_"]');
+				//alert(uploadObject.length);
+				if(uploadObject.length == 0)
+				{
+					return;
+				}
+				
+				uploadObject.each(function(){
+						var picJson = $.parseJSON($(this).find('input:hidden[name="specJson"]').val());
+						imgurl = "{:C('WEB_STATICS')}" + picJson.img;
+						html = '<img style="width:50px;height:50px" src="' + imgurl + '">';
+						$('input[name="icon"]').val(picJson.img);
+						$('#cate_icon').html(html);
+						
+				});
+				
+			}
+		});
+}
+</script>
+</BODY></HTML>

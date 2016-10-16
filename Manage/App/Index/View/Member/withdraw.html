@@ -1,0 +1,117 @@
+<include file="Public:head"/>
+<js src="__PUBLIC__/js/datePicker/WdatePicker.js"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$action_name}</DIV>
+    </DIV>
+<a onclick="delModels(0)" href="javascript:void(0);"><button type="button" class="btn"><span class="delete">批量删除</span></button></a>
+    
+	
+	<form action="__URL__/memberDelAll" method="post" id='memberDel' name="member_list">
+	<table width="99.5%" border="0" cellspacing="0" cellpadding="0" class="tab">
+	  
+      <thead>
+		<tr>
+        	<td><input name="checkall" id="checkall" type="checkbox" value="" onclick="selected()"/></td>
+            <td>用户名</td>
+            <td>金额</td>
+            <td>收款账户</td>
+            <td>开户名</td>
+            <!--<td>开户行</td>-->
+            <td>所属银行</td>
+			<td>申请时间</td>
+			<td>状态</td>
+			<td>操作</td>
+		</tr>
+        <volist name="list" id="item">
+        <tr>
+        	<td><input name="del_id[]" type="checkbox" id="checkone" value="{$item.id}" /></td>
+            <td>{$item.member_code}</td>
+            <td>{$item.amount}</td>
+            <td>{$item.account}</td>
+            <td>{$item.name}</td>
+            <!--<td>{$item.account_bank}</td>-->
+            <td>
+			<switch name="item.belong_bank"><case value="1">中国银行</case><case value="2">中国农业银行</case><case value="3">中国工商银行</case><case value="0">未选中银行</case><default />异常</switch>
+			</td>
+            <td>{:date('Y-m-d H:i:s',$item['time'])}</td>
+            <td><switch name="item.status"><case value="-1">失败</case><case value="0">未处理</case><case value="1">处理中</case><case value="2">返利成功</case><default />异常</switch></td>
+            <td>[ <a href='{:U('Member/withdrawEdit')}?id={$item.id}'>处理</a> ][ <a href='javascript:delModel("{:U('Member/withdrawDel')}?id={$item.id}");'>删除</a> ]</td>
+        </tr>
+        </volist>
+		<tr><td colspan="12">{$page}</td></tr>
+ 	  </thead>
+    </table>
+	</form>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>
+<script>
+//删除指定id会员
+function delModel(url){
+	if(url!=null){
+		popup.confirm('删除会员','你确定要删除吗',function(action){
+			if(action == 'ok'){
+			 $.ajax({
+				 type: "GET",
+				 url: url,
+				 dataType: "json",
+				success: function(json){
+					if(json.flag==1){
+						popup.alert(json.info);
+						window.location.reload();
+						//$("json.id").remove();
+						return false;
+					}else{
+						popup.alert(json.info);
+						return false;
+					}
+				}
+			 });
+			}
+		});
+		//删除多个
+	}else{
+
+	}
+}
+
+//删除批量id会员
+function delModels(type){
+	popup.confirm('你确定删除所选吗？','你确定要删除所选吗',function(action){
+		if(action == 'ok'){
+			var delids = new Array();
+			var ids = $('input[name="del_id[]"]');
+			var j = 0;
+			for(i=0;i<ids.length;i++){
+				if(ids.eq(i).is(":checked")==true){
+					delids[j] = ids.eq(i).val();
+					j++;
+				}
+			}
+
+			$.ajax({
+				 type: "GET",
+				 url: '__URL__/withdrawDelAll/del_id/' + delids + '/type/' + type ,
+				 dataType: "json",
+				success: function(json){
+					if(json.flag==1){
+						popup.alert(json.info);
+						window.location.reload();
+						return false;
+					}else{
+						popup.alert(json.info);
+						return false;
+					}
+				}
+			 });
+		}
+	});
+
+}
+</script>

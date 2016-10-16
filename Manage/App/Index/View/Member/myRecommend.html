@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="overflow-y:auto">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="/Public/css/base.css"  rel="stylesheet" type="text/css"/>
+
+<title></title>
+
+
+</head>
+<body>
+<div class="pop_win" style="width:800px;height:0%;background-color:#FFFCF3;">
+	<div class="content">
+		<table border="0" class="tab" style="margin-top:0px;height:30px;background-color:#F5F5F5;" width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tbody>
+			<tr>
+					<td>会员名称</td>
+					<td>会员姓名</td>
+					<td>时间</td>
+					<td>预计获得该分销商的返利金额</td>
+					<td>会员等级</td>
+					<td>查看记录</td>
+			</tr>
+				<volist name='list' id='vo'>
+				<tr>
+					<td>{$vo.member_code}</td>
+					<td>{$vo.member_name}</td>
+					<td>{$vo.create_time|date='Y-m-d H:i',###}</td>
+					<td>{$vo.amount}</td>
+					<td>{$vo.level_name}</td>
+					<td><a style="font-size:16px;color:#f45dd3" href="{:U('Member/distributionShow',array('order_member_id'=>$vo['member_id'],'member_id'=>$id))}">返利记录</a></td>
+				</tr>
+				</volist>
+			</tbody>
+		</table>
+	</div>
+</div>
+</body>
+</html>

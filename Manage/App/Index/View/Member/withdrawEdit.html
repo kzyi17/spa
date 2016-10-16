@@ -1,0 +1,76 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+<div id="Right">
+      <div class="Item hr">
+          <div class="current">处理提现</div>
+      </div>
+      <form action='' method='post' id='withdrawForm' name='withdrawForm'>
+		<table class="form_table tab" style="width:95%"  border="0" cellspacing="0" cellpadding="0" >
+			<col width="120px" />
+			<col />
+			<input type="hidden" name="id" value="{$data.id}" />
+			<tr>
+				<td style='text-align:right'>会员</td><td align="left">{$data.member_code} （可提现金额：{$data.my_distribution}）（冻结的金额：{$data.au_distribution}）</td>
+			</tr>
+			<tr>
+				<td style='text-align:right'>申请提现的金额</td><td align="left">{$data.amount}</td>
+			</tr>
+			<tr>
+				<td style='text-align:right'>收款账户</td><td align="left">{$data.account}</td>
+			</tr>
+			<tr>
+				<td style='text-align:right'>开户名</td><td align="left">{$data.name}</td>
+			</tr>
+			<tr>
+				<td style='text-align:right'>所属银行</td><td align="left"><switch name="data.belong_bank"><case value="1">中国银行</case><case value="2">中国农业银行</case><case value="3">中国工商银行</case><case value="0">未选中银行</case><default />异常</switch></td>
+			</tr>
+			<tr>
+				<td style='text-align:right'>申请时间</td><td align="left">{$data.time|date='Y-m-d',###}</td>
+			</tr>
+			<tr>
+				<td style='text-align:right'>用户留言</td><td align="left">{$data.note}</td>
+			</tr>
+			<tr>
+				<td style='text-align:right'>管理员备注</td><td align="left"><textarea name="re_note" rows="5" cols="120">{$data.re_note}</textarea></td>
+			</tr>
+				<tr>
+					<td>处理：</td>
+					<td align="left">
+						<label><input type="radio" <if condition="$data['status'] eq -1"> checked="checked" </if>value="-1" name="status">失败</label>
+						<label><input type="radio" <if condition="$data['status'] eq 0"> checked="checked" </if> value="0" name="status">未处理</label>
+						<label><input type="radio" <if condition="$data['status'] eq 1"> checked="checked" </if> value="1" name="status">处理中</label>
+						<label><input type="radio" <if condition="$data['status'] eq 2"> checked="checked" </if>value="2" name="status">成功</label>
+					</td>
+				</tr>
+				
+			
+		</table>
+
+	</form>
+      <div class="commonBtnArea" >
+		<button class="btn submit">提交</button><button class="btn button1" onclick="location.href='{:u('member/withdraw')}';return false;">返回</button>
+      </div>
+  </div>
+
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>
+<script type="text/javascript">
+var formobject = $('#withdrawForm');
+$('.submit').click(function(){
+	$.post('__URL__/withdrawEdit',$(formobject).serialize(),function(json){
+			if(json.flag ==1){
+				popup.alert(json.info);
+				location.href=json.url;
+				return false;
+			}else{
+				popup.alert(json.info);
+			}
+	},'json');
+	return false;
+
+});
+</script>

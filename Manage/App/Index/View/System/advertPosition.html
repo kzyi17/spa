@@ -1,0 +1,120 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$action_name}</DIV>
+    </DIV>
+    <table width="99.5%">
+			<tr>
+				<td>
+						<input type="submit" value="添加" class="btn submit" onclick="add(0);" style="margin-left:20px;"/>
+					
+				</td>
+			</tr>
+		</tbody>
+    </table>
+    
+    
+	
+	<form action="__URL__/memberDelAll" method="post" id='memberDel' name="member_list">
+	<table width="99.5%" border="0" cellspacing="0" cellpadding="0" class="tab">
+       <thead>
+            <tr>
+                <td width="3%"><input name="checkall" id="checkall" type="checkbox" value="" onclick="selected()"/></td>
+                <td width="6%">位置名称</td>
+                <td width="15%">编号</td>
+                <td width="15%">宽度</td>
+                <td width="6%">高度</td>
+                
+                <td width="">操作</td>
+            </tr>
+		</thead>
+
+           <volist name="list" id="vo" key="k">
+           <tr align="center" id="{$vo.position_id}">
+                   <td><input name="check[]" type="checkbox" id="checkone" value="{$vo.id}" /></td>
+                   <td>{$vo.position_name}</td>
+                   <td>{$vo.ad_sn}</td>
+                   <td>{$vo.width}</td>
+                   <td>{$vo.height}</td>
+                   <td width="20%">[ <a href="javascript:add({$vo.position_id});">编辑 </a> ]
+                    [ <a onclick="delModel('__URL__/advertPositionDel/id/{$vo.position_id}')" href="javascript:void(0);" class="del" >删除 </a> ]
+                    [ <a href="__URL__/advertList/id/{$vo.position_id}" class="del" >查看</a> ]
+                   </td>
+                </tr>
+
+                </volist>
+
+                <tr align="left">
+              <if condition="ACTION_NAME eq 'index'"><td colspan="13"><button class="btn submit"  id="submitButton">批量删除</button></td></if>
+              </tr>
+                 <tr align="center">
+              <td colspan="13">{$page}</td>
+              </tr>
+    </table>
+	</form>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>
+<SCRIPT type=text/javascript>
+
+//删除指定id会员
+function delModel(url){
+	if(url!=null){
+		popup.confirm('你确定要删除吗，不能恢复','删除广告位',function(action){
+			if(action == 'ok'){
+			 $.ajax({
+				 type: "GET",
+				 url: url,
+				 dataType: "json",
+				success: function(json){
+					if(json.status==1){
+						popup.alert(json.info);
+						window.location.reload();
+						//$("json.id").remove();
+						return false;
+					}else{
+						popup.alert(json.info);
+						return false;
+					}
+				}
+			 });
+			}
+		});
+		//删除多个
+	}else{
+
+	}
+}
+</SCRIPT>
+<script>
+
+
+//编辑添加
+function add(id){
+	
+	art.dialog.open("{:U('System/advertPositionEdit')}?id="+id,{
+		title:"广告位管理",
+		ok:function(iframeWin, topWin){
+			var formObject = iframeWin.document.forms['PositionForm'];
+	    	var postData = $(formObject).serialize();
+	    	
+	    	$.post("{:U('System/advertPositionEdit')}",postData,function(json){
+	    		if(json.status == 1){
+	    			alert(json.info);
+	    			window.location.href=json.url;
+	    			return false;
+	    		}else{
+	    			alert(json.info);
+	    			return false;
+	    		}
+	    	},'json');
+		}
+	});
+}
+</script>
+

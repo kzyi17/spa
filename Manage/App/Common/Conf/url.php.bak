@@ -1,0 +1,16 @@
+<?php
+return array(
+	//'配置项'=>'配置值'
+	'WEB_ADMIN'          => 'http://120.24.249.120/mlbspa/manage',
+	'WEB_STATICS'        => 'http://120.24.249.120/mlbspa/statics',
+	'WEB_MOBILE'        => '',
+	'kindeditor_upload_rootPath'    => '/home/wwwroot/showmay.com/statics/uploads/products/',   // kindeditor编辑器上传图片
+
+		
+	'TOKEN' => array (
+				'admin_marked' => '花木兰',
+				'admin_timeout' => 7200,
+				'member_marked' => 'manage.showmay.com'),
+		
+		
+);

@@ -1,0 +1,130 @@
+<include file="Public:head"/>
+<js src="__PUBLIC__/js/datePicker/WdatePicker.js"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$action_name}</DIV>
+    </DIV>
+	<form id="quickForm" method="post" action="">
+	<input type='hidden' value='1' name='type' />
+      &nbsp;
+      <select name="type_sn">
+        <option value="">全部业务类型 </option>
+		<volist name='SupplierTypelist' id='t'>
+		<option value="{$t.type_sn}" <if condition="$type_sn eq $t['type_sn']"> selected='selected'</if>>{$t.supplier_typename}</option>
+		</volist>
+        </select>
+      <select name="supplier_type">
+        <option value="">全部供应商类型 </option>
+		<volist name='Typelist' id='type'>
+		<option value="{$type.type_sn}" <if condition="$supplier_type eq $type['type_sn']"> selected='selected'</if>>{$type.supplier_typename}</option>
+		</volist>
+        </select>
+      <button class="btn quickSubmit" id='sub'>搜索</button>
+	  <button class="btn quickSubmit" id='csv'>导出</button>
+    </form>
+    <table width="99.5%">
+    	<colgroup>
+  			<col />
+			<col width="660px"/>
+		</colgroup>
+		<tbody>
+			<tr>
+				<td>
+					<!--<button class="btn" onclick="balance_add()">预存款管理</button>
+					<button class="btn">返利管理</button>-->
+				</td>
+				<td>
+					<!--<form action="__URL__/<if condition="ACTION_NAME eq 'index'">index<else/>recycle</if>" method="post">关键字：
+						<input type="text"  class="input" name="keywords" style="width:100px;" value="{$keywords}"/>
+				               &nbsp;&nbsp;&nbsp;&nbsp;注册时间：
+				               <input type="text" id="d4311" name="starttime"  class="input" style="width:100px;"class="Wdate" onFocus="WdatePicker({isShowClear:true,readOnly:true,realDateFmt:'yyyy-MM-dd',realTimeFmt:'HH:mm:ss',maxDate:'%y-%M-%d'})" value="{$starttime}"/>
+				               -<input type="text" name="endtime"  style="width:100px;"   class="input" class="Wdate" id="d4312" onFocus="WdatePicker({isShowClear:false,realDateFmt:'yyyy-MM-dd',realTimeFmt:'HH:mm:ss',readOnly:true,maxDate:'%y-%M-%d'})"  value="{$endtime}"/>
+						<input type="submit" value="搜索" class="btn submit" style="margin-left:20px;"/>
+					</form>-->
+				</td>
+			</tr>
+		</tbody>
+    </table>
+    
+	
+	<form action="__URL__/memberDelAll" method="post" id='memberDel' name="member_list">
+	<table width="99.5%" border="0" cellspacing="0" cellpadding="0" class="tab">
+	  
+      <thead>
+		<tr>
+        	<td><input name="checkall" id="checkall" type="checkbox" value="" onclick="selectAll('check[]')"/></td>      
+            <td width='15%'>公司名称</td>
+            <td width='8%'>联系人</td>
+            <td width='10%'>联系电话</td>
+			<td width='8%'>供应商类型</td>
+			<td width='8%'>业务类型</td>
+
+            <td width='20%'>主营业务</td>
+            <td width="13%">申请时间</td>
+            <td width="7%">审核状态</td>
+            <td width="10%">操作</td>           
+		</tr>
+        <volist name="list" id="item">
+        <tr>
+        	<td><input name="check[]" type="checkbox" id="checkone" value="{$item.id}" /></td>
+            <td>{$item.company}</td>
+            <td>{$item.contacts}</td>
+            <td>{$item.telephone}</td>
+			<td>{$item.supplier_type}</td>
+			<td>{$item.type_name}</td>
+            <td ><if condition="strlen($item['main_business']) gt 30">{$item.main_business|mb_substr=0,30,'utf-8'}...<else />{$item.main_business}</if></td>
+            <td>{:date('Y-m-d H:i',$item['create_time'])}</td>
+            <td><switch name="item.status"><case value="0">未通过</case><case value="1">未审核</case><case value="2">审核中</case><case value="3">审核通过</case><case value="4">取消资格</case><default />未知</switch></td>
+            <td>[ <a href="{:U('Supplier/supplierShow')}?id={$item.id}">查看</a>   ][ <a href="javascript:delModel('{:U('Supplier/supplierDel',array('id'=>$item['id']))}');">删除</a>   ]</td>
+        </tr>
+        </volist>
+		<tr align="center">
+              <td colspan="13">{$page}</td>
+              </tr>
+ 	  </thead>
+    </table>
+	</form>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+<script>
+//删除指定id会员
+function delModel(url){
+	if(url!=null){
+		popup.confirm('删除供应商','你确定要删除吗，不能恢复。',function(action){
+			if(action == 'ok'){
+			 $.ajax({
+				 type: "GET",
+				 url: url,
+				 dataType: "json",
+				success: function(json){
+					if(json.status==1){
+						popup.alert(json.info);
+						window.location.reload();
+						//$("json.id").remove();
+						return false;
+					}else{
+						popup.alert(json.info);
+						return false;
+					}
+				}
+			 });
+			}
+		});
+		//删除多个
+	}else{
+
+	}
+}
+$('#csv').on('click',function(){
+	$('input[name="type"]').val('0');
+});
+$('#sub').on('click',function(){
+	$('input[name="type"]').val('1');
+});
+</script>
+</BODY></HTML>

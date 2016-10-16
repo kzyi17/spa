@@ -1,0 +1,120 @@
+<include file="Public:head"/>
+<js href="__PUBLIC__/js/common.js,{:C('WEB_STATICS')}/js/form/form.js"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$action_name}</DIV>
+    </DIV>
+    <table width="99.5%">
+    	<colgroup>
+  			<col />
+			<col />
+		</colgroup>
+		<tbody>
+			<tr>
+				<td>
+					<button class='btn' id='checkbuttonall' onclick="selected()"> 全选  </button>
+					<a href="{:U('merchant/merchantAdd')}" class="btn">添加商家</a>
+					<!-- <if condition="$search['is_del'] neq 1">
+					<button class='btn' onclick="delModels(0)"> 批量上架  </button>
+					<button class='btn' onclick="delModels(2)"> 批量下架  </button>
+					<button class='btn' onclick="delModels(1)"> 批量删除  </button>
+					<else />
+					<button class='btn' onclick="delModels(-1)"> 批量删除  </button>
+					<button class='btn' onclick="delModels(0)"> 批量恢复删除  </button>
+					</if> -->
+					
+				</td>
+				<td align="right">
+				<form action="{:U('Product/productList')}" method="post" name="searchForm" id="quickForm">
+			      <IMG src="__PUBLIC__/images/icon_search.gif" align="absmiddle">
+			      <!-- &nbsp;
+			      <select name="category_id">
+			        <option value="0">选择分类</option>
+			        <volist name="catList" id="cate">
+			          <option value="{$cate.class_id}">{$cate.fullname}</option>
+			        </volist>
+			      </select>
+			      &nbsp;
+			       <select name="is_del">
+			        <option value="">选择上下架</option>
+			        <option value="0">上架</option>
+					<option value="2">下架</option>
+					<option value="1">删除</option>
+			      </select> -->
+			      &nbsp;
+			       <input placeholder="你要搜索的商家名称" id="newName" class="input" type="text" name="name" value="" />
+			      &nbsp;
+			      <button class="btn quickSubmit">搜索</button>
+			    </form>
+    			</td>
+			</tr>
+		</tbody>	
+    </table>
+    
+    <table width="99.5%" border="0" cellpadding="0" cellspacing="0" class="tab">
+    	<colgroup>
+  			<col width="60px"/>
+			<col/>
+			<col/>
+			<col/>
+			<col/>
+			<col width="100px"/>
+		</colgroup>
+      <thead>
+        <tr align="center">
+          <td>选择</td>
+          <td>广告商品名称</td>
+          <td>商家</td>
+          <td>总积分</td>
+          <td>兑换分数</td>
+          <td>操作</td>
+        </tr>
+      </thead>
+      <tbody>
+        <volist name="exchangeList" id="vo">
+          <tr id="{$vo['product_id']}">
+            <td align="center"><input name="del_id[]" type="checkbox" value="{$vo['adgoods_id']}" /></td>
+            <td>{$vo['adgoods_name']}</td>
+            <td>{$vo['merchant_name']}</td>
+            <td align="center">{$vo['total_point']}</td>
+            <td align="center">{$vo['point']}</td>
+            <td align="center">
+			<if condition="$search['is_del'] eq 1">
+				<!-- <a  href='javascript:updateShelf({$vo["product_id"]},0,"恢复")'>[恢复删除]</a>
+				<a   href='javascript:productRecyleDel({$vo["product_id"]})'>[强力删除]</a> -->
+			<else />
+				<a href='{:U("Merchant/merchantEdit","id=".$vo['merchant_id'])}'>[编辑]</a> 
+				<!-- <a href="javascript:void(0)" onclick='delModel({link:"<php>echo U("Product/productDel","id=".$vo["product_id"])</php>"})'>[删除]</a> -->
+			</if>
+			</td>
+          </tr>
+        </volist>
+      </tbody>
+    </table>
+    <form action="" method="post" id="opForm">
+      <input id="cid" type="hidden" name="data[class_id]" />
+      <input id="act" type="hidden" name="act" />
+      <input id="pid" type="hidden" name="data[pid]" />
+      <input id="name" type="hidden" name="data[class_name]" />
+    </form>
+    <div class="commonBtnArea" >
+        {$page}
+    </div>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<script language="javascript">
+//创建表单实例
+var formObj = new Form('searchForm');
+$(function()
+{
+	<if condition="($search)"> 
+		var searchForm = {:json_encode($search)};
+		formObj.init(searchForm);
+	</if>
+});
+</script>
+<include file="Public:foot"/>

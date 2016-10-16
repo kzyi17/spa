@@ -1,0 +1,86 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>[{$userData.user_code}]组关联管理</DIV>
+    </DIV>
+    <script language="javascript" type="text/javascript" src="__PUBLIC__/js/datePicker/WdatePicker.js"></script>
+  <table width="99.5%" border="0" cellspacing="0" cellpadding="0" class="tab">
+
+                    <thead>
+                            <tr>
+                                
+                                <td width="6%">ID</td>
+                                <td width="25%">用户组</td>
+                                <td width="15%">状态</td>
+                                <td width="">操作</td>
+                            </tr>
+                        </thead>
+
+                        <volist name="list" id="vo" key="k">
+                        <tr align="center"  id="{$vo.id}">                               
+                                <td>{$vo.id}</td>
+                                <td>{$vo.title}</td>
+                                <td> <div id="html_status_{$vo.id}">
+                                        {$groupRuleStatusHtml[$vo['group']]}
+                                     </div>
+                                </td>
+                                <td>
+                                <if condition="$vo.group eq '1'">
+                                <a data-status='2' data-gid="{$vo.id}" data-id="{$userData.uid}" href="javascript:;" class="group_manager btn btn-danger" role="button">{$groupRuleStatusAction[$vo['group']]}</a>
+                                <else />
+                                <a data-status='1' data-gid="{$vo.id}" data-id="{$userData.uid}" href="javascript:;" class="group_manager btn  btn-success" role="button">{$groupRuleStatusAction[$vo['group']]}</a>
+                                </if>
+                                </td>
+                            </tr>
+                       
+                            </volist>   
+					  
+                             <tr align="center">
+                          <td colspan="12">{$page}</td>
+                          </tr>     
+                    </table>
+                    <div class="commonBtnArea" >
+                         <button class="btn button1">返回</button>
+                    </div>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>
+<script>
+    $(function() {
+        $('.group_manager').click(function() {
+            var data = {};
+            var o = $(this);
+            data['status'] = $(this).attr('data-status');
+            data['id'] = $(this).attr('data-id');
+            data['gid'] = $(this).attr('data-gid');
+            $.ajax({
+                dataType: "json",
+                type: "POST",
+                url: "{:U('Auth/editAccessGroup')}",
+                data: data,
+                success: function(json) {
+                    o.attr('data-status', json.data.status);
+                    if (json.data.status == 2) {
+                        o.removeClass('btn-success').addClass("btn-danger").html("{$groupRuleStatusAction[1]}");
+                        $("#html_status_" + json.data.gid).html("{$groupRuleStatusHtml[1]}");
+                    } else {
+                        o.removeClass('btn-danger').addClass("btn-success").html("{$groupRuleStatusAction[2]}");
+                        $("#html_status_" + json.data.gid).html("{$groupRuleStatusHtml[2]}");
+                    }
+
+                }
+            });
+        });
+		
+		$(".button1").click(function(){
+			window.history.back();
+		})
+    });
+</script>
+
+

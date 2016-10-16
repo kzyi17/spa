@@ -1,0 +1,72 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$action_name}</DIV>
+    </DIV>
+	<script language="javascript" type="text/javascript" src="__PUBLIC__/js/datePicker/WdatePicker.js"></script>
+	<form action="" method="post">
+				<select name="type" id='type'>
+				<option value="day" <if condition="$type eq 'day'"> selected="selected"</if>>按天统计</option>
+				<option value="mon" <if condition="$type eq 'mon'"> selected="selected"</if>>按月统计</option>
+				<!--<option value="year">按年统计</option>-->
+				</select>
+               &nbsp;&nbsp;&nbsp;&nbsp;统计时间：
+               <input type="text" id="d4311" name="starttime"  class="input" style="width:100px;"class="Wdate" onFocus="WdatePicker({isShowClear:true,readOnly:true,realDateFmt:'yyyy-MM-dd',realTimeFmt:'HH:mm:ss',maxDate:'%y-%M-%d'})" value="{$starttime}"/>
+               -<input type="text" name="endtime"  style="width:100px;"   class="input" class="Wdate" id="d4312" onFocus="WdatePicker({isShowClear:true,realDateFmt:'yyyy-MM-dd',realTimeFmt:'HH:mm:ss',readOnly:true,maxDate:'%y-%M-%d'})"  value="{$endtime}"/>
+				<input type="submit" value="搜索" class="btn submit" style="margin-left:20px;"/>
+               </form>
+			   
+  <table width="99.5%" border="0" cellspacing="0" cellpadding="0" class="tab">
+               
+                    <thead>
+                            <tr>
+                                
+                                <td width="10%">时间</td>
+								<td width="20%">注册人数</td>
+								<td width="10%">普通会员</td>
+								<volist name='memberLevel' id='level'>
+									<td width="10%">等级会员{$level.level_name}</td>
+								</volist>
+								
+								<td width="20%">已锁定的用户</td>
+                            </tr>
+                        </thead>
+							<volist name='list' id='vo'>
+							<tr align="center">                               
+                                <td>{$vo.time}</td>
+								<td>{$vo.count}</td>
+								<td>{$vo.min_level}</td>
+								<volist name='memberLevel' id='level'>
+								<td><php> echo $vo['level_'.$level['level_id']];</php></td>
+								</volist>
+								
+								<td>{$vo.lock}</td>
+                            </tr>
+							</volist>
+                            
+                             
+                    </table>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>
+<script>
+$('#type').on('change',function(){
+	var type = $(this).val();
+	if(type=='day'){
+		$('#d4311').val('');$('#d4312').val('');
+		$('#d4311').attr('onFocus','WdatePicker({isShowClear:true,readOnly:true,realDateFmt:"yyyy-MM-dd",realTimeFmt:"HH:mm:ss",maxDate:"%y-%M-%d"})');
+		$('#d4312').attr('onFocus','WdatePicker(isShowClear:true,readOnly:true,realDateFmt:"yyyy-MM-dd",realTimeFmt:"HH:mm:ss",maxDate:"%y-%M-%d"})');
+	}else{
+		$('#d4311').val('');$('#d4312').val('');
+		$('#d4311').attr('onFocus','WdatePicker({dateFmt:"yyyy-MM",isShowClear:true,readOnly:true,realDateFmt:"yyyy-MM-dd",realTimeFmt:"HH:mm:ss",maxDate:"%y-%M-%d"})');
+		$('#d4312').attr('onFocus','WdatePicker({dateFmt:"yyyy-MM",isShowClear:true,readOnly:true,realDateFmt:"yyyy-MM-dd",realTimeFmt:"HH:mm:ss",maxDate:"%y-%M-%d"})');
+	}
+});
+</script>
+
+

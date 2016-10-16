@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="overflow-y:auto">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="/Public/css/base.css"  rel="stylesheet" type="text/css"/>
+<title></title>
+
+
+</head>
+<body>
+<div class="pop_win" style="width:800px;height:0%;background-color:#FFFCF3;">
+	<div class="content">
+		<table border="0" class="tab" style="margin-top:0px;height:30px;background-color:#F5F5F5;" width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tbody>
+			<tr>
+					<td>会员名称</td>
+					<td>账户类型</td>
+					<td>增减类型</td>
+					<td>操作类型</td>
+					<td>时间</td>
+					<td>金额</td>
+					<td>余额记录</td>
+					<td>备注</td>
+			</tr>
+				<if condition="$list neq null">
+				<volist name='list' id='vo'>
+				<tr>
+					<td>{$vo.member_code}</td>
+					<td><if condition="$vo['account_type'] eq 0">余额账户<else />返利账户</if></td>
+					<td><if condition="$vo['type'] eq 0">增加 (+)<else />减少 ( - )</if></td>
+					<td><if condition="$vo['event'] eq 1">充值<elseif condition="$vo['event'] eq 2"/>预存款消费<elseif condition="$vo['event'] eq 3"/>返利转积分<elseif condition="$vo['event'] eq 4"/>返利提现<elseif condition="$vo['event'] eq 5"/>返利成功<else />退款成功</if></td>
+					<td>{$vo.time|date='Y-m-d H:i',###}</td>
+					<td><if condition="$vo['type'] eq 0">+&nbsp;&nbsp;<else />-　</if>{$vo.amount}</td>
+					<td>{$vo.amount_log}</td>
+					<td>{$vo.note}</td>
+				</tr>
+				</volist>
+				<else/>
+				</if>
+			</tbody>
+		</table>
+	</div>
+</div>
+</body>
+</html>

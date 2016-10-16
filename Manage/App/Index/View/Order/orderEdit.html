@@ -1,0 +1,427 @@
+<include file="Public:head"/>
+<js href="{:C('WEB_STATICS')}/js/form/form.js,{:C('WEB_STATICS')}/js/artTemplate/artTemplate.js" />
+<js href="__PUBLIC__/js/kindeditor/kindeditor-min.js,__PUBLIC__/js/kindeditor/lang/zh_CN.js"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <div class="operating">
+		<a href="javascript:void(0);"><button onclick="searchGoods('{:u('Product/orderSearchGoods')}',searchGoodsCallback);" type="button" class="btn"><span class="addition">添加商品</span></button></a>
+	</div>
+    </DIV>
+
+
+        <ul class="tab_goods" name="menu">
+            <li id="button_1" class="selected"><a href="javascript:selectTab('1');" hidefocus="true">商品信息</a></li>
+			<li id="button_2"><a href="javascript:selectTab('2');" hidefocus="true">订单配置</a></li>
+			<li id="button_3"><a href="javascript:selectTab('3');" hidefocus="true">收货人信息</a></li>
+        </ul>
+
+    <div class="content_box">
+        <div class="content form_content">
+            <form action="__URL__/orderEdit" name="orderForm" method="post" >
+                <input type="hidden" name="data[order_id]" value="{$order.order_id}" />
+                <input type='hidden' name="img" value="" />
+                <input type='hidden' name="_imgList" value="" />
+
+                <div id="table_box_1" style="">
+				<table border="0" class="tab" style="margin-top:0px;height:30px;background-color:#F5F5F5;" width="100%" border="0" cellspacing="0" cellpadding="0">
+				<thead>
+				<tr align="center">
+					<td width="68%" style="padding-left:30px;">商品名称</td>
+					<td>商品价格</td>
+					<td>商品数量</td>
+					<td>操作</td>
+				</tr>
+				</thead>
+				<tbody id="goodsBox">
+				<volist name="orderProductdata" id="product">
+				<tr class="<?php if($key% 2==0) echo 'even'?>"  align="center">
+					<input type="hidden" value="{$product.goods_id}" name="product[goods_id][]">
+					<input type="hidden" value="{$product.product_id}" name="product[product_id][]">
+					<input type="hidden" value="{$product.market_price}" name="product[market_price][]">
+					<input type="hidden" value="{$product.goods_price}" name="product[goods_price][]">
+					<input type="hidden" value="{$product.goods_weight}" name="product[goods_weight][]">
+					<input type='hidden' value='{$product.data}' name="product[goods_array][]" />
+					<input type="hidden" value="">
+					<td width="70%" >
+						<if condition="$product['img'] !=null and $product['img'] !=''"><img width="50px" height="50px" class="spec_photo" src="{:C('WEB_STATICS')}{$product.img}" /></if>
+							{$product.name}
+							<label class="attr">
+								<?php for($i=0;$i<count($product['spec_array']);$i++):?>&nbsp;
+									<?php echo $product['spec_array'][$i]['name']?>:
+									<?php if ($product['spec_array'][$i]['type'] ==1):?>
+									<?php echo $product['spec_array'][$i]['value']?>
+									<?php else:?>
+									<img src="{:C('WEB_STATICS')}<?php echo $product['spec_array'][$i]['value']?>" width="50px" height="40px" />
+									<?php endif; ?>
+								<?php endfor;?>
+							</label>
+					</td>
+					<td>{$product.goods_price}</td>
+					<td><input value="{$product.goods_nums}" name="product[goods_nums][]" class="input" style="width:50px;"></td>
+					<td>
+						<a onclick="$(this).parent().parent().remove();" href="javascript:void(0)">
+							<img alt="删除" src="" class="operator">
+						</a>
+					</td>
+				</tr>
+				</volist>
+				</tbody>
+				<!--商品模板-->
+				<script type='text/html' id='goodsTrTemplate'>
+				<tr align="center">
+					<input type='hidden' name='product[goods_id][]' value='<%=item.id%>' />
+					<input type='hidden' name='product[product_id][]' value='<%=item.product_id%>' />
+					<input type='hidden' name='product[market_price][]' value='<%=item.market_price%>' />
+					<input type='hidden' name='product[goods_price][]' value='<%=item.goods_price%>' />
+					<input type='hidden' name='product[goods_weight][]' value='<%=item.goods_weight%>' />
+					<input type='hidden' name='product[goods_array][]' value='<%=item.goods_array%>' />
+					<td  width="80%">
+						<%if(item.img!=null && item.img!="" && item.img!=undefined){%>
+						<img src="<%=item.imgparent%><%=item.img%>" width="50px" height="50px" class="spec_photo" />
+						<%}else{%>
+							
+						<%}%>
+						<%=item.name%>
+						<%if(item.spec_array){%>
+							<label class="attr">
+							<%var spec_array = item.spec_array%>
+							<%for(var index in spec_array){%>
+								<%var value = spec_array[index]%>
+								<%=value["name"]%>:
+								<%if(value["type"] == 1){%>
+									<%=value['value']%>
+								<%}else{%>
+									<img src="<%=item.imgparent%><%=value['value']%>" width="50px" height="40px" class="spec_photo" />
+								<%}%>
+							<%}%>
+							</label>
+						<%}%>
+					</td>
+					<td><%=item.goods_price%></td>
+					<td><input class="input" style="width:50px;" name="product[goods_nums][]" value="<%=item.goods_nums ? item.goods_nums : 1%>" /></td>
+					<td>
+						<a href="javascript:void(0)" onclick="$(this).parent().parent().remove();">
+							<img class="operator" src="" alt="删除" />
+						</a>
+					</td>
+				</tr>
+				</script>
+			</table>
+
+                </div>
+
+                <div id="table_box_2" cellpadding="0" cellspacing="0" style="display:none;height:0;">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" class="tab">
+				<tbody>
+					<tr>
+						<td width="100">配送方式：</td>
+						<td>
+							<select class="normal" alt="请选择配送方式"  name="data[shipping_id]" id='shipping'>
+							<volist name="Otherdata['delivery']" id="shipping">
+								<option  value="{$shipping.id}" <if condition = "$order['shipping_id'] eq $shipping['id']"> selected="selected" </if>>{$shipping.name}</option>
+							</volist>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>支付方式：</td>
+						<td>
+							<select class="normal" alt="请选择支付方式"  name="data[pay_type]" id='payment'>
+								
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>是否保价：</td>
+						<td>
+							<label class="attr"><input type="checkbox" value="1" name="orderdata[is_insured]" <if condition = "$orderdata['is_insured'] eq 1"> checked="checked" </if>>保价</label>
+						</td>
+					</tr>
+					<tr>
+						<td>是否要发票：</td>
+						<td>
+							<label class="attr"><input type="checkbox" value="1" name="orderdata[invoice]"  <if condition = "$orderdata['invoice'] eq 1"> checked="checked" </if>>发票</label>
+						</td>
+					</tr>
+					<tr>
+						<td>发票抬头：</td>
+						<td><input type="text" value="{$orderdata.invoice_title}" name="orderdata[invoice_title]" class="normal"></td>
+					</tr>
+					<tr>
+						<td>指定送货时间：</td>
+						<td>
+							<label class="attr"><input type="radio" value="0" name="orderdata[distribution_time]"  <if condition = "$orderdata['distribution_time'] eq 0"> checked="checked"</if>>任意</label>
+							<label class="attr"><input type="radio" value="1" name="orderdata[distribution_time]" <if condition = "$orderdata['distribution_time'] eq 1"> checked="checked"</if>>周一到周五</label>
+							<label class="attr"><input type="radio" value="2" name="orderdata[distribution_time]" <if condition = "$orderdata['distribution_time'] eq 2"> checked="checked"</if>>周末</label>
+						</td>
+					</tr>
+					<tr>
+						<td>订单折扣或涨价(优惠券)：</td>
+						<td>
+							<input type="text" value="{$order.discount}" name="orderdata[discount]" class="small">￥
+							<label>折扣用" - ",涨价用" + "</label>
+						</td>
+					</tr>
+				</tbody>
+                    </table>
+                </div>
+
+                <div id="table_box_3" cellpadding="0" cellspacing="0" style="display:none;height:0;">
+                    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="tab">
+				<tbody>
+					<tr>
+						<td>所属用户名:</td>
+						<td>
+							<input type="text" class="normal" value="{$order.username}" name="data[username]">
+							<label>订单所属于的用户，直接填写用户名，订单创建后与该用户绑定在一起，如果为空则为游客订单或者线下订单</label>
+						</td>
+					</tr>
+					<tr>
+						<td>收货人姓名:</td>
+						<td><input type="text" alt="请填写收货人姓名" pattern="required" value="{$order.accept_name}" name="data[accept_name]" class="normal"></td>
+					</tr>
+					<tr>
+						<td>收货地区:</td>
+						<td>
+							<select onchange="areaChangeCallback(this);" parent="this" child="orderdata[city]" name="orderdata[province]">
+								<option value="0">请选择地区</option>
+								<volist name="areaData.province" id="province">
+								<option value="{$province.area_id}" <if condition="$orderdata['province'] eq $province['area_id']"> selected="selected"</if>>{$province.area_name}</option>
+								</volist>
+							</select>
+							<select onchange="areaChangeCallback(this);" parent="orderdata[province]" child="orderdata[area]" name="orderdata[city]">
+								<volist name="areaData.city" id="city">
+								<option value="{$city.area_id}" <if condition="$orderdata['city'] eq $city['area_id']"> selected="selected"</if>>{$city.area_name}</option>
+								</volist>
+							</select>
+							<select pattern="required" parent="orderdata[city]" name="orderdata[area]">
+								<volist name="areaData.area" id="area">
+								<option value="{$area.area_id}"  <if condition="$orderdata['area'] eq $area['area_id']"> selected="selected"</if>>{$area.area_name}</option>
+								</volist>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>收货地址:</td>
+						<td><input type="text" alt="请填写收货地址" value="{$orderdata.address}" pattern="required" name="orderdata[address]" class="normal"></td>
+					</tr>
+					<tr>
+						<td>联系手机:</td><td><input type="text" alt="手机号码错误" pattern="mobi" value="{$orderdata.mobile}" name="orderdata[mobile]" class="normal"></td>
+					</tr>
+					<tr>
+						<td>联系电话:</td><td><input type="text" alt="请输入正确的固定电话" pattern="phone" empty="" value="{$orderdata.telphone}" name="orderdata[telphone]" class="normal"></td>
+					</tr>
+					<tr>
+						<td>邮编:</td><td><input type="text" alt="请输入正确的邮编" pattern="zip" empty="" value="{$orderdata.postcode}" name="orderdata[postcode]" class="normal"></td>
+					</tr>
+					<tr>
+						<td>用户附言:</td>
+						<td><textarea name="orderdata[postscript]" cols="15" rows="5">{$orderdata.postscript}</textarea></td>
+					</tr>
+				</tbody>
+                    </table>
+                </div>
+				 <if condition="ACTION_NAME eq 'orderEdit'">
+                <div class="commonBtnArea" >
+                    <button class="btn submit" id="submit">提交</button>  <button class="btn button1" onclick="location.href='{:u('Order/index')}';return false;">返回</button>
+                </div>
+				</if>
+            </form>
+        </div>
+    </div>
+
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>
+<script>
+var shipping_id = '{$order.shipping_id}';
+var pay_type = '{$order.pay_type}';
+$(function()
+{
+	paymentList(shipping_id);
+});
+function paymentList(shipping_id){
+	$.getJSON('{:u('Payment/payList')}',{id:shipping_id}, function(json){
+		var html = '';
+		for(i=0;i<json.length;i++){
+			html += '<option value="'+json[i].id+'" ';
+			if(json[i].id==pay_type){
+				html += ' selected="selected"';
+			}
+			html += '>'+json[i].name+'</option>';
+		}
+		$('#payment').html(html);
+	});
+	
+}
+$('#shipping').on('change',function(){
+	var shipping_id = $(this).val();
+	paymentList(shipping_id);
+});
+$("#submit").click(function(){
+	var formObject = document.forms['orderForm'];
+
+	$.post("__URL__/orderEdit", $(formObject).serialize(), function(json){
+
+				if(json.status == 1)
+				{
+					popup.alert(json.info);
+					//window.location.href(json.url);
+					location.href =json.url;
+					return true;
+				}
+				else
+				{
+				//	alert(json.info);
+					popup.alert(json.info);
+					return false;
+				}
+			},'json');
+			return false;
+});
+    //tab标签切换
+function selectTab(curr_tab)
+{
+	$("form[name='orderForm'] > div").hide();
+	$("#table_box_"+curr_tab).show();
+	$("ul[name=menu] > li").removeClass('selected');
+	$('#button_'+curr_tab).addClass('selected');
+	$('.commonBtnArea').css('display','block');
+}
+/**
+ * 筛选商品回调
+ * @param goodsList JQ选中的商品列表节点
+ */
+function searchGoodsCallback(goodsList)
+{
+	//循环插入DOM节点
+	goodsList.each(function()
+	{
+		var data = $(this).attr("data");
+		var temp = $.parseJSON(data);
+		if(temp.spec_array !='')
+			var spec_array = $.parseJSON(temp.spec_array);
+		else{
+			var spec_array = temp.spec_array;
+		}
+		
+		var imgparent = '{:C('WEB_STATICS')}';
+		//alert(data);return false;
+		var insertObject = {"id":temp.goods_id,"name":temp.name,"goods_weight":temp.goods_weight,"market_price":temp.market_price,"goods_price":temp.goods_price,"product_id":temp.product_id,"spec_array":spec_array,"goods_array":data,"imgparent":imgparent,"img":temp.img};
+		insertGoods(insertObject);
+	});
+}
+/**
+ * 生成商品信息
+ */
+function insertGoods(goodsRow)
+{
+	var goodsRow = goodsRow ? goodsRow : {};
+	var goodsTrHtml = template.render('goodsTrTemplate',{item:goodsRow});
+	$("#goodsBox").append(goodsTrHtml,goodsRow);
+}
+/**
+ * 进行商品筛选
+ * @param url string 执行的URL
+ * @param callback function 筛选成功后执行的回调函数
+ */
+function searchGoods(url,callback)
+{
+	var step = 0;
+	art.dialog.open(url,
+	{
+		"id":"searchGoods",
+		"height":'80%',
+		"title":"商品筛选",
+		"okVal":"执行",
+		"button":
+		[{
+			"name":"后退",
+			"callback":function(iframeWin,topWin)
+			{
+				if(step > 0)
+				{
+					iframeWin.window.history.go(-1);
+					this.size(1,1);
+					step--;
+				}
+				return false;
+			}
+		}],
+		"ok":function(iframeWin,topWin)
+		{
+			if(step == 0)
+			{
+				iframeWin.document.forms[0].submit();
+				step++;
+				return false;
+			}
+			else if(step == 1)
+			{
+				var goodsList = $(iframeWin.document).find('input[name="id[]"]:checked');
+
+				//添加选中的商品
+				if(goodsList.length == 0)
+				{
+					alert('请选择要添加的商品');
+					return false;
+				}
+				//alert(goodsList.length);return false;
+				//执行处理回调
+				callback(goodsList);
+				return true;
+			}
+		}
+	});
+}
+
+function createAreaSelect(area_id,childName)
+{
+	//生成地区
+	$.ajax({
+		type: "GET",
+		 url: "__APP__/Public/area_child/pid/" +area_id,
+		 dataType: "json",
+		  success: function(data){
+			var html = '<option value="0">请选择地区</option>';
+			for(i=0;i<data.length;i++){
+				html += '<option value="'+ data[i]['area_id'] +'">'+ data[i]['area_name'] +'</option>';
+			}
+			$('[name="'+childName+'"]').html(html);
+		  }
+	});
+}
+function areaChangeCallback(_self)
+{
+	var parent_id = _self.value;
+	var childName = $(_self).attr('child');
+	if(!childName)
+	{
+	return;
+	}
+	var pid = $(_self).val();
+	//生成js联动菜单
+	createAreaSelect(pid,childName);
+}
+
+function updategoods(data){
+	var html = '';
+	if(data !=null){
+	html += '<tr><input type="hidden" value="'+ data.goods_id +'" name="goods_id[]"><input type="hidden" value="" name="product[product_id][]"><td>'+ data.goods_name +'</td>';
+	html += '<td>'+ data.goods_price +'</td>';
+		html += '<td><input value="'+ data.goods_nums +'" name="product[goods_nums][]" class="tiny"></td>';
+		html += '<td>';
+		html += '<a onclick="$(this).parent().parent().remove();" href="javascript:void(0)">';
+		html += '	<img alt="删除" src="" class="operator">';
+		html += '</a></td></tr>';
+
+	}
+	$('#goodsBox').append(html);
+}
+
+</script>

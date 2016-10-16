@@ -1,0 +1,84 @@
+<include file="Public:popup_head"/>
+<css rel="stylesheet" href="/Public/css/base.css" />
+</head>
+<body>
+<div class="pop_win" style="float:left;width:100%;height:200px;">
+	<form name="pointsForm" callback="submitCallback();" method='post' action="">
+	
+		<table class="form_table" style="width:100%">
+			<col width="120px" />
+			<col />
+			<tr>
+				<td class="t_r">用户名：</td>
+				<td>
+					{$data.member_code}
+				</td>
+			</tr>
+			<tr>
+				<td class="t_r">分销等级：</td>
+				<td>
+					{$data.level_name}
+				</td>
+			</tr>
+			<tr>
+				<td class="t_r">现有积分：</td>
+				<td>
+					{$data.my_points}
+				</td>
+			</tr>
+			<tr>
+				<td class="t_r">积分升降备注：</td>
+				<td>
+					<input type='text' class='input' name='note' style="width: 350px;"/>
+				</td>
+			</tr>
+			<tr>
+				<td class="t_r">类型：</td>
+				<td>
+				<select name="type">
+					<option value="1">增加积分</option>
+					<option value="0">降低积分</option>
+				</select>
+				</td>
+			</tr>
+			<!--
+			<tr id="orderNo" style="display:none;">
+				<td class="t_r">订单号：</td>
+				<td><input type="text" name="order_no" maxlength="20" class="middle" pattern='required' alt='必须要填写订单号' /></td>
+			</tr>
+			-->
+			<tr>
+				<td class="t_r">请输入升降数：</td>
+				<td><input name="points" class="small" type="text" maxlength="8" pattern='required' alt='必须要填写积分' /><label></label></td>
+			</tr>
+		</table>
+	</form>
+		<div style='float:left;width:98%'>
+	<table class="tab" style="width:100%">
+			<tr>
+				<td class="t_r">等级名称</td>
+				<td class="t_r">积分范围</td>
+				<td class="t_r">折扣率</td>
+			</tr>
+			<volist name='list' id='vo'>
+			<tr>
+				<td class="t_r">{$vo.level_name}</td>
+				<td class="t_r">{$vo.min_points} - {$vo.max_points}</td>
+				<td class="t_r">{$vo.discount}</td>
+			</tr>
+			</volist>
+		</table>
+		</div>
+</div>
+<script type='text/javascript'>
+//提交回调函数
+function submitCallback()
+{
+	return false;
+}
+
+
+
+</script>
+</body>
+</html>

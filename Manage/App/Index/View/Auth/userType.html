@@ -1,0 +1,152 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$action_name}</DIV>
+    </DIV>
+    <script language="javascript" type="text/javascript" src="__PUBLIC__/js/datePicker/WdatePicker.js"></script>
+    <table width="99.5%" border="0" cellspacing="0" cellpadding="0" class="tab">
+      <tr colspan="12">
+        <div style="margin-bottom:10px;">
+          <form action="" method="post">
+            <input type="button" value="新增类型" class="btn" id="submit" onclick="javascript:addNewUsersType();" style="margin-left:20px;"/>
+          </form>
+        </div>
+      </tr>
+      <thead>
+        <tr>
+          <td width="3%"><input type="checkbox" onclick="selected()" value="" id="checkall" name="checkall"></td>
+          <td width="6%">类型</td>
+          <td width="6%">用户名</td>
+          <td width="">操作</td>
+        </tr>
+      </thead>
+      <form action="" method="post" >
+        <volist name="list" id="vo" key="k">
+          <tr align="center" id="{$vo.id}">
+          	<td><input type="checkbox" value="{$vo.id}" name="del_id[]"></td>
+            <td>{$vo.admin_type}</td>
+            <td>{$vo.type_name}</td>
+            <td>
+            <input type="button" value="修改" onclick="javascript:addNewUsersType({$vo.id});" class="btn submit">
+            <input type="button" value="删除" onclick="javascript:delModel('__URL__/usersTypeDel/id/{$vo.id}');" class="btn submit">
+            </td>
+
+          </tr>
+        </volist>
+        <tr align="left">
+        <td colspan="4"><button id="submitButton" class="btn submit">批量删除</button></td>
+      </tr>
+      </form>
+      <tr align="center">
+        <td colspan="12">{$page}</td>
+      </tr>
+    </table>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>
+<script type="text/javascript">
+
+$('#submit').on('click',function(){
+	var typeName = $('input[name="keywords"]').val();
+	var id = 0;
+	$getJSON('__APP__/Users/typeEdit',{id:id,name:typeName},function(json){
+		popup.alert(json.info);
+	})
+});
+
+$('#submitButton').on('click',function(){
+	popup.confirm('你确定删除所选吗？','你确定要删除所选吗',function(action){
+		if(action == 'ok'){
+			var delids = new Array();
+			var ids = $('input[name="del_id[]"]');
+
+			var j = 0;
+			for(i=0;i<ids.length;i++){
+				if(ids.eq(i).is(":checked")==true){
+					delids[j] = ids.eq(i).val();
+					j++;
+				}
+			}
+			$.ajax({
+				 type: "GET",
+				 url: '__URL__/usersTypeDelAll/del_id/' + delids,
+				 dataType: "json",
+				success: function(json){
+					if(json.status==1){
+						popup.alert(json.info);
+						window.location.reload();
+						return false;
+					}else{
+						popup.alert(json.info);
+						return false;
+					}
+				}
+			 });
+		}
+	});
+	return false;
+});
+//删除指定id管理员
+function delModel(url){
+	if(url!=null){
+		popup.confirm('删除管理员类型','你确定要删除吗',function(action){
+			if(action == 'ok'){
+			 $.ajax({
+				 type: "GET",
+				 url: url,
+				 dataType: "json",
+				success: function(json){
+					if(json.status==1){
+						popup.alert(json.info);
+						window.location.reload();
+						return false;
+					}else{
+						popup.alert(json.info);
+						return false;
+					}
+				}
+			 });
+			}
+		});
+		//删除多个
+	}else{
+
+	}
+}
+//添加用户组
+function addNewUsersType(id)
+{
+	var url = "__URL__/userTypeEdit/id/@id@";
+	url = url.replace('@id@',id?id:0);
+	art.dialog.open(url,{
+		id:'addRuleWin',
+	    title:'规则设置',
+	    okVal:'确定',
+	    ok:function(iframeWin, topWin){
+
+	    	var formObject = iframeWin.document.forms['TypeForm'];
+		   $.post("__URL__/userTypeEdit", $(formObject).serialize(), function(json){
+
+				if(json.status == 1)
+				{
+					window.location.reload();
+					return true;
+				}
+				else
+				{
+					popup.alert(json.info);
+					return false;
+				}
+			},'json');
+
+	    }
+	});
+}
+
+
+</script>

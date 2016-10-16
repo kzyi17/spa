@@ -1,0 +1,855 @@
+[ 2016-04-25T11:27:15+08:00 ] 127.0.0.1 /mlbspa/manage/Public/index.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000107s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000238s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.141096s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.143115s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.024174s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.024319s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.007365s ]
+INFO: [ app_end ] --END-- [ RunTime:0.007495s ]
+
+[ 2016-04-25T11:27:15+08:00 ] 127.0.0.1 /mlbspa/manage/Public/verify_code
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001528s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002596s ]
+
+[ 2016-04-25T11:27:23+08:00 ] 127.0.0.1 /mlbspa/manage/Public/index.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001264s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002258s ]
+SQL: SHOW COLUMNS FROM `users` [ RunTime:0.0529s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `users` WHERE ( `user_code`='admin' ) LIMIT 1   [ RunTime:0.0354s ]
+SQL: SELECT `uid`,`user_password`,`status` FROM `users` WHERE ( `user_code`='admin' ) LIMIT 1   [ RunTime:0.0268s ]
+SQL: UPDATE `users` SET `login_ip`='127.0.0.1',`last_login_time`='1461554843' WHERE ( uid=1 ) [ RunTime:0.0335s ]
+SQL: SELECT `uid`,`user_code`,`status`,`admin_type` FROM `users` WHERE ( `user_code`='admin' ) LIMIT 1   [ RunTime:0.0003s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001547s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001623s ]
+
+[ 2016-04-25T12:22:03+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/merchant/multi/true.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000065s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000132s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.040401s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.041722s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001263s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001317s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001517s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001573s ]
+
+[ 2016-04-25T12:22:03+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/merchant/multi/
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000107s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000212s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.020649s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.021939s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001231s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001284s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001457s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001521s ]
+
+[ 2016-04-25T15:44:54+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/merchant/multi/true.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000066s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000158s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.014361s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.015209s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001357s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001416s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002111s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002194s ]
+
+[ 2016-04-25T15:44:54+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/merchant/multi/
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000103s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000206s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.014644s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.016006s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001797s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001910s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001906s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001998s ]
+
+[ 2016-04-25T15:44:59+08:00 ] 127.0.0.1 /mlbspa/manage/Public/upload.html
+SQL: SHOW COLUMNS FROM `images` [ RunTime:0.0049s ]
+SQL: INSERT INTO `images` (`type`,`folder`,`name`,`posttime`) VALUES ('png','/uploads/merchant/20160425/','571dcafb9ae18','1461570299') [ RunTime:0.0596s ]
+
+[ 2016-04-25T15:45:26+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/merchant/multi/true.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000090s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000206s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.021553s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.023585s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.003427s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003542s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.003786s ]
+INFO: [ app_end ] --END-- [ RunTime:0.003920s ]
+
+[ 2016-04-25T15:45:26+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/merchant/multi/
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000098s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000213s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.025320s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.028290s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.002701s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002801s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.004343s ]
+INFO: [ app_end ] --END-- [ RunTime:0.004525s ]
+
+[ 2016-04-25T15:45:55+08:00 ] 127.0.0.1 /mlbspa/manage/Public/upload.html
+SQL: SHOW COLUMNS FROM `images` [ RunTime:0.0056s ]
+SQL: INSERT INTO `images` (`type`,`folder`,`name`,`posttime`) VALUES ('jpg','/uploads/merchant/20160425/','571dcb3302845','1461570355') [ RunTime:0.0004s ]
+
+[ 2016-04-25T15:45:55+08:00 ] 127.0.0.1 /mlbspa/manage/Public/upload.html
+SQL: SHOW COLUMNS FROM `images` [ RunTime:0.0137s ]
+SQL: INSERT INTO `images` (`type`,`folder`,`name`,`posttime`) VALUES ('jpg','/uploads/merchant/20160425/','571dcb335de71','1461570355') [ RunTime:0.0003s ]
+
+[ 2016-04-25T15:46:04+08:00 ] 127.0.0.1 /mlbspa/manage/Public/index.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000053s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000198s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.016879s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.018140s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.002209s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002266s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002362s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002423s ]
+
+[ 2016-04-25T15:46:04+08:00 ] 127.0.0.1 /mlbspa/manage/Public/verify_code
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001709s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002850s ]
+
+[ 2016-04-25T15:46:11+08:00 ] 127.0.0.1 /mlbspa/manage/Public/index.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001432s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003474s ]
+SQL: SHOW COLUMNS FROM `users` [ RunTime:0.0049s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `users` WHERE ( `user_code`='admin' ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `uid`,`user_password`,`status` FROM `users` WHERE ( `user_code`='admin' ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: UPDATE `users` SET `login_ip`='127.0.0.1',`last_login_time`='1461570371' WHERE ( uid=1 ) [ RunTime:0.0004s ]
+SQL: SELECT `uid`,`user_code`,`status`,`admin_type` FROM `users` WHERE ( `user_code`='admin' ) LIMIT 1   [ RunTime:0.0003s ]
+
+[ 2016-04-25T15:46:15+08:00 ] 127.0.0.1 /mlbspa/manage/Public/verify_code?rand=0.33871309203095734
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001560s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002454s ]
+
+[ 2016-04-25T15:46:19+08:00 ] 127.0.0.1 /mlbspa/manage/Public/index.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000921s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001796s ]
+SQL: SHOW COLUMNS FROM `users` [ RunTime:0.0044s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `users` WHERE ( `user_code`='admin' ) LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT `uid`,`user_password`,`status` FROM `users` WHERE ( `user_code`='admin' ) LIMIT 1   [ RunTime:0.0004s ]
+SQL: UPDATE `users` SET `login_ip`='127.0.0.1',`last_login_time`='1461570379' WHERE ( uid=1 ) [ RunTime:0.0004s ]
+SQL: SELECT `uid`,`user_code`,`status`,`admin_type` FROM `users` WHERE ( `user_code`='admin' ) LIMIT 1   [ RunTime:0.0004s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002335s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002454s ]
+
+[ 2016-04-25T15:46:31+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/false.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000064s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000133s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.014713s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.015819s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001888s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001997s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002143s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002241s ]
+
+[ 2016-04-25T15:46:31+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000106s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000202s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.022135s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.023354s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001574s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001638s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001435s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001490s ]
+
+[ 2016-04-25T15:46:35+08:00 ] 127.0.0.1 /mlbspa/manage/Public/upload.html
+SQL: SHOW COLUMNS FROM `images` [ RunTime:0.0048s ]
+SQL: INSERT INTO `images` (`type`,`folder`,`name`,`posttime`) VALUES ('jpg','/uploads/share/20160425/','571dcb5b3d386','1461570395') [ RunTime:0.0003s ]
+
+[ 2016-04-25T15:48:47+08:00 ] 127.0.0.1 /mlbspa/manage/Public/js/jquery.min.map
+ERR: 非法操作:js
+
+[ 2016-04-25T15:48:52+08:00 ] 127.0.0.1 /mlbspa/manage/Public/js/jquery.min.map
+ERR: 非法操作:js
+
+[ 2016-04-25T15:48:57+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/false.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000105s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000274s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.020092s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.023281s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001444s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001542s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002061s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002155s ]
+
+[ 2016-04-25T15:48:58+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000266s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000382s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.029755s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.033157s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.003656s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003875s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.003104s ]
+INFO: [ app_end ] --END-- [ RunTime:0.003279s ]
+
+[ 2016-04-25T15:49:01+08:00 ] 127.0.0.1 /mlbspa/manage/Public/upload.html
+SQL: SHOW COLUMNS FROM `images` [ RunTime:0.0064s ]
+SQL: INSERT INTO `images` (`type`,`folder`,`name`,`posttime`) VALUES ('jpg','/uploads/share/20160425/','571dcbed86e5f','1461570541') [ RunTime:0.0003s ]
+
+[ 2016-04-25T15:51:01+08:00 ] 127.0.0.1 /mlbspa/manage/Public/js/jquery.min.map
+ERR: 非法操作:js
+
+[ 2016-04-25T15:51:02+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/false.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000130s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000240s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.023789s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.025531s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.002731s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002818s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.004834s ]
+INFO: [ app_end ] --END-- [ RunTime:0.004932s ]
+
+[ 2016-04-25T15:51:03+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000202s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001290s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.049724s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.051279s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.002638s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002919s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002709s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002809s ]
+
+[ 2016-04-25T15:51:06+08:00 ] 127.0.0.1 /mlbspa/manage/Public/upload.html
+SQL: SHOW COLUMNS FROM `images` [ RunTime:0.0044s ]
+SQL: INSERT INTO `images` (`type`,`folder`,`name`,`posttime`) VALUES ('jpg','/uploads/share/20160425/','571dcc6a2164d','1461570666') [ RunTime:0.0004s ]
+
+[ 2016-04-25T15:51:30+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/false.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000080s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000185s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.050032s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.051872s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.002284s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002350s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002121s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002183s ]
+
+[ 2016-04-25T15:51:31+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000068s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000156s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.025756s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.034442s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.002522s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002609s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001955s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002039s ]
+
+[ 2016-04-25T15:52:02+08:00 ] 127.0.0.1 /mlbspa/manage/Public/js/jquery.min.map
+ERR: 非法操作:js
+
+[ 2016-04-25T15:52:03+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/false.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000066s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000134s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.048704s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.049859s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.002917s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003173s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002726s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002835s ]
+
+[ 2016-04-25T15:52:04+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000102s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000193s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.022410s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.023660s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.002562s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002647s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.004147s ]
+INFO: [ app_end ] --END-- [ RunTime:0.004434s ]
+
+[ 2016-04-25T15:52:11+08:00 ] 127.0.0.1 /mlbspa/manage/Public/upload.html
+SQL: SHOW COLUMNS FROM `images` [ RunTime:0.0062s ]
+SQL: INSERT INTO `images` (`type`,`folder`,`name`,`posttime`) VALUES ('jpg','/uploads/share/20160425/','571dccaae20a2','1461570731') [ RunTime:0.0004s ]
+
+[ 2016-04-25T15:52:14+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/false.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000066s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000139s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.029308s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.031703s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.002601s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002717s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.004359s ]
+INFO: [ app_end ] --END-- [ RunTime:0.004630s ]
+
+[ 2016-04-25T15:52:15+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000064s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000129s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.023969s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.025482s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.002099s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002178s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.004149s ]
+INFO: [ app_end ] --END-- [ RunTime:0.004240s ]
+
+[ 2016-04-25T15:52:18+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/false.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000134s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.006888s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.059366s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.061108s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.003402s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003474s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.005321s ]
+INFO: [ app_end ] --END-- [ RunTime:0.005430s ]
+
+[ 2016-04-25T15:52:18+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000104s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000195s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.022533s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.024876s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.002146s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002215s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.006628s ]
+INFO: [ app_end ] --END-- [ RunTime:0.006716s ]
+
+[ 2016-04-25T15:52:23+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/false.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000148s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000296s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.040398s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.043262s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.002012s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002088s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002154s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002232s ]
+
+[ 2016-04-25T15:52:23+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000066s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000142s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.023168s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.051265s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.007702s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.007780s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002345s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002466s ]
+
+[ 2016-04-25T15:52:26+08:00 ] 127.0.0.1 /mlbspa/manage/Public/upload.html
+SQL: SHOW COLUMNS FROM `images` [ RunTime:0.0048s ]
+SQL: INSERT INTO `images` (`type`,`folder`,`name`,`posttime`) VALUES ('jpg','/uploads/share/20160425/','571dccbaa771d','1461570746') [ RunTime:0.0003s ]
+
+[ 2016-04-25T15:56:58+08:00 ] 127.0.0.1 /mlbspa/manage/Public/js/jquery.min.map
+ERR: 非法操作:js
+
+[ 2016-04-25T15:56:59+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/false.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000103s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000210s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.022124s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.025175s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001851s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001912s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001903s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001987s ]
+
+[ 2016-04-25T15:56:59+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000108s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000238s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.054994s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.056429s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.002193s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002284s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.009936s ]
+INFO: [ app_end ] --END-- [ RunTime:0.010037s ]
+
+[ 2016-04-25T15:57:03+08:00 ] 127.0.0.1 /mlbspa/manage/Public/upload.html
+SQL: SHOW COLUMNS FROM `images` [ RunTime:0.0045s ]
+SQL: INSERT INTO `images` (`type`,`folder`,`name`,`posttime`) VALUES ('jpg','/uploads/share/20160425/','571dcdcec973f','1461571023') [ RunTime:0.0003s ]
+
+[ 2016-04-25T15:57:29+08:00 ] 127.0.0.1 /mlbspa/manage/Public/js/jquery.min.map
+ERR: 非法操作:js
+
+[ 2016-04-25T15:57:30+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/false.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000107s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000215s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.031633s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.038130s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.002581s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002683s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002432s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002532s ]
+
+[ 2016-04-25T15:57:30+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000157s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000348s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.033480s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.036201s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001208s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001259s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001674s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001739s ]
+
+[ 2016-04-25T15:57:33+08:00 ] 127.0.0.1 /mlbspa/manage/Public/upload.html
+SQL: SHOW COLUMNS FROM `images` [ RunTime:0.0061s ]
+SQL: INSERT INTO `images` (`type`,`folder`,`name`,`posttime`) VALUES ('jpg','/uploads/share/20160425/','571dcded7c76e','1461571053') [ RunTime:0.0004s ]
+
+[ 2016-04-25T16:04:33+08:00 ] 127.0.0.1 /mlbspa/manage/Public/js/jquery.min.map
+ERR: 非法操作:js
+
+[ 2016-04-25T16:04:51+08:00 ] 127.0.0.1 /mlbspa/manage/Public/js/jquery.min.map
+ERR: 非法操作:js
+
+[ 2016-04-25T16:05:03+08:00 ] 127.0.0.1 /mlbspa/manage/Public/js/jquery.min.map
+ERR: 非法操作:js
+
+[ 2016-04-25T16:05:22+08:00 ] 127.0.0.1 /mlbspa/manage/Public/js/jquery.min.map
+ERR: 非法操作:js
+
+[ 2016-04-25T16:27:30+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/false.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000109s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000216s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.026617s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.027629s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001445s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001505s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001494s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001549s ]
+
+[ 2016-04-25T16:27:31+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000105s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000211s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.050504s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.053570s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.004479s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.004577s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001594s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001662s ]
+
+[ 2016-04-25T16:29:56+08:00 ] 127.0.0.1 /mlbspa/manage/Public/js/jquery.min.map
+ERR: 非法操作:js
+
+[ 2016-04-25T16:30:29+08:00 ] 127.0.0.1 /mlbspa/manage/Public/js/jquery.min.map
+ERR: 非法操作:js
+
+[ 2016-04-25T16:30:43+08:00 ] 127.0.0.1 /mlbspa/manage/Public/js/jquery.min.map
+ERR: 非法操作:js
+
+[ 2016-04-25T16:30:58+08:00 ] 127.0.0.1 /mlbspa/manage/Public/js/jquery.min.map
+ERR: 非法操作:js
+
+[ 2016-04-25T16:37:22+08:00 ] 127.0.0.1 /mlbspa/manage/Public/js/jquery.min.map
+ERR: 非法操作:js
+
+[ 2016-04-25T16:37:24+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/false.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000099s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000194s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.022617s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.023539s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.002262s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002488s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002690s ]
+INFO: [ app_end ] --END-- [ RunTime:0.004395s ]
+
+[ 2016-04-25T16:37:24+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000104s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000199s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.081976s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.083489s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.006561s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.006659s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.003320s ]
+INFO: [ app_end ] --END-- [ RunTime:0.003438s ]
+
+[ 2016-04-25T16:37:28+08:00 ] 127.0.0.1 /mlbspa/manage/Public/upload.html
+SQL: SHOW COLUMNS FROM `images` [ RunTime:0.0064s ]
+SQL: INSERT INTO `images` (`type`,`folder`,`name`,`posttime`) VALUES ('jpg','/uploads/share/20160425/','571dd7480b6cc','1461573448') [ RunTime:0.0005s ]
+
+[ 2016-04-25T16:37:32+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/false.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000097s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000203s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.026781s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.032345s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.009352s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.009455s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002483s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002552s ]
+
+[ 2016-04-25T16:37:33+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000111s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000223s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.033112s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.035320s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.002717s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002796s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002013s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002081s ]
+
+[ 2016-04-25T16:37:37+08:00 ] 127.0.0.1 /mlbspa/manage/Public/upload.html
+SQL: SHOW COLUMNS FROM `images` [ RunTime:0.0068s ]
+SQL: INSERT INTO `images` (`type`,`folder`,`name`,`posttime`) VALUES ('jpg','/uploads/share/20160425/','571dd750ada62','1461573456') [ RunTime:0.0004s ]
+
+[ 2016-04-25T16:39:15+08:00 ] 127.0.0.1 /mlbspa/manage/Public/js/jquery.min.map
+ERR: 非法操作:js
+
+[ 2016-04-25T16:39:17+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/false.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000109s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000266s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.031423s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.033106s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.003583s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003721s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.007877s ]
+INFO: [ app_end ] --END-- [ RunTime:0.007986s ]
+
+[ 2016-04-25T16:39:18+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000108s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000210s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.020996s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.022350s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001669s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001755s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.006242s ]
+INFO: [ app_end ] --END-- [ RunTime:0.006407s ]
+
+[ 2016-04-25T16:39:21+08:00 ] 127.0.0.1 /mlbspa/manage/Public/upload.html
+SQL: SHOW COLUMNS FROM `images` [ RunTime:0.0359s ]
+SQL: INSERT INTO `images` (`type`,`folder`,`name`,`posttime`) VALUES ('jpg','/uploads/share/20160425/','571dd7b94cadd','1461573561') [ RunTime:0.0003s ]
+
+[ 2016-04-25T16:39:31+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/false.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000103s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000209s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.025755s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.027300s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.002189s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002278s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001937s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002015s ]
+
+[ 2016-04-25T16:39:31+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000106s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000212s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.036609s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.039884s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.002961s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003057s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.011411s ]
+INFO: [ app_end ] --END-- [ RunTime:0.011550s ]
+
+[ 2016-04-25T16:39:35+08:00 ] 127.0.0.1 /mlbspa/manage/Public/upload.html
+SQL: SHOW COLUMNS FROM `images` [ RunTime:0.0419s ]
+SQL: INSERT INTO `images` (`type`,`folder`,`name`,`posttime`) VALUES ('jpg','/uploads/share/20160425/','571dd7c7a64ea','1461573575') [ RunTime:0.0004s ]
+
+[ 2016-04-25T16:41:30+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/false.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000071s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000139s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.014496s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.015379s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001354s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001415s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001980s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002048s ]
+
+[ 2016-04-25T16:41:30+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000096s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000300s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.022289s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.025724s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001132s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001179s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001810s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002051s ]
+
+[ 2016-04-25T16:41:48+08:00 ] 127.0.0.1 /mlbspa/manage/Public/upload.html
+SQL: SHOW COLUMNS FROM `images` [ RunTime:0.0043s ]
+SQL: INSERT INTO `images` (`type`,`folder`,`name`,`posttime`) VALUES ('jpg','/uploads/share/20160425/','571dd84be8f83','1461573708') [ RunTime:0.0004s ]
+
+[ 2016-04-25T16:42:28+08:00 ] 127.0.0.1 /mlbspa/manage/Public/js/jquery.min.map
+ERR: 非法操作:js
+
+[ 2016-04-25T16:58:01+08:00 ] 127.0.0.1 /mlbspa/manage/Public/js/jquery.min.map
+ERR: 非法操作:js
+
+[ 2016-04-25T16:58:08+08:00 ] 127.0.0.1 /mlbspa/manage/Public/js/jquery.min.map
+ERR: 非法操作:js
+
+[ 2016-04-25T16:58:09+08:00 ] 127.0.0.1 /mlbspa/manage/Public/js/jquery.min.map
+ERR: 非法操作:js
+
+[ 2016-04-25T16:58:11+08:00 ] 127.0.0.1 /mlbspa/manage/Public/js/jquery.min.map
+ERR: 非法操作:js
+
+[ 2016-04-25T16:58:13+08:00 ] 127.0.0.1 /mlbspa/manage/Public/js/jquery.min.map
+ERR: 非法操作:js
+
+[ 2016-04-25T16:58:14+08:00 ] 127.0.0.1 /mlbspa/manage/Public/js/jquery.min.map
+ERR: 非法操作:js
+
+[ 2016-04-25T16:58:36+08:00 ] 127.0.0.1 /mlbspa/manage/Public/js/jquery.min.map
+ERR: 非法操作:js
+
+[ 2016-04-25T16:58:39+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/false.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000353s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001636s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.046473s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.048106s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001998s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002094s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002946s ]
+INFO: [ app_end ] --END-- [ RunTime:0.003017s ]
+
+[ 2016-04-25T16:58:40+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000065s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000130s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.017664s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.018882s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001996s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.002069s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001865s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001922s ]
+
+[ 2016-04-25T16:58:45+08:00 ] 127.0.0.1 /mlbspa/manage/Public/upload.html
+SQL: SHOW COLUMNS FROM `images` [ RunTime:0.0325s ]
+SQL: INSERT INTO `images` (`type`,`folder`,`name`,`posttime`) VALUES ('jpg','/uploads/share/20160425/','571ddc44d9908','1461574725') [ RunTime:0.0003s ]
+
+[ 2016-04-25T16:59:12+08:00 ] 127.0.0.1 /mlbspa/manage/Public/js/jquery.min.map
+ERR: 非法操作:js
+
+[ 2016-04-25T16:59:14+08:00 ] 127.0.0.1 /mlbspa/manage/Public/js/jquery.min.map
+ERR: 非法操作:js
+
+[ 2016-04-25T16:59:15+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/false.html
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000108s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000220s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.025599s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.026653s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.002481s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.003051s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.008526s ]
+INFO: [ app_end ] --END-- [ RunTime:0.008646s ]
+
+[ 2016-04-25T16:59:16+08:00 ] 127.0.0.1 /mlbspa/manage/popup/myuploader/uploadpath/share/multi/
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000101s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000200s ]
+NOTIC: [8] Undefined variable: specIndex D:\Develop\WWW\mlbspa\manage\App\Runtime\Cache\Index\8bbbcd0d47f68eecd627912235753439.php 第 21 行.
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.038656s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.054342s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.006266s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.006417s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.002443s ]
+INFO: [ app_end ] --END-- [ RunTime:0.002529s ]
+
+[ 2016-04-25T16:59:19+08:00 ] 127.0.0.1 /mlbspa/manage/Public/upload.html
+SQL: SHOW COLUMNS FROM `images` [ RunTime:0.0495s ]
+SQL: INSERT INTO `images` (`type`,`folder`,`name`,`posttime`) VALUES ('jpg','/uploads/share/20160425/','571ddc671ad12','1461574759') [ RunTime:0.0003s ]
+

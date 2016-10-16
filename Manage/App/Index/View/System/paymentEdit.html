@@ -1,0 +1,124 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+  <style>
+.tab thead td{text-align:left}
+</style>
+
+<js href="__PUBLIC__/js/kindeditor/kindeditor-min.js,__PUBLIC__/js/kindeditor/lang/zh_CN.js" />
+ 	<script>
+
+ 	    var editor;
+ 	    KindEditor.ready(function(K) {
+ 	    editor = K.create('textarea[name="content"]', {
+ 	                    allowFileManager : true
+
+ 	                });
+
+ 	            });
+ 	</script>
+    <DIV class="Item hr">
+      <DIV class=current>添加编辑支付方式</DIV>
+    </DIV>
+    <form action="" method='post' name="form">
+    <input type="hidden" name="data[id]" value="{$data.id}" />
+  <table width="99.5%" border="0" cellspacing="0" cellpadding="0" class="tab">
+               <thead><tr>
+					<td>支付方式名称：</td>
+					<td align='left'>
+						<input type="text" alt="支付方式名称不能为空！" pattern="required" value="{$data.name}" name="data[name]" class="input">
+						<label>*</label>
+					</td>
+				</tr>
+				<tr>
+					<td>支付账号：</td>
+					<td><input type="text"  name="data[WIDseller_email]" value="{$data.WIDseller_email}" class="input"></td>
+				</tr>
+				<tr>
+					<td>支付平台中商户ID：</td>
+					<td><input type="text"  name="data[partner_id]" value="{$data.partner_id}" class="input"></td>
+				</tr>
+				<tr>
+					<td>支付平台中商户密钥：</td>
+					<td><input type="text"  name="data[partner_key]" value="{$data.partner_key}" class="input" style="width:250px;"></td>
+				</tr>
+				<tr>
+					<td>类型</td>
+					<td><input type="text"  name="data[sign_type]" value="{$data.sign_type}" class="input"></td>
+				</tr>
+				<tr>
+					<td valign="top">简述：</td>
+					<td>{$data.description}</td>
+				</tr>
+				<tr>
+					<td>手续费设置：</td>
+					<td>
+						<label class="attr">
+						<input type="radio" checked="checked" onclick="$('#paymentFeeText').text('商品总额的百分比：');" <if condition="$data['poundage_type'] eq 1"> checked="checked"</if> value="1" name="data[poundage_type]">
+						按商品总额的百分比</label>
+						<label class="attr">
+						<input type="radio" onclick="$('#paymentFeeText').text('固定收取的手续费：');" value="2" <if condition="$data['poundage_type'] eq 2"> checked="checked"</if> name="data[poundage_type]">
+						按固定金额</label>
+						<label><span id="paymentFeeText"><if condition="$data['poundage_type'] eq 1">商品总额的百分比：<else />固定收取的手续费</if></span><input type="text" alt="费用不能为空！" pattern="required" value="{$data.poundage}" name="data[poundage]" class="input"></label>
+					</td>
+				</tr>
+				<tr>
+					<td>排序：</td><td><input type="text" alt="排序不能为空！" pattern="required" name="data[sort]" value="{$data.sort}" class="input"></td>
+				</tr>
+				<tr>
+					<td>支付说明：</td>
+					<td>
+						<textarea name="content" id="content" style="width:800px;height:250px;visibility:hidden;" class="required">{$data.note}</textarea>
+						<label>此信息会展示在用户的支付页面</label>
+					</td>
+				</tr>
+				<tr>
+					<td>开启：</td>
+					<td>
+						<label class="attr"><input type="radio" <if condition="$data['status'] eq 1"> checked="checked"</if> value="1" name="data[status]">开启</label>
+						<label class="attr"><input type="radio" value="0" <if condition="$data['status'] eq 0"> checked="checked"</if> name="data[status]">关闭</label>
+						<label>只有开启后，用户才能从前台进行支付选择</label>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<button type="submit" class="btn" id="submit"><span>确 定</span></button>
+					</td>
+				</tr>
+			</thead>
+                    </table>
+    </form>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>
+<script>
+
+$('#submit').click(function(){
+	editor.sync();
+	//$(".content").val(KE.util.getData('content'));
+	var formObject = document.forms['form'];
+	$.post("__URL__/PaymentEdit", $(formObject).serialize(), function(json){
+
+		if(json.status == 1)
+		{
+			popup.alert(json.info);
+			location.href =json.url;
+			return false;
+		}
+		else
+		{
+			popup.alert(json.info);
+			return false;
+		}
+	},'json');
+	return false;
+});
+</script>
+ 	</script>
+
+

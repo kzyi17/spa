@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+    <style type="text/css">
+    	.adr-row{padding-right: 20px;}
+    	.adr-tlebar{
+    		position: relative;
+		    overflow: hidden;
+		    padding: 11px 15px;
+		    background-color: inherit;
+    	}
+    	.adr-tlebar:after {
+		    position: absolute;
+		    right: 0;
+		    bottom: 0;
+		    left: 15px;
+		    height: 1px;
+		    content: '';
+		    -webkit-transform: scaleY(.5);
+		    transform: scaleY(.5);
+		    background-color: #c8c7cc;
+	    }
+	    .adr-title{
+	    	color: #000000; 
+    		font-size: 16px;
+	    }
+	    .adr-red{
+	    	color: #CF2D28; 
+	    	padding: 0 8px;
+	    	font-size: 12px;
+	    }
+	    .adr-def-btn{
+	    	font-size: 12px;
+	    	color: #666666;
+	    }
+	    .adr-del-btn{
+	    	font-size: 12px;
+	    	color: #666666;
+	    }
+    </style>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">用户地址</h1>
+    <button class="mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-right" id="BtnAddAdr"><span class="mui-icon mui-icon-plusempty"></span>新增</button>
+</header>
+<div class="mui-content">
+	<div id="addressList"></div>
+</div>
+<script id="addressListTpl" type="text/html"> 
+<%for(i = 0; i < list.length; i ++) {%>
+	<ul class="mui-table-view mui-table-view-striped mui-table-view-condensed mt10">
+		<div class="mui-table adr-tlebar">
+    		<div class="mui-table-cell mui-col-xs-9 mui-ellipsis"><%if(list[i]['is_default']==1){%><span class="adr-red">[默认]</span><%}%><span class="adr-title"><%=list[i]['ship_user_name']%></span></div>
+    		<div class="mui-table-cell mui-col-xs-5 mui-ellipsis mui-text-right conBtn">
+    			<%if(list[i]['is_default']==0){%>
+    			<a class="adr-def-btn" data="<%=list[i]['id']%>">设为默认</a>
+    			<%}%>
+    			<a class="adr-del-btn" data="<%=list[i]['id']%>"><span class="mui-icon mui-icon-trash"></span>删除</a>
+    		</div>
+    	</div>
+        <li class="mui-table-view-cell">
+            <div class="adr-row mui-navigate-right">
+            	<p class="mui-h5 mui-ellipsis-2"><%=list[i]['province_name']+list[i]['city_name']+list[i]['area_name']+" "+list[i]['address']%></p>
+                <p class="mui-h5 mui-ellipsis"><%=list[i]['mobile']%></p>
+            </div>
+        </li>
+    </ul> 
+<%}%>
+</script>
+<script src="js/mui.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+<script src="js/arttmpl.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+(function($) {
+	$.init();
+	$.plusReady(function() {
+		var state = app.getState();
+		var param = {};
+		param.user_id = state.account.user_id;
+		Api.addressList(param,function(res){
+			console.log(JSON.stringify(res));
+			var html = template('addressListTpl', {list:res});
+			document.getElementById("addressList").innerHTML = html;
+			$('.conBtn').on('tap','a.adr-del-btn',function(){
+				id = this.getAttribute('data');
+				$.confirm('删除该地址吗？','美联帮',['确定','取消'],function(e){
+					if (e.index == 0) {
+						var param = {address_id:id,user_id:state.account.user_id};
+						Api.addressDel(param,function(res){
+							plus.nativeUI.closeWaiting();
+							setTimeout(function(){
+								plus.nativeUI.toast(res.successmsg);
+							});
+							plus.webview.currentWebview().reload();
+						},function(res){
+							console.log(JSON.stringify(res));
+						});
+					}
+				});
+			});
+			$('.conBtn').on('tap','a.adr-def-btn',function(){
+				id = this.getAttribute('data');
+				$.confirm('设定该地址为默认收货地址吗？','美联帮',['确定','取消'],function(e){
+					if (e.index == 0) {
+						var param = {address_id:id,user_id:state.account.user_id};
+						Api.addressSetDefault(param,function(res){
+							plus.nativeUI.closeWaiting();
+							setTimeout(function(){
+								plus.nativeUI.toast(res.successmsg);
+							});
+							plus.webview.currentWebview().reload();
+						},function(res){
+							console.log(JSON.stringify(res));
+						});
+					}
+				});
+			});
+		},function(res){
+			console.log(JSON.stringify(res));
+		});
+		
+	});
+	
+	document.getElementById("BtnAddAdr").addEventListener('tap',function(){
+		$.openWindow({
+			url:'uc_address_edit.html',
+			id:'uc_address_edit', 
+			show:{
+		    	autoShow:true,
+		    },
+		    waiting:{
+		      	autoShow:true,//自动显示等待框，默认为true
+		      	title:'正在努力加载...',//等待对话框上显示的提示内容
+		    }
+		});
+	},false);
+	
+	
+}(mui));
+</script>
+</body>
+</html>

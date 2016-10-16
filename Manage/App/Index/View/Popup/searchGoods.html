@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="overflow-y:auto">
+<head>
+<META content="text/html; charset=utf-8" http-equiv=Content-Type>
+<title>文件上传</title>
+<css rel="stylesheet" href="__PUBLIC__/js/uploadify/uploadify.css" />
+<css rel="stylesheet" href="__PUBLIC__/css/popup.css" />
+<link href="/Public/css/spec.css"  rel="stylesheet" type="text/css"/>
+
+
+<js href="{:C('WEB_STATICS')}/js/jquery-1.9.0.min.js,{:C('WEB_STATICS')}/js/jquery.JSON.js" />
+<js href="{:C('WEB_STATICS')}/js/artdialog/artdialog.js,{:C('WEB_STATICS')}/js/artdialog/plugins/iframeTools.js" />
+<js href="__PUBLIC__/js/uploadify/jquery.uploadify.min.js" />
+</head>
+<body style="width:600px;min-height:400px;">
+<ul class="tab" name="menu">
+	<li class="selected"><a href='javascript:void(0)' hidefocus="true">本地上传</a></li>
+<!--<li><a href='javascript:void(0)' hidefocus="true">使用图库</a></li>-->
+</ul>
+<div id='uploadMain' class="pop_win clearfix" >
+	<form action='/Pictrue/uploadFile/specIndex/{$specIndex}' method='post' enctype='multipart/form-data'>
+		<div id='uploadBox_0' class="uploadbox">
+            <input id="file_upload" name="file_upload" type="file" multiple>
+			<div class="tips">提示：选择的文件大小不超过3M，支持JPG、GIF和BMP格式。</div>
+            <div id="file_queue"></div>
+		</div>
+		
+        <!--<div id='uploadBox_1' class="uploadbox" style="display:none">
+			从下面图库中选择：<input type="hidden" name="selectPhoto" />
+			<div class="list_photo">
+				<ul class="clearfix" name="menu">
+				</ul>
+			</div>
+			<div class="tips">提示：选择的文件大小不超过3M，支持JPG、GIF和BMP格式。</div>
+		</div>
+        
+		<div id='uploadBox_2' class="uploadbox" style="display:none">
+			网络图片地址：<input type="text" class="normal" name="outerSrc" />
+			<div class="tips">提示：您只需要找到网络图片的网络地址，复制到下面的输入框<br />例如：http://www.example.com/images/pic.jpg</div>
+		</div>-->	
+	</form>
+</div>
+
+
+
+<script type="text/javascript">
+$(function() {
+	$("[name='menu']>li").each(
+		function(i){
+			$(this).click(
+				function(){
+					$(this).siblings().removeClass("selected");
+					$(this).addClass("selected");
+					$(".uploadbox").hide();
+					$("#uploadBox_"+i).show();
+					//if(i==1)
+//					{
+//						$.getJSON('__URL__/getPhotoList','',  
+//							function(dataVal)
+//							{
+//								var dataStr = '';
+//								for(step=0;step<dataVal.length;step++)
+//								{
+//									dataStr+="<li><img onclick='appandVal(this);' width='50px' height='50px' src='{:C('WEB_STATICS')}"+dataVal[step]['img_photo']+"' title='"+dataVal[step]['img_photo']+"' /></li>";
+//								}
+//								$('.list_photo ul').html(dataStr);
+//							}
+//						);
+//					}
+				}
+			);
+	});
+	//图片上传插件
+	$('#file_upload').uploadify({
+		'swf'      		: '__PUBLIC__/js/uploadify/uploadify.swf',
+		'uploader' 		: '{:U("Public/upload")}',
+		'formData'	    : {'uptype':'<php>echo $config["uploadpath"]</php>'},
+		'queueID'  		: 'file_queue',
+		'multi'    		: {$config["multi"]?'true':'false'},
+		'buttonText'	: "选择图片",
+		'fileTypeDesc' 	: 'Image Files',
+		'fileTypeExts' 	: '*.gif; *.jpg; *.png',
+		'fileSizeLimit' : '{$config["maxSize"]}',
+		'removeCompleted' : false,
+		<if condition="!$config['multi']">'uploadLimit'	: 1,</if>
+		'itemTemplate' : '<div id="up_${fileID}" class="uploadify-queue-item"><div class="cancel"><a href="javascript:$(\'#${instanceID}\').uploadify(\'cancel\', \'${fileID}\')">X</a></div><span class="fileName">${fileName} (${fileSize})</span><span class="data"></span><input type="hidden" name="specJson" value=\'\'></div>',
+		'onUploadSuccess' : function(file, data, response) {
+			if(response){
+				sponse = JSON.parse(data);
+				if(sponse.flag==200){
+					imgdata = $.toJSON({img:sponse.data.savename,photo_id:sponse.data.photo_id});
+					$('#up_' + file.id).find('.fileName').html(sponse.data.savename);
+					$('#up_' + file.id).find('input[name="specJson"]').val(imgdata);
+					$('#up_' + file.id).find('.data').html(" -上传成功");
+				}else{
+					$('#up_' + file.id).find('.fileName').html(sponse.msg);
+					$('#up_' + file.id).find('.data').html(" -上传失败");
+				}
+			}
+		},
+		//检测FLASH失败调用  
+		'onFallback':function(){  
+			alert("您未安装FLASH控件，无法上传图片！请安装FLASH控件后再试。");  
+		},
+		
+	});
+});
+</script>
+</body>
+</html>

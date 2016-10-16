@@ -1,0 +1,33 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>文章访问统计</DIV>
+    </DIV>
+    
+    <TABLE class=tab border=0 cellSpacing=0 cellPadding=0 width="99%">
+      <TBODY>
+      <thead>
+        <tr >
+          <td width="8%">文章总数</td>
+          <td width="8%">访问总数（注册会员）</td>
+          <td width="8%">访问总数（游客）</td>
+          <td width="8%">今日：{:date('Y-m-d')}</td>
+        </tr>
+      </thead>
+       <tr align="center">
+          <td > <span style="color:red;">{$articleCount}</span></td>
+          <td><span style="color:red;">{$hits_member}</span></td>
+           <td><span style="color:red;">{$hits_visitor}</span></td>
+           <td><span style="color:red;"><a href="{:U('share/tongji')}">查看明细</a></span></td>
+        </tr>
+        </TBODY>
+    </TABLE>
+    
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>

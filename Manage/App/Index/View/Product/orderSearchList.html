@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="overflow-y:auto">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="/Public/css/base.css"  rel="stylesheet" type="text/css"/>
+<title></title>
+
+
+</head>
+<body>
+<div class="pop_win" style="width:800px;height:0%;background-color:#FFFCF3;">
+	<div class="content">
+		<table border="0" class="tab" style="margin-top:0px;height:30px;background-color:#F5F5F5;" width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tbody>
+				<if condition="$data neq null">
+				<volist name="data" id="goods">
+				<tr>
+					<td>
+						<label class="attr">
+							<input type="checkbox"  attr="ddd" data='{$goods.data}' value="" name="id[]">
+							{$goods.goods_no}						</label>
+					</td>
+
+
+					<td>
+						{$goods.name}
+
+							<label class="attr" attr="">
+
+								<?php for($i=0;$i<count($goods['spec_array']);$i++):?>
+									<?php echo $goods['spec_array'][$i]['name']?>
+									<?php if ($goods['spec_array'][$i]['type'] ==1):?>
+									<?php echo $goods['spec_array'][$i]['value']?>
+									<?php else:?>
+									<?php if ($goods['spec_array'][$i]['value'] !=''):?>
+									<img src="{:C('WEB_STATICS')}<?php echo $goods['spec_array'][$i]['value']?>" width="50px" height="40px"/>
+									<?php endif; ?>
+									<?php endif; ?>
+								<?php endfor;?>
+							</label>
+
+					</td>
+					<td>{$goods.goods_price}</td>
+					<td><if condition="$goods['img'] neq null and $goods['img'] neq ''"><img src="{:C('WEB_STATICS')}{$goods.img}" width="50px" height="40px"/></if></td>
+
+				</tr>
+				</volist>
+				<else />
+				<tr>
+					<td colspan='3'>对不起，没有找到相关商品</td>
+				</tr>
+				</if>
+			</tbody>
+		</table>
+	</div>
+</div>
+</body>
+</html>

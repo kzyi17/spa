@@ -1,0 +1,83 @@
+<DIV id=Bottom> {:C('Copyright')} </DIV>
+<SCRIPT type=text/javascript>
+    $(window).resize(autoSize);
+    $(function(){
+        autoSize();
+        $(".loginOut").click(function(){
+            var url=$(this).attr("href");
+            popup.confirm('你确定要退出吗？','你确定要退出吗',function(action){
+                if(action == 'ok'){ window.location=url; }
+            });
+            return false;
+        });
+
+        var time=self.setInterval(function(){$("#today").html(date("Y-m-d H:i:s"));},1000);
+
+
+    });
+
+</SCRIPT>
+<SCRIPT type=text/javascript>
+ //多选框全选
+function selected()
+{
+	var allsel=document.getElementsByName("del_id[]");
+	if(allsel.length==0){
+		allsel=document.getElementsByName("check[]");
+	}else{
+		allsel=document.getElementsByName("del_id[]");
+	}
+	var ischeck = $("#checkall").is(":checked");
+	var length = allsel.length;
+	if(ischeck){
+	   for(var i=0;i<allsel.length;i++)
+	   {
+			if(!allsel[i].checked){
+				allsel[i].checked=!allsel[i].checked;
+			}
+	   }
+   }else{
+	for(var i=0;i<allsel.length;i++)
+	{
+		allsel[i].checked=false;
+	}
+   }
+}
+//按钮全选
+var checktoggle = true;
+ $("#checkbuttonall").on('click',function(){
+	var allsel=document.getElementsByName("del_id[]");
+	if(allsel.length==0){
+		allsel=document.getElementsByName("check[]");
+	}else{
+		allsel=document.getElementsByName("del_id[]");
+	}
+	var length = allsel.length;
+	if(checktoggle){
+	   for(var i=0;i<allsel.length;i++)
+	   {
+			if(!allsel[i].checked){
+				allsel[i].checked=!allsel[i].checked;
+				checktoggle = false;
+			}
+	   }
+   }else{
+	for(var i=0;i<allsel.length;i++)
+	{
+		allsel[i].checked=false;
+		checktoggle = true;
+	}
+   }
+ });
+
+ /**
+  * 跳转
+  */
+ function popupalert(info,url){
+ 	art.dialog.tips(info, 1.5);
+ 	location.href =url;
+ }
+</script>
+
+
+</SCRIPT>

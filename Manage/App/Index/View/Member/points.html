@@ -1,0 +1,66 @@
+<include file="Public:head"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$action_name}</DIV>
+    </DIV>
+    <script language="javascript" type="text/javascript" src="__PUBLIC__/js/datePicker/WdatePicker.js"></script>
+	<form action="__URL__/<if condition="ACTION_NAME eq 'index'">index<else/>recycle</if>" method="post">关键字：
+	<input type="text"  class="input" name="keywords" style="width:100px;" value="{$keywords}"/>
+               &nbsp;&nbsp;&nbsp;&nbsp;注册时间：
+               <input type="text" id="d4311" name="starttime"  class="input" style="width:100px;"class="Wdate" onFocus="WdatePicker({isShowClear:true,readOnly:true,realDateFmt:'yyyy-MM-dd',realTimeFmt:'HH:mm:ss',maxDate:'%y-%M-%d'})" value="{$starttime}"/>
+               -<input type="text" name="endtime"  style="width:100px;"   class="input" class="Wdate" id="d4312" onFocus="WdatePicker({isShowClear:false,realDateFmt:'yyyy-MM-dd',realTimeFmt:'HH:mm:ss',readOnly:true,maxDate:'%y-%M-%d'})"  value="{$endtime}"/>
+<input type="submit" value="搜索" class="btn submit" style="margin-left:20px;"/>
+               </form>
+			   <form action="__URL__/memberDelAll" method="post" id='memberDel'>
+  				<table width="99.5%" border="0" cellspacing="0" cellpadding="0" class="tab">
+                    <thead>
+                            <tr>
+                                <if condition="ACTION_NAME eq 'index'"><td width="3%"><input name="checkall" id="checkall" type="checkbox" value="" onclick="selected()"/></td></if>
+                                <td width="6%">姓名</td>
+                                <td width="6%">用户名</td>
+                                <td width="6%">邀请人</td>
+                                <td width="10%">邮箱</td>
+                                <td width="8%">手机</td>
+                                <td width="7%">余额</td>
+                                <td width="6%">积分</td>
+                                <td width="15%">加入时间</td>
+                                <td width="6%">锁定</td>
+                                <td width="">操作</td>
+                            </tr>
+                        </thead>
+
+                        <volist name="list" id="vo" key="k">
+                        <tr align="center" id="{$vo.member_id}">
+                                <if condition="ACTION_NAME eq 'index'"><td><input name="del_id[]" type="checkbox" id="checkone" value="{$vo.member_id}" /></td></if>
+                                <td>{$vo.member_name}</td>
+                                <td>{$vo.member_code}</td>
+                                <td>{$vo.RecommendMemberName}</td>
+                                <td>{$vo.member_email}</td>
+                                <td>{$vo.member_mobile}</td>
+                                <td>{$vo.my_account}</td>
+                                <td>{$vo.my_points}</td>
+                                <td>{$vo.create_time|date='Y-m-d H:i',###}</td>
+                                <td><eq name="vo.is_lock" value="1">是<else/>否</eq></td>
+                                <if condition="ACTION_NAME eq 'index'"><td width="20%">[ <a href="/index.php/Member/memberEdit/id/{$vo.member_id}">编辑 </a> ] [ <a onclick="delModel('__URL__/memberDel/id/{$vo.member_id}')" href="javascript:void(0);" class="del" >删除 </a> ]<eq name="vo.IsEmail" value="0">[ <a href="#"  class="reemail">重发邮件 </a> ]</eq></td><else/>
+                                <td width="20%">[ <a onclick="regainMember({$vo.member_id});" href="javascript:void(0);" class="recover" >恢复 </a> ][ <a onclick="delModel('__URL__/memberRecycleDel/id/{$vo.member_id}')" href="javascript:void(0);" class="Powerful_deleting">强力删除</a> ]</td>
+                                </if>
+                            </tr>
+
+                            </volist>
+
+                            <tr align="left">
+                          <if condition="ACTION_NAME eq 'index'"><td colspan="12"><button class="btn submit"  id="submitButton">批量删除</button></td></if>
+                          </tr>
+                             <tr align="center">
+                          <td colspan="12">{$page}</td>
+                          </tr>
+                    </table>
+					</form>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+</BODY></HTML>

@@ -1,0 +1,83 @@
+<include file="Public:head"/>
+<js href="__PUBLIC__/js/common.js,{:C('WEB_STATICS')}/js/form/form.js"/>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>{$action_name}</DIV>
+    </DIV>
+    <table width="99.5%">
+    	<colgroup>
+  			<col />
+			<col />
+		</colgroup>
+		<tbody>
+			<tr>
+				<td>
+					<button class='btn' id='checkbuttonall' onclick="selected()"> 全选  </button>
+					<a href="{:U('Share/articleAdd')}" class="btn">添加文章</a>
+				</td>
+				<td align="right">
+    			</td>
+			</tr>
+		</tbody>	
+    </table>
+    
+    <table width="99.5%" border="0" cellpadding="0" cellspacing="0" class="tab">
+    	<colgroup>
+  			<col width="60px"/>
+			<col/>
+			<col/>
+			<col width="80px"/>
+			<col width="100px"/>
+			<col width="100px"/>
+			<col width="100px"/>
+		</colgroup>
+      <thead>
+        <tr align="center">
+          <td>选择</td>
+          <td>标题</td>
+          <td>分类</td>
+          <td>浏览数</td>
+          <td>浏览可得积分</td>
+          <td>分享可得积分</td>
+          <td>操作</td>
+        </tr>
+      </thead>
+      <tbody>
+        <volist name="articleList" id="vo">
+          <tr id="{$vo['product_id']}">
+            <td align="center"><input name="del_id[]" type="checkbox" value="{$vo['article_id']}" /></td>
+            <td>{$vo['title']}</td>
+            <td align="center">{$vo['cate_name']}</td>
+            <td align="center">{$vo['hits']}</td>
+            <td align="center">{$vo['point']}</td>
+            <td align="center">{$vo['sharepoint']}</td>
+            <td align="center">
+			<if condition="$search['is_del'] eq 1">
+				<!-- <a  href='javascript:updateShelf({$vo["product_id"]},0,"恢复")'>[恢复删除]</a>
+				<a   href='javascript:productRecyleDel({$vo["product_id"]})'>[强力删除]</a> -->
+			<else />
+				<a href='{:U("Share/articleEdit","id=".$vo['article_id'])}'>[编辑]</a> 
+				<a href="javascript:void(0)" onclick='delModel({link:"<php>echo U("Share/articleDel","id=".$vo["article_id"])</php>"})'>[删除]</a>
+			</if>
+			</td>
+          </tr>
+        </volist>
+      </tbody>
+    </table>
+    <form action="" method="post" id="opForm">
+      <input id="cid" type="hidden" name="data[class_id]" />
+      <input id="act" type="hidden" name="act" />
+      <input id="pid" type="hidden" name="data[pid]" />
+      <input id="name" type="hidden" name="data[class_name]" />
+    </form>
+    <div class="commonBtnArea" >
+        {$page}
+    </div>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+
+<include file="Public:foot"/>

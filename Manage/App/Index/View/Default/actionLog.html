@@ -1,0 +1,85 @@
+<include file="Public:head"/>
+<script language="javascript" type="text/javascript" src="__PUBLIC__/Js/My97DatePicker/WdatePicker.js"></script>
+<DIV class=clear></DIV>
+<DIV class=mainBody> <include file="Public:left"/>
+  <DIV id=Right>
+    <DIV class="Item hr">
+      <DIV class=current>操作日志</DIV>
+    </DIV>
+      <table width="99%" border=0 cellSpacing=0 cellPadding=0>
+        <tr>
+          <td><form action="" method="post">
+              账号：
+              <input type="text"  class="input" name="UserName" style="width:100px;" value="{$UserName}"/>
+              &nbsp;&nbsp;&nbsp;&nbsp;登记时间：
+              <input type="text" id="d4311" name="starttime"  class="input" style="width:100px;"class="Wdate" onFocus="WdatePicker({isShowClear:true,readOnly:true,realDateFmt:'yyyy-MM-dd',realTimeFmt:'HH:mm:ss',maxDate:'%y-%M-%d'})" value="{$starttime}"/>
+              -
+              <input type="text" name="endtime"  style="width:100px;"   class="input" class="Wdate" id="d4312" onFocus="WdatePicker({isShowClear:true,realDateFmt:'yyyy-MM-dd',realTimeFmt:'HH:mm:ss',readOnly:true,maxDate:'%y-%M-%d'})"  value="{$endtime}"/>
+              后台ID：
+              <select name="SysID">
+                <option value="" {$SysID==''?"selected='selected'":''}>请选择</option>
+                 <volist name="sys" id="data">
+                 <option value="{$data.ID}" <eq name="data.ID" value="$SysID">selected="selected"</eq> >
+                 {$data.sysname}
+                 </option>
+                 </volist>
+              </select>
+              <input type="submit" value="搜索" class="btn submit" style="margin-left:20px;"/>
+            </form></td>
+        </tr>
+      </table>
+
+    <TABLE class=tab border=0 cellSpacing=0 cellPadding=0 width="99%">
+      <TBODY>
+      <thead>
+        <tr>
+          <td width="8%">ID</td>
+          <td width="8%">账号</td>
+          <td width="8%">操作状态</td>
+          <td width="50%">内容</td>
+          <td width="15%">操作时间</td>
+          <td width="150">操作</td>
+        </tr>
+      </thead>
+      <volist name="list" id="vo">
+        <tr align="center" id="{$vo.AgentID}">
+          <td>{$vo.ID}</td>
+          <td align="left">{$vo.UserCode}</td>
+
+          <td>{$vo.status}</td>
+          <td align="left">{$vo.Log}</td>
+          <td>{$vo.CreateDate}</td>
+          <td>[ <a href="__URL__/viewLog?id={$vo.ID}">查看 </a> ] </td>
+        </tr>
+      </volist>
+      <tr>
+        <td align="center" colspan='10'>{$page}</td>
+      </tr>
+        </TBODY>
+
+    </TABLE>
+  </DIV>
+</DIV>
+</DIV>
+<DIV class=clear></DIV>
+<include file="Public:foot"/>
+<script type="text/javascript">
+$(function(){
+
+   //快捷启用禁用操作
+   $(".opStatus").click(function(){
+       var obj=$(this);
+       var id=$(this).parents("tr").attr("id");
+       var status=$(this).attr("val");
+       $.getJSON("__URL__/opAgentStatus", { id:id, status:status }, function(json){
+           if(json.status==1){
+               popup.success(json.info);
+               $(obj).attr("val",json.data.status).html(status==1?"启用":"禁用").parents("td").prev().html(status==1?"禁用":"启用");
+           }else{
+               popup.alert(json.info);
+           }
+       });
+   });
+});
+</script>
+</BODY></HTML>

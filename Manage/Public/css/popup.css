@@ -1,0 +1,84 @@
+@CHARSET "UTF-8";
+/* common style start */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,button{padding:0;margin:0;font-size:100%}
+/* label input{vertical-align:middle} */
+a:link,a:visited{text-decoration:none;color:#000}
+a:hover,a:active{text-decoration:none}
+html, body{overflow:hidden}
+body{font:12px/1.5 arial,verdana;color:black;background-color:#fcfcfc;text-align:center}
+img{border:0}
+table{border-collapse:collapse;}
+ul li{list-style:none}
+a.hidefocus{outline:none}
+button.hidefocus::-moz-focus-inner{border:none}
+.green{color:#8fc21d}
+.brown{color:#a40000}
+.gray{color:#4f4f4f}
+.black{color:#000}
+.orange{color:#d66b03}
+.red{color:#ff3200}
+a.red2,.red2{color:#ba0505}
+a.red3,.red3{color:#c30}
+a.orange,.orange{color:#fe6c00}
+a.blue,.blue{color:#36c}
+.bold,a.bold{font-weight:bold}
+.c_l{float:left;width:48%}
+.c_r{float:left;width:48%;margin-left:1.5%}
+.f_l{float:left}
+.f_r{float:right}
+.t_l{text-align:left}
+.t_r{text-align:right}
+.t_c{text-align:center}
+.img_border{border:1px solid #ddd;}
+.f14{font-size:14px}
+.spec_font1{color:#F00;}
+img.spec_photo2{border:1px solid #ccc;}
+/* common style end */
+
+/* clear style start */
+.clear{clear:both;line-height:0;font-size:0;height:0}
+.clearfix:after{display:block;visibility:hidden;clear:both;height:0;content:"."}
+*html .clearfix{height:1%}/* ie6 */
+*+html .clearfix{height:1%}/* ie7 */
+/* clear style end */
+
+/* form common style start */
+input.normal{height:22px;line-height:22px;padding-left:5px;width:255px;border:1px #d7d7d7 solid;margin-right:5px}
+input.middle{height:22px;line-height:22px;padding-left:5px;width:210px;border:1px #d7d7d7 solid;margin-right:5px}
+input.small{height:22px;line-height:22px;padding-left:5px;width:100px;border:1px #d7d7d7 solid;margin-right:5px;_margin-bottom:-1px;}
+input.tiny{height:18px;line-height:18px;padding-left:5px;width:45px;border:1px #d7d7d7 solid;margin:2px 5px 2px 0}
+input.file{height:22px;line-height:22px;padding-left:5px;border:1px #d7d7d7 solid}
+input.readonly{background-color:#f5f5f5;}
+
+/* form common style end */
+img.operator{width:12px;height:12px;margin:0 6px;cursor:pointer; vertical-align:middle}
+
+/* border_table style start */
+.border_table{border-width:1px;margin-top:10px;background:#fff;}
+	.border_table th,.border_table td{border:1px solid #e1e1e1;vertical-align:middle;padding:5px 10px 5px;white-space:nowrap;word-break:keep-all}
+	.border_table th,.border_table td.non{width:auto;}
+	.border_table td.attr{white-space:pre-wrap;}
+	.border_table thead th{color:#333;white-space:nowrap;text-align:center;}
+	.border_table tbody th{padding-right:5px; text-align:right;color:#707070;background-color:#f9f9f9}
+	.border_table label{color:#777}
+.border_table1{border-width:1px;margin:10px 5px;background:#fff;}
+	.border_table1 th,.border_table1 td{border:1px solid #e1e1e1;vertical-align:middle;padding:5px 10px 5px;word-break:keep-all}
+	.border_table1 th,.border_table1 td.non{width:auto;}
+	.border_table1 td.attr{white-space:pre-wrap; text-align:left;}
+	.border_table1 thead th{color:#333;white-space:nowrap;text-align:center}
+	.border_table1 tbody th{padding-right:5px; text-align:right;color:#707070;background-color:#f9f9f9}
+.border_table_org{border:1px solid #ed8a0a;margin:10px 5px;background:#fff}
+	.border_table_org th{padding:3px 10px 3px 17px; font-size:14px;vertical-align:middle;white-space:nowrap;word-break:keep-all;border-bottom:1px solid #ed8a0a;}
+	.border_table_org td{padding:4px 5px;}
+	.border_table_org thead th{color:#fff;white-space:nowrap;text-align:center; text-align:left; padding-left:17px}
+	table.list_table2 td,table.list_table2 th{color:#7d7d7d;text-align:right; font-size:12px;background-color:#fefaf6; border-top:5px solid #fff; border-bottom:5px solid #fff;}
+	table.list_table2 th{color:#474747; font-size:14px; font-weight:normal;}
+	table.list_table2 a:link,table.list_table2 a:visited{color:#b9b9b9; text-decoration:underline;}
+	table.list_table2 a:hover,table.list_table2 a:active{color:#c30;}
+	table.list_table3 thead th{color:#000; text-align:center;border-top:1px solid #cecece;border-bottom:1px solid #cecece;background-image:none; background-color:#f6f6f6;}
+	table.list_table3 tbody td{padding:5px 0;color:#505050;border-bottom:1px solid #e7e7e7}
+
+.td_c td{text-align:center}
+.th_c th{text-align:center}
+/* border_table style end */
+.popup_win{position:relative;background-color:#fffcf3;border:1px solid #fde4c7;overflow:scroll;width:100%;height:480px;}

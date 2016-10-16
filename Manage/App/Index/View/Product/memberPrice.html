@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" style="overflow-y:auto">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>分销组价格</title>
+
+<css rel="stylesheet" href="__PUBLIC__/css/spec.css" />
+<css rel="stylesheet" href="{:C('WEB_STATICS')}/js/artdialog/skins/default.css" />
+<css rel="stylesheet" href="{:C('WEB_STATICS')}/js/autovalidate/style.css" />
+<js href="{:C('WEB_STATICS')}/js/jquery-1.9.0.min.js" />
+<js href="{:C('WEB_STATICS')}/js/artdialog/artDialog.js,{:C('WEB_STATICS')}/js/artdialog/plugins/iframeTools.js,{:C('WEB_STATICS')}/js/autovalidate/validate.js" />
+<js href="__PUBLIC__/js/artTemplate/artTemplate.js,__PUBLIC__/js/artTemplate/artTemplate-plugin.js"/>
+</head>
+<body style="width:700px;min-height:400px;">
+<div class="pop_win">
+	<form name="groupPriceForm">
+		<table class="border_table" style="width:100%">
+			<thead>
+				<tr>
+					<th>分销组名称</th>
+					<th>商品价格</th>
+					<th>默认价格</th>
+					<th>分销组折扣率</th>
+				</tr>
+			</thead>
+			<tbody>
+				
+                <volist name="distribution_level" id="item">
+				<tr class='td_c'>
+					<td>{$item['level_name']}</td>
+					<td><input type="text" name="groupPrice{$item['level_id']}" class="small" pattern="float" value="{$item.price}"/></td>
+					<td>￥{$item['discount']/100*$sell_price}</td>
+					<td>{$item['discount']}%</td>
+				</tr>
+				</volist>
+			</tbody>
+		</table>
+	</form>
+</div>
+<script type='text/javascript'>
+$(function(){
+	var groupPrice = art.dialog.data('groupPrice');
+	if(groupPrice)
+	{
+		var groupPriceObject = $.parseJSON(groupPrice);
+		for(var groupId in groupPriceObject)
+		{
+			$('input[name="groupPrice'+groupId+'"]').val(groupPriceObject[groupId]);
+		}
+	}
+});
+</script>
+</body>
+</html>
