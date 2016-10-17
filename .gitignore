@@ -4,3 +4,4 @@
 .metadata
 *.jscompress
 /Wechat/Application/Runtime 
+/Manage/App/Runtime 
