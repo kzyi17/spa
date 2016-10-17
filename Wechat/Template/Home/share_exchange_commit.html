@@ -32,7 +32,14 @@
 				</ul>
 				<h5 class="mt10">收货地址</h5>
 				<ul class="mui-table-view" id="choseaddress">
-					
+					<li class="mui-table-view-cell mui-media">
+						<a class="mui-navigate-right" href="{:U('user/addressAdd')}?url={:get_url()}">
+							<span class="mui-icon mui-icon-home mui-pull-left" ></span>
+							<div class="mui-media-body">
+								<div class="mui-text-center"> <span>您还没有收货地址，请点击添加</span></div>
+							</div>	
+						</a>
+					</li>
 				</ul>
 			</div>
 			<nav class="mui-bar mui-bar-footer">
@@ -97,18 +104,25 @@
 			}
 			
 			document.getElementById("btn_commit").addEventListener('tap',function(){
-				var param = {goods_id:goodsId,user_id:userId,address_id:choseAddressId};
-				Api.exchangeShare(param,function(res){
-					mui.alert(res.successmsg,'兑换提示','确定',function(e){
-						window.location = "{:U('user/exchange')}";
+				if(choseAddressId){
+					var param = {goods_id:goodsId,user_id:userId,address_id:choseAddressId};
+					Api.exchangeShare(param,function(res){
+						mui.alert(res.successmsg,'兑换提示','确定',function(e){
+							window.location = "{:U('user/exchange')}";
+						});
+					},function(res){
+						//mui.confirm(res.errmsg);
+						mui.alert(res.errmsg,'兑换提示','确定',function(e){
+							console.log(JSON.stringify(res));
+						});
+						
 					});
-				},function(res){
-					//mui.confirm(res.errmsg);
-					mui.alert(res.errmsg,'兑换提示','确定',function(e){
-						console.log(JSON.stringify(res));
-					});
-					
-				});
+				}else{
+					mui.alert('您还没有收货地址，请前往添加');
+				}
+				
+				
+				
 				
 			},false);
 			

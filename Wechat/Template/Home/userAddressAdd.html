@@ -103,11 +103,15 @@
 				type:"post",
 				url:"__SELF__",
 				success:function(data){
-					/*$.toast(data.info);
-					setTimeout(function(){
-						window.location = data.url;
-					},2000);*/
-					console.log(JSON.stringify(data));
+					//console.log(JSON.stringify(data));
+					if(1==data.status){
+						$.toast(data.info);
+						setTimeout(function(){
+							window.location = data.url;
+						},2000);
+					}else{
+						$.toast(data.info);
+					}
 				},
 				error:function(xhr,type,errorThrown){
 					//异常处理；
@@ -115,20 +119,7 @@
 				}
 			});
 			
-			/*Api.addressAdd(param,function(res){
-				console.log(JSON.stringify(res));
-				setTimeout(function(){
-					$.toast('添加成功');
-				});
-			},function(res){
-				$.toast(result.errmsg);
-			});*/
-			
-			//console.log(JSON.stringify(param));
 		}
-		
-		
-		
 	},false);
 }(mui));		
 </script>

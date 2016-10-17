@@ -49,7 +49,7 @@ class ShareController extends Controller {
         $id = I('get.id');
         $uid = I('get.uid',0);
         if($uid){
-            $this->visit_log($id,$uid);
+           $this->visit_log($id,$uid);
         }
         
         $this->assign('signPackage',$jssdk->GetSignPackage());
@@ -78,7 +78,6 @@ class ShareController extends Controller {
         $model_user = M('members');
         $article = M('sharearticle')->where("article_id=$id")->find();
         $point = (int)$article['point'];
-//         print_r($point);die;
         
         $model_user->where("user_id=$uid")->setInc('sharepoint',$point);
         $model_user->where("user_id=$uid")->setInc('total_sharepoint',$point);
@@ -92,6 +91,24 @@ class ShareController extends Controller {
             'log_info' => '分享文章好友浏览增加'.$point.'积分',
         );
         M('share_log')->add($logDate);
+        
+        
+        //父级增加积分
+        $userInfo = $model_user->where("user_id=$uid")->find();
+        if($userInfo['parent_id']>0){
+        	//增加积分
+        	$pid= $userInfo['parent_id'];
+        	$ppoint = $point*0.1;
+        	$model_user->where("user_id=$pid")->setInc('sharepoint',$ppoint);
+        	$model_user->where("user_id=$pid")->setInc('total_sharepoint',$ppoint);
+        	//log
+        	$logDate['user_id']=$pid;
+        	$logDate['point']=$ppoint;
+        	$logDate['log_info']='下级好友分享文章增加'.$ppoint.'积分';
+        	M('share_log')->add($logDate);
+        }
+        
+        
         return true;
     }
     
@@ -131,7 +148,8 @@ class ShareController extends Controller {
         $id = I('get.id');
         
         $postData = array('user_id'=>session('memberInfo.user_id'),'goods_id'=>$id);
-        $res = MyApi::getContent('share/getExchangeInfo', $postData);//print_r($res);die;
+        $res = MyApi::getContent('share/getExchangeInfo', $postData);
+        //print_r(get_url());die;
         
         //TODO 错误处理
         if(isset($res['errcode'])){

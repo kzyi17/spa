@@ -66,7 +66,23 @@ class MembersModel extends Model{
         if(isset($param['parent']) and !empty($param['parent'])){
             $saveData['parent_id'] = $param['parent'];
         }
-        
+        if($param['pid']>0){
+	        //邀请奖励
+	        $point = 10;
+	        $user_id = $param['pid'];
+	        $logDate = array(
+	            'user_id' => $user_id,
+	            'create_time' => time(),
+	            'client_ip' => get_client_ip(),
+	            'point' => $point,
+	            'log_info' => '邀请好友【'.$param['mobile'].'】增加'.$point.'积分',
+	        );
+	        M('share_log')->add($logDate);
+	        
+	        //用户增加积分
+	        M('members')->where("user_id=$user_id")->setInc('sharepoint',$point);
+	        M('members')->where("user_id=$user_id")->setInc('total_sharepoint',$point);
+        }
         
         $result = $this->add($saveData);
         if($result){

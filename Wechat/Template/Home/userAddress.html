@@ -100,7 +100,7 @@
 							setTimeout(function(){
 								$.toast(res.successmsg);
 							});
-							plus.webview.currentWebview().reload();
+							location.reload();
 						},function(res){
 							console.log(JSON.stringify(res));
 						});

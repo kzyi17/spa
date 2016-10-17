@@ -60,10 +60,13 @@ class UserController extends Controller {
                 
                 $res = MyApi::getContent('user/addAddress', $postData);
                 
-                $this->success('test',$res ,true); 
+                if(isset($res['errcode'])){
+                	$this->error('添加失败，请重新添加', '',true);
+                }else{
+                	$url = I('get.url')?I('get.url'):U('user/address');
+                	$this->success('添加成功',$url ,true);
+                }
                 
-                /* $url = I('get.url')?I('get.url'):U('user/index');
-                $this->success('登录成功',$url,true); */
             }else{
                 $this->assign('userInfo',session('memberInfo'));
                 $this->display('./userAddressAdd');

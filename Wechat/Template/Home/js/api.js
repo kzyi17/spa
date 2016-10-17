@@ -3,7 +3,7 @@
  * @author www.mywork99.com
  */
 (function($, owner) {
-	var ServerDomainRoot = "http://192.168.1.6/mlbspa/api/";//接口服务器地址
+	var ServerDomainRoot = "http://192.168.1.5/mlb/Api/";//接口服务器地址
 	//var ServerDomainRoot = "http://o2o.szwzlm.com/api/";//接口服务器地址
 	
 	/**
