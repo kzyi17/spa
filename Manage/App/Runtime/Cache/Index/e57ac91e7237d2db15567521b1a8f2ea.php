@@ -4,15 +4,15 @@
 <HEAD>
 <TITLE>总运营管理中心  - 美联帮</TITLE>
 <META content="text/html; charset=utf-8" http-equiv=Content-Type>
-<SCRIPT type=text/javascript src="/mlbspa/manage/Public/js/base.js"></SCRIPT>
-<link href="/mlbspa/manage/Public/css/base.css"  rel="stylesheet" type="text/css"/>
-<link href="/mlbspa/manage/Public/css/layout.css"  rel="stylesheet" type="text/css"/>
+<SCRIPT type=text/javascript src="/mlb/Manage/Public/js/base.js"></SCRIPT>
+<link href="/mlb/Manage/Public/css/base.css"  rel="stylesheet" type="text/css"/>
+<link href="/mlb/Manage/Public/css/layout.css"  rel="stylesheet" type="text/css"/>
 <link rel="stylesheet" type="text/css" href="<?php echo C('WEB_STATICS');?>/js/asyncbox/skins/default.css" />
 <link rel="stylesheet" type="text/css" href="<?php echo C('WEB_STATICS');?>/js/artdialog/skins/default.css" />
 <link rel="stylesheet" type="text/css" href="<?php echo C('WEB_STATICS');?>/js/autovalidate/style.css" />
 <script type="text/javascript" src="<?php echo C('WEB_STATICS');?>/js/jquery-1.9.0.min.js"></script><script type="text/javascript" src="<?php echo C('WEB_STATICS');?>/js/jquery.JSON.js"></script><script type="text/javascript" src="<?php echo C('WEB_STATICS');?>/js/jquery.form.js"></script><script type="text/javascript" src="<?php echo C('WEB_STATICS');?>/js/functions.js"></script><script type="text/javascript" src="<?php echo C('WEB_STATICS');?>/js/asyncbox/asyncbox.js"></script><script type="text/javascript" src="<?php echo C('WEB_STATICS');?>/js/PCASClass.js"></script><script type="text/javascript" src="<?php echo C('WEB_STATICS');?>/js/autovalidate/validate.js"></script>
 <script type="text/javascript" src="<?php echo C('WEB_STATICS');?>/js/artdialog/artDialog.js"></script><script type="text/javascript" src="<?php echo C('WEB_STATICS');?>/js/artdialog/plugins/iframeTools.js"></script>
-<script type="text/javascript" src="/mlbspa/manage/Public/js/common.js"></script>
+<script type="text/javascript" src="/mlb/Manage/Public/js/common.js"></script>
 
 <META name=GENERATOR content="MSHTML 8.00.6001.23515">
 </HEAD>
@@ -29,7 +29,7 @@
   </DIV>
 </DIV>
 <DIV id=Tags>
-  <DIV class=userPhoto><IMG src="/mlbspa/manage/Public/images/userPhoto.jpg"> </DIV>
+  <DIV class=userPhoto><IMG src="/mlb/Manage/Public/images/userPhoto.jpg"> </DIV>
   <DIV class=navArea>
     <DIV class=userInfo>
       <DIV><A class=loginOut href="<?php echo U('Public/loginOut');?>" ><SPAN>&nbsp;</SPAN>退出系统</A></DIV>

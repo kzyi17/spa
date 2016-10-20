@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <title>登录-美联帮管理系统</title>
         <base href="<?php echo C('WEB_ROOT');?>"/>
-        <link rel="stylesheet" href='/mlbspa/manage/Public/css/base.css' />
+        <link rel="stylesheet" href='/mlb/Manage/Public/css/base.css' />
         <link rel="stylesheet" type="text/css" href="<?php echo C('WEB_STATICS');?>/js/asyncbox/skins/default.css" />
 		<script type="text/javascript" src="<?php echo C('WEB_STATICS');?>/js/jquery-1.9.0.min.js"></script><script type="text/javascript" src="<?php echo C('WEB_STATICS');?>/js/jquery.form.js"></script><script type="text/javascript" src="<?php echo C('WEB_STATICS');?>/js/functions.js"></script><script type="text/javascript" src="<?php echo C('WEB_STATICS');?>/js/asyncbox/asyncbox.js"></script> 
   

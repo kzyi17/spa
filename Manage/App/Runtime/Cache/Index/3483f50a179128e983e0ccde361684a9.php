@@ -4,15 +4,15 @@
 <HEAD>
 <TITLE>总运营管理中心  - 美联帮</TITLE>
 <META content="text/html; charset=utf-8" http-equiv=Content-Type>
-<SCRIPT type=text/javascript src="/mlbspa/manage/Public/js/base.js"></SCRIPT>
-<link href="/mlbspa/manage/Public/css/base.css"  rel="stylesheet" type="text/css"/>
-<link href="/mlbspa/manage/Public/css/layout.css"  rel="stylesheet" type="text/css"/>
+<SCRIPT type=text/javascript src="/mlb/Manage/Public/js/base.js"></SCRIPT>
+<link href="/mlb/Manage/Public/css/base.css"  rel="stylesheet" type="text/css"/>
+<link href="/mlb/Manage/Public/css/layout.css"  rel="stylesheet" type="text/css"/>
 <link rel="stylesheet" type="text/css" href="<?php echo C('WEB_STATICS');?>/js/asyncbox/skins/default.css" />
 <link rel="stylesheet" type="text/css" href="<?php echo C('WEB_STATICS');?>/js/artdialog/skins/default.css" />
 <link rel="stylesheet" type="text/css" href="<?php echo C('WEB_STATICS');?>/js/autovalidate/style.css" />
 <script type="text/javascript" src="<?php echo C('WEB_STATICS');?>/js/jquery-1.9.0.min.js"></script><script type="text/javascript" src="<?php echo C('WEB_STATICS');?>/js/jquery.JSON.js"></script><script type="text/javascript" src="<?php echo C('WEB_STATICS');?>/js/jquery.form.js"></script><script type="text/javascript" src="<?php echo C('WEB_STATICS');?>/js/functions.js"></script><script type="text/javascript" src="<?php echo C('WEB_STATICS');?>/js/asyncbox/asyncbox.js"></script><script type="text/javascript" src="<?php echo C('WEB_STATICS');?>/js/PCASClass.js"></script><script type="text/javascript" src="<?php echo C('WEB_STATICS');?>/js/autovalidate/validate.js"></script>
 <script type="text/javascript" src="<?php echo C('WEB_STATICS');?>/js/artdialog/artDialog.js"></script><script type="text/javascript" src="<?php echo C('WEB_STATICS');?>/js/artdialog/plugins/iframeTools.js"></script>
-<script type="text/javascript" src="/mlbspa/manage/Public/js/common.js"></script>
+<script type="text/javascript" src="/mlb/Manage/Public/js/common.js"></script>
 
 <META name=GENERATOR content="MSHTML 8.00.6001.23515">
 </HEAD>
@@ -29,7 +29,7 @@
   </DIV>
 </DIV>
 <DIV id=Tags>
-  <DIV class=userPhoto><IMG src="/mlbspa/manage/Public/images/userPhoto.jpg"> </DIV>
+  <DIV class=userPhoto><IMG src="/mlb/Manage/Public/images/userPhoto.jpg"> </DIV>
   <DIV class=navArea>
     <DIV class=userInfo>
       <DIV><A class=loginOut href="<?php echo U('Public/loginOut');?>" ><SPAN>&nbsp;</SPAN>退出系统</A></DIV>
@@ -39,7 +39,7 @@
   </DIV>
 </DIV>
 
-<script type="text/javascript" src="/mlbspa/manage/Public/js/common.js"></script><script type="text/javascript" src="<?php echo C('WEB_STATICS');?>/js/form/form.js"></script>
+<script type="text/javascript" src="/mlb/Manage/Public/js/common.js"></script><script type="text/javascript" src="<?php echo C('WEB_STATICS');?>/js/form/form.js"></script>
 <DIV class=clear></DIV>
 <DIV class=mainBody> <DIV id=Left>
   <DIV id=control></DIV>
@@ -88,7 +88,7 @@
 			<col width="180px"/>
 			<col width="140px"/>
 			<col width="80px"/>
-			<col width="80px"/>
+			<col width="100px"/>
 		</colgroup>
       <thead>
         <tr align="center">
@@ -98,12 +98,12 @@
           <td>兑换用户</td>
           <td>兑换时间</td>
           <td>状态</td>
-          <!-- <td>操作</td> -->
+           <td>操作</td> 
         </tr>
       </thead>
       <tbody>
         <?php if(is_array($exchangeList)): $i = 0; $__LIST__ = $exchangeList;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr id="">
-            <td align="center"><input name="del_id[]" type="checkbox" value="<?php echo ($vo['article_id']); ?>" /></td>
+            <td align="center"><input name="del_id[]" type="checkbox" value="<?php echo ($vo['exchange_id']); ?>" /></td>
             <td><?php echo ($vo['goods_name']); ?></td>
             <td><?php echo ($vo['shiper']); ?>（<?php echo ($vo['mobile']); ?>）  <?php echo ($vo['address']); ?></td>
             <td align="center"><?php echo ($vo['nickname']); ?>(<?php echo ($vo['user_name']); ?>)</td>
@@ -114,7 +114,10 @@
 				    <?php case "2": ?>确认收货<?php break;?>
 				    <?php default: ?>状态显示出错<?php endswitch;?>
             </td>
-            <!-- <td><a href="<?php echo U('share/tongjiDetail','id='.$vo['article_id']);?>">查看</a></td> -->
+             <td>
+             	<?php switch($vo['shipstatus']): case "0": ?><a href="javascript:void(0)" onclick='modifyShift({link:"<?php echo U("Share/exchangeShift","id=".$vo["exchange_id"]."&status=1") ?>"})'>设为已发货</a><?php break;?>
+							    <?php case "1": ?><a href="javascript:void(0)" onclick='modifyShift({link:"<?php echo U("Share/exchangeShift","id=".$vo["exchange_id"]."&status=2") ?>"})'>取消发货</a><?php break; endswitch;?>
+             </td> 
           </tr><?php endforeach; endif; else: echo "" ;endif; ?>
       </tbody>
     </table>
@@ -131,7 +134,39 @@
 </DIV>
 </DIV>
 <DIV class=clear></DIV>
+<script>
+	/**
+ * @brief 删除操作
+ * @param object conf
+	   msg :提示信息;
+	   form:要提交的表单名称;
+	   link:要跳转的链接地址;
+ */
+function modifyShift(conf)
+{
+	var ok = null;            //执行操作
+	var msg   = '确定要修改么？';//提示信息
 
+	if(conf)
+	{
+		if(conf.form)
+			var ok = 'formSubmit("'+conf.form+'")';
+		else if(conf.link)
+			var ok = 'window.location.href="'+conf.link+'"';
+
+		if(conf.msg)
+			var msg   = conf.msg;
+	}
+	if(ok==null && document.forms.length >= 1)
+		var ok = 'document.forms[0].submit();';
+
+	if(ok!=null)
+		window.confirm(msg,ok);
+	else
+		alert('操作缺少参数');
+}
+	
+</script>
 <DIV id=Bottom> <?php echo C('Copyright');?> </DIV>
 <SCRIPT type=text/javascript>
     $(window).resize(autoSize);

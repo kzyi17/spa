@@ -517,5 +517,26 @@ class ShareModel{
         return $model->where($where)->count();
     }
     
+    /**
+     * 修改发货状态
+     *
+     * @author kezhen.yi
+     * @date 2016年4月21日 上午9:49:17
+     *
+     */
+    public function updateShift(){
+        $id = I("id",0,'int');
+        $status = I("status",0,'int');
+        if($id){
+        	if(1==$status){
+        		return M('share_exchange')->where(array('exchange_id'=>$id))->setField('shipstatus',1);
+        	}elseif(2==$status){
+        		return M('share_exchange')->where(array('exchange_id'=>$id))->setField('shipstatus',0);
+        	}else{
+        		return false;
+        	}
+        }
+        return false;
+    }
 }
 

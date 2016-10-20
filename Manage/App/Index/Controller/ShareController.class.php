@@ -72,7 +72,7 @@ class ShareController extends CommonController {
         $this->assign('exchangeList',$list);
         $this->assign('page',$Page->show());
         
-        //print_r($list);print_r($Page);die;
+//        print_r($list);print_r($Page);die;
         
         $this->display();
     }
@@ -466,6 +466,22 @@ class ShareController extends CommonController {
         }
     
     
+    }
+    
+    /**
+     * 修改发货状态
+     *
+     * @author kezhen.yi
+     * @date 2016年4月20日 下午3:27:50
+     *
+     */
+    public function exchangeShift(){
+         
+        if(D('Share')->updateShift()){
+            $this->redirect('exchange');
+        }else{
+            $this->error('发货状态失败，请重新检查');
+        }
     }
     
 	

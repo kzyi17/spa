@@ -29,7 +29,7 @@
 			<col width="180px"/>
 			<col width="140px"/>
 			<col width="80px"/>
-			<col width="80px"/>
+			<col width="100px"/>
 		</colgroup>
       <thead>
         <tr align="center">
@@ -39,13 +39,13 @@
           <td>兑换用户</td>
           <td>兑换时间</td>
           <td>状态</td>
-          <!-- <td>操作</td> -->
+           <td>操作</td> 
         </tr>
       </thead>
       <tbody>
         <volist name="exchangeList" id="vo">
           <tr id="">
-            <td align="center"><input name="del_id[]" type="checkbox" value="{$vo['article_id']}" /></td>
+            <td align="center"><input name="del_id[]" type="checkbox" value="{$vo['exchange_id']}" /></td>
             <td>{$vo['goods_name']}</td>
             <td>{$vo['shiper']}（{$vo['mobile']}）  {$vo['address']}</td>
             <td align="center">{$vo['nickname']}({$vo['user_name']})</td>
@@ -58,7 +58,12 @@
 				    <default />状态显示出错
 				</switch>
             </td>
-            <!-- <td><a href="{:U('share/tongjiDetail','id='.$vo['article_id'])}">查看</a></td> -->
+             <td>
+             	<switch name="vo['shipstatus']">
+							    <case value="0"><a href="javascript:void(0)" onclick='modifyShift({link:"<php>echo U("Share/exchangeShift","id=".$vo["exchange_id"]."&status=1")</php>"})'>设为已发货</a></case>
+							    <case value="1"><a href="javascript:void(0)" onclick='modifyShift({link:"<php>echo U("Share/exchangeShift","id=".$vo["exchange_id"]."&status=2")</php>"})'>取消发货</a></case>
+							</switch>
+             </td> 
           </tr>
         </volist>
       </tbody>
@@ -76,5 +81,37 @@
 </DIV>
 </DIV>
 <DIV class=clear></DIV>
+<script>
+	/**
+ * @brief 删除操作
+ * @param object conf
+	   msg :提示信息;
+	   form:要提交的表单名称;
+	   link:要跳转的链接地址;
+ */
+function modifyShift(conf)
+{
+	var ok = null;            //执行操作
+	var msg   = '确定要修改么？';//提示信息
 
+	if(conf)
+	{
+		if(conf.form)
+			var ok = 'formSubmit("'+conf.form+'")';
+		else if(conf.link)
+			var ok = 'window.location.href="'+conf.link+'"';
+
+		if(conf.msg)
+			var msg   = conf.msg;
+	}
+	if(ok==null && document.forms.length >= 1)
+		var ok = 'document.forms[0].submit();';
+
+	if(ok!=null)
+		window.confirm(msg,ok);
+	else
+		alert('操作缺少参数');
+}
+	
+</script>
 <include file="Public:foot"/>
