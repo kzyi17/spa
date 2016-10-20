@@ -403,6 +403,9 @@ class ShareModel{
                 return array('errcode'=>5001,'errmsg'=>'兑换失败,请重新操作');
             }
             
+            //减库存
+            $goodsModel->where("sharegoods_id=$goodsID")->setDec('stock',1);
+            
             //扣除积分
             $userModel->where("user_id=$userID")->setDec('sharepoint',$goodsInfo['exchange_point']);
             

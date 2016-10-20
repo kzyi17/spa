@@ -146,14 +146,18 @@ class MembersModel extends Model{
      * @date 2016年3月12日 上午5:00:50        
      *
      */
-    private function _getChild($userId){
-        
-        if(is_array($userId)){
-            $where['parent_id'] = array('in',$userId);
-            return M('members')->where($where)->getField('user_id',true);
+    private function _getChild($userId=0){
+        if($userId){
+        	if(is_array($userId)){
+	            $where['parent_id'] = array('in',$userId);
+	            return M('members')->where($where)->getField('user_id',true);
+	        }else{
+	            return M('members')->where("parent_id=$userId")->getField('user_id',true);
+	        }
         }else{
-            return M('members')->where("parent_id=$userId")->getField('user_id',true);
+        	return array();
         }
+        
         
 //         $map['id']  = array('not in',array('1','5','8'));
         
